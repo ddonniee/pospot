@@ -1,0 +1,8 @@
+[2021-12-02 09:51:38.710] [exthost] [info] Extension host with pid 293 started
+[2021-12-02 09:51:38.867] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: true, activationEvent: '*'
+[2021-12-02 09:51:38.873] [exthost] [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*', root cause: vscode.github
+[2021-12-02 09:51:39.181] [exthost] [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+[2021-12-02 09:51:39.216] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+[2021-12-02 09:51:39.220] [exthost] [info] Eager extensions activated
+[2021-12-02 13:12:03.009] [exthost] [info] extension host terminating: received terminate message from renderer
+[2021-12-02 13:12:04.016] [exthost] [info] Extension host with pid 293 exiting with code 0
