@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 require("./routes/route.js")(app);
 
-app.listen(3001, function() {
+app.listen(8088, function() {
     console.log("server Start!!!")
 })
 
