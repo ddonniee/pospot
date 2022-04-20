@@ -151,15 +151,6 @@ exports.voteInsert = (req, res)=> {
             } else {
                
                 if (rows[0].cnt === 0) {
-                    let totalsum1 = parseInt(req.body.q11) + parseInt(req.body.q12)+parseInt(req.body.q13)+parseInt(req.body.q14)+parseInt(req.body.q15)+parseInt(req.body.q16)+parseInt(req.body.q17)+parseInt(req.body.q18);
-                    let totalsum2 = parseInt(req.body.q21) + parseInt(req.body.q22)+parseInt(req.body.q23)+parseInt(req.body.q24)+parseInt(req.body.q25)+parseInt(req.body.q26)+parseInt(req.body.q27)+parseInt(req.body.q28);
-                    let totalsum3 = parseInt(req.body.q31) + parseInt(req.body.q32)+parseInt(req.body.q33)+parseInt(req.body.q34)+parseInt(req.body.q35)+parseInt(req.body.q36)+parseInt(req.body.q37)+parseInt(req.body.q38);
-                    let totalsum = totalsum1 + totalsum2 + totalsum3;
-                    let qnum = 24
-                    console.log(totalsum1);
-                    console.log(totalsum2); 
-                    console.log(totalsum3);
-                    console.log(totalsum)
                     
                     let   sql = "insert into tbl_voteresult (guestid, hostid, regdate,votenum, q11, q12, q13, q14, q15, q16, q17, q18, q21, q22, q23, q24, q25, q26, q27, q28, q31, q32, q33, q34, q35, q36, q37, q38,totalsum, qnum, qtext1, qtext2, status) ";
                             sql = sql + " values ( ";
@@ -303,94 +294,7 @@ exports.MyPointDetail = async (req, res) => {
     try {
         console.log(req.body.votenum);
         const decoded = jwt.verify(req.headers.authorization, SECRET_KEY);   
-        let sql = "";
-        if (req.body.qSelect === "A") {
-        sql = "SELECT guestid ,votenum,totalsum "
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q11 = 1 ) AS q111cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q11 = 0 ) AS q112cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q11 = -1 ) AS q113cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q12 = 1 ) AS q121cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q12 = 0 ) AS q122cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q12 = -1 ) AS q123cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q13 = 1 ) AS q131cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q13 = 0 ) AS q132cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q13 = -1 ) AS q133cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q14 = 1 ) AS q141cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q14 = 0 ) AS q142cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q14 = -1 ) AS q143cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q15 = 1 ) AS q151cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q15 = 0 ) AS q152cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q15 = -1 ) AS q153cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q16 = 1 ) AS q161cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q16 = 0 ) AS q162cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q16 = -1 ) AS q163cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q17 = 1 ) AS q171cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q17 = 0 ) AS q172cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q17 = -1 ) AS q173cnt ";       
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q18 = 1 ) AS q181cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q18 = 0 ) AS q182cnt";
-        sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q18 = -1 ) AS q183cnt";
-        sql = sql + " FROM tbl_voteresult AS A WHERE guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+" GROUP BY guestid, votenum" 
-        }
-
-
-        if (req.body.qSelect === "B") {
-            sql = "SELECT guestid ,votenum,totalsum "
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q21 = 1 ) AS q211cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q21 = 0 ) AS q212cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q21 = -1 ) AS q213cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q22 = 1 ) AS q221cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q22 = 0 ) AS q222cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q22 = -1 ) AS q223cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q23 = 1 ) AS q231cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q23 = 0 ) AS q232cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q23 = -1 ) AS q233cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q24 = 1 ) AS q241cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q24 = 0 ) AS q242cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q24 = -1 ) AS q243cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q25 = 1 ) AS q251cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q25 = 0 ) AS q252cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q25 = -1 ) AS q253cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q26 = 1 ) AS q261cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q26 = 0 ) AS q262cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q26 = -1 ) AS q263cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q27 = 1 ) AS q271cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q27 = 0 ) AS q272cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q27 = -1 ) AS q273cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q28 = 1 ) AS q281cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q28 = 0 ) AS q282cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q28 = -1 ) AS q283cnt";
-            sql = sql + " FROM tbl_voteresult AS A WHERE guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+" GROUP BY guestid, votenum" 
-        }
-
-        if (req.body.qSelect === "C") {
-            sql = "SELECT guestid ,votenum,qtext1, qtext2,totalsum "
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q31 = 1 ) AS q311cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q31 = 0 ) AS q312cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q31 = -1 ) AS q313cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q32 = 1 ) AS q321cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q32 = 0 ) AS q322cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q32 = -1 ) AS q323cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q33 = 1 ) AS q331cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q33 = 0 ) AS q332cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q33 = -1 ) AS q333cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q34 = 1 ) AS q341cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q34 = 0 ) AS q342cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q34 = -1 ) AS q343cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q35 = 1 ) AS q351cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q35 = 0 ) AS q352cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q35 = -1 ) AS q353cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q36 = 1 ) AS q361cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q36 = 0 ) AS q362cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q36 = -1 ) AS q363cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q37 = 1 ) AS q371cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q37 = 0 ) AS q372cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q37 = -1 ) AS q373cnt ";       
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q38 = 1 ) AS q381cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q38 = 0 ) AS q382cnt";
-            sql = sql + ",(SELECT COUNT(guestid) AS cnt FROM tbl_voteresult WHERE (guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+") AND q38 = -1 ) AS q383cnt";
-            sql = sql + " FROM tbl_voteresult AS A WHERE guestid = '"+decoded.nickname+"' AND votenum = "+conn.escape(req.body.votenum)+" GROUP BY guestid, votenum" 
-        }
+        let sql = "select *I from member";
         console.log(sql)
         conn.query(sql, await function(err, rows, fields) {
             if(err) {
