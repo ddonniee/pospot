@@ -1,0 +1,128 @@
+/* 채용 페이지 */
+:root {
+    /* color */
+    --color-footer : #FAFAFB;
+    --color-pospot : #8B51CF;
+    --color-info : #B5B5B5;
+    --color-background : #ffffff;
+    --color-condition-back : #F4F4F4;
+    --color-condition-txt : #555555;
+    --color-border : #E5E5E5;
+  }
+
+
+.job_detail_before {
+    display: inline-block;
+    width: 40px;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    z-index: 100;
+    /* margin-left : 2em */
+
+}
+.back_btn_wrapper > svg {
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 25px;
+    margin-left : -2em;
+}
+
+.job_detail_wrapper {
+    width: 1292px;
+    padding-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.job_detail_title {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 68px;
+}
+.job_detail_top {
+    display: flex;
+    padding-bottom: 2em;
+}
+.detail_list_wrapper {
+    padding-top: 4em;
+}
+
+/* list line */
+.job_detail_content > div > div {
+    padding: 2em 0;
+    border-bottom: 1px solid var(--color-border);
+}
+/* list 제목 */
+.job_detail_page,
+.job_detail_content > div > div > div:first-child {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+}
+
+/* .job_detail_content > div > div > ul, */
+.job_detail_content > div > div:not(:nth-child(4)) > ul > li {
+    list-style:disc;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 31px;
+    padding-top: 1em;
+}
+
+.recruit_want_title {
+    text-align: center;
+}
+
+/* 전형절차 */
+
+.step::marker {
+    list-style: none;
+}
+.step_list {
+    display: flex;
+}
+.job_detail_content > div > div > ul:nth-child(4) {
+    list-style: none !important;
+}
+.btn_apply_wrapper {
+    padding: 4em 0 6em  0;
+    
+}
+.btn_apply {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 280px;
+    height: 80px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    border-radius: 3em;
+    background-color: var(--color-pospot);
+}
+.modal_wrapper {
+    display: none;
+    width: 1004px;
+    height: 692px;
+    justify-content: space-around;
+    position:absolute;
+    top:50%;
+    left:25%;
+    z-index:100;
+}
+
+.modal_left {
+  padding: 3em;
+  background-color: var(--color-background);
+  box-shadow: rgb(0 0 0 / 50%) 0 0 0 9999px;
+}
+.modal_right {
+    background-color: transparent;
+}

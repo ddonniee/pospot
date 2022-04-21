@@ -1,0 +1,98 @@
+.post_modal_wrapper {
+    top: 0%;
+    left: 13%;
+    /* display: none; */
+    width: 1512px;
+    height: 1012px;
+    position: absolute;
+    box-shadow: rgb(0 0 0 / 50%) 0 0 0 9999px;
+
+    display: fixed;
+    opacity: 0;
+    transition: all 0.3s;
+    transform: translateY(0);
+
+}
+
+.pop {
+    display: flex;
+    z-index: 1000;
+    top: 11%;
+    left: 13%;
+    animation: fadeIn 0.7s;
+    opacity: 1;
+    transition: all 0.3s;
+    transform: translateY(0);
+}
+
+
+.post_modal_content {
+    width: 98%;
+    height: 100%;
+    position: relative;
+}
+.modal_content_left{
+    position: absolute;
+    width: 60%;
+    margin: 0;
+    height: inherit;
+    left: 0;
+}
+.modal_content_right {
+    position: absolute;
+    left: 60%;
+    width: 40%;
+    height: inherit;
+}
+.content_right_wrapper {
+    width: 100%;
+    height: 100%;
+    position: inherit;
+    background: white;
+}
+.right_wrapper_inner {
+    padding: 3em 2em;
+}
+.content_right_title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.02em;    
+}
+.content_right_txt {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+.right_wrapper_inner > .post_info {
+    display: flex;
+    padding: 1em 0 2em 0;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #B5B5B5;
+}
+.content-left_wrapper {
+    height: inherit;
+    width: 100%;
+}
+
+.modal_content_btn {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.modal_content_btn > div {
+    padding: 0 1em;
+}
+.modal_content_paging {
+    position: absolute;
+    bottom: 1%;
+    left: 46%;
+}
+.btn_close {
+    width: 2%;
+    background: transparent;
+}

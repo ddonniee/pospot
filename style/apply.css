@@ -1,0 +1,72 @@
+:root {
+    /* color */
+    --color-footer : #FAFAFB;
+    --color-pospot : #8B51CF;
+    --color-info : #B5B5B5;
+    --color-background : #ffffff;
+    --color-condition-back : #F4F4F4;
+    --color-condition-txt : #555555;
+    --color-border : #E5E5E5;
+  }
+
+  
+  #apply_upload {
+      visibility: hidden;
+  }
+  #upload_label {
+      cursor: pointer;
+  }
+  .modal_title {
+    color:black; 
+    font-size:30px; 
+    font-weight:700; 
+    line-height:36px;
+  }
+  h3 {
+    color:black; 
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 23px;
+  }
+  .input_info {
+     border: none;
+     color: var(--color-info);
+     font-size: 19px;
+     font-weight: 400;
+     line-height: 23px; 
+  }
+
+  .input_info:focus {
+      outline: none;
+      color: black;
+  }
+  .apply_form {
+    border-bottom: 1px solid var(--color-info); 
+    padding-bottom: 1em;
+  }
+  .uploade_file_wrapper {
+      display: flex;
+      padding: 1em 0;
+      justify-content: space-between;
+  }
+  .uploade_file_box {
+    width:422px; 
+    height:238px;
+  }
+  .uploade_file_body {
+    width: 90%;
+    height: 160px;
+    display: block; 
+    border-radius: 3em;
+    text-align: center;
+    border: 1px solid var(--color-info); 
+  }
+  .upload_file_type {
+    padding-top: 1em;
+    font-size: 15px;
+  }
+  .upload_file_description {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 18px;
+  }

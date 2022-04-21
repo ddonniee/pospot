@@ -1,0 +1,186 @@
+:root {
+    /* color */
+    --color-footer : #FAFAFB;
+    --color-pospot : #8B51CF;
+    --color-info : #B5B5B5;
+    --color-background : #ffffff;
+    --color-condition-back : #F4F4F4;
+    --color-condition-txt : #555555;
+    --color-border : #E5E5E5;
+  }
+
+  body{
+      height: 100%;
+  }
+
+.with_wrapper {
+    width: 100%;
+    /* height: 960px; */
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+}
+.with_img {
+    width: inherit;
+    height: 491.56px;
+    padding-top: 5em;
+    position: relative;
+    contain: content;
+}
+.with_img > svg {
+    position: absolute;
+    top: 0;
+}
+.recruit_requisite > * {
+    width: 100%;
+}
+/* 복지 */
+.with_info {
+    background-color: var(--color-footer);
+    padding: 3em 0;
+}
+.with_info_inner {
+    width: 1296px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 복지, 채용 제목  */
+.with_info_inner > h2 {
+    display: block;
+    text-align: center;
+    font-size: 3em;
+    font-weight: 700;
+    padding: 1em 0;
+    margin: 0;
+}
+
+.with_info_list {
+    /* list-style: none; */
+    padding: 0 4em;
+    display: flex;
+}
+.with_info_list > li {
+    display: inline-block;
+    background-color: var(--color-background);
+    width: 200px;
+    height: 350px;
+    border-radius: 33px;
+    padding: 2em;
+    margin: 1em;
+}
+.info_detail_icon {
+    padding-bottom: 1em;
+}
+.info_detail > div:not(:first-child) {
+    line-height: 27px;
+}
+.info_detail_title {
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 1em;
+}
+.info_detail_sum {
+    color: var(--color-pospot);
+}
+.info_detail_link {
+    position: relative;
+    top: 25%;
+}
+.pospot_map_inner {
+    width: 1310px;
+}
+
+/* 오시는 길 */
+.coming_info {
+    display: flex;
+}
+.coming_inner {
+    padding: 3em 0 5em 0;
+    text-align: center;
+    width: 1310px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.coming_title {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 41px;
+}
+.coming_border {
+    width: 100%;
+    display: flex;
+    border: 1px solid var(--color-border);
+    border-radius: 3em;
+}
+.coming_txt {
+    width: 100%;
+    text-align: initial;
+    padding: 0 5em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.coming_txt_title {
+    font-weight: 600;
+    font-size: 22px;
+    margin: 1em 0 0.5em 0;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+}
+.coming_txt_description {
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 31px;
+}
+.coming_map {
+    font-size: 0;
+}
+.coming_map > svg {
+    border-top-left-radius: 3em;
+    border-bottom-left-radius: 3em;
+}
+
+/* link 클릭시 */
+.share {
+    display: fixed;
+    position: absolute;
+    top: 0%;
+    right: 31.7%;
+    opacity: 0;
+    transition: all 0.3s;
+    transform: translateY(0);
+    width: 264px;
+    height: 56px;
+
+}
+.up {
+    display: block;
+    z-index: 1000;
+    top: 0%;
+    right: 0%;
+    position: absolute;
+    animation: fadeIn 0.7s;
+    opacity: 1;
+    transition: all 0.3s;
+    transform: translateY(0);
+}
+.share_modal {
+    position: relative;
+}
+.share_modal_txt {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 35%;
+    left: 13%;
+    width: 264px;
+} 
+.share_modal_wrapper > svg {
+    position: relative;
+}
+.share_link_txt  {
+    display: flex;
+}
+.share_link_address {
+    position: absolute;
+}

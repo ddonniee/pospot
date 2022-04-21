@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./js/url.js"></script>
+    <title>share</title>
+</head>
+<body>
+    
+
+    <div class="share_modal">
+        <div class="share_modal_wrapper">
+            <svg width="344" height="92" viewBox="0 0 344 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_d_209_2221)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M48.9282 22L42 10L34.7928 22.4833C21.817 24.9237 12 36.3154 12 50C12 65.464 24.536 78 40 78H304C319.464 78 332 65.464 332 50C332 34.536 319.464 22 304 22H48.9282Z" fill="white"/>
+                </g>
+                <defs>
+                <filter id="filter0_d_209_2221" x="0" y="0" width="344" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="2"/>
+                <feGaussianBlur stdDeviation="6"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_209_2221"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_209_2221" result="shape"/>
+                </filter>
+                </defs>
+            </svg>
+        </div>
+        <div class="share_modal_txt">
+            <div class="share_modal_url">http://localhost:8080/with.html</div>
+            <a class="share_modal_kor" onclick="on_share()">복사</a>
+        </div>
+    </div>
+    
+    <script>
+        
+        function on_share() {
+            var url = '';
+    var textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    url = window.document.location.href;
+    textarea.value = url;
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    alert("URL이 복사되었습니다.")
+        }
+         
+    </script>
+
+
+</body>
+</html>

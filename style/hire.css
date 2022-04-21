@@ -1,0 +1,193 @@
+/* 채용 페이지 */
+:root {
+    /* color */
+    --color-footer : #FAFAFB;
+    --color-pospot : #8B51CF;
+    --color-info : #B5B5B5;
+    --color-background : #ffffff;
+    --color-condition-back : #F4F4F4;
+    --color-condition-txt : #555555;
+    --color-border : #E5E5E5;
+  }
+
+
+.recruit_wrapper {
+    width: 1296px;
+}
+
+/* title */
+.recruit_title {
+    height: 155px;
+}
+.recruit_top {
+    height: 20%;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--color-pospot);
+}
+.recruit_bottom {
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+.recruit_about {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 44px;
+    font-weight: 700;
+}
+.recruit_deco {
+    position: absolute;
+    display: inline;
+    top: 22.3%;
+    right: 6%;
+    transform: rotate(90deg);
+}
+.recruit_deco_txt {
+    font-size: 15px;
+    font-weight: 700;
+    display: inherit;
+}
+
+/* 자격 */
+.recruit_wrapper {
+    width: 100%;
+    height: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+}
+.recruit_requisite {
+    width: inherit;
+    height: 491.56px;
+    padding-top: 5em;
+
+    position: relative;
+    contain: content;
+
+}
+.recruit_requisite > svg {
+    position: absolute;
+    top: 0;
+}
+/* 복지 */
+.recruit_welfare {
+    background-color: var(--color-footer);
+    padding: 3em 0;
+}
+.recruit_welfare_inner {
+    width: 1296px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 복지, 채용 제목  */
+.recruit_detail > div > div > h2 {
+    display: block;
+    text-align: center;
+    font-size: 3em;
+    font-weight: 700;
+    padding: 1em 0;
+    margin: 0;
+}
+
+.recruit_welfare_list {
+    /* list-style: none; */
+    padding: 0 4em;
+    display: flex;
+}
+.recruit_welfare_list > li {
+    display: inline-block;
+    background-color: var(--color-background);
+    width: 200px;
+    height: 229px;
+    border-radius: 33px;
+    padding: 2em;
+    margin: 1em;
+}
+.welfare_detail_icon {
+    padding-bottom: 1em;
+}
+.welfare_detail > div:not(:first-child) {
+    line-height: 27px;
+}
+.welfare_detail_title {
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 1em;
+}
+.welfare_detail_sum {
+    color: var(--color-pospot);
+}
+
+/* 채용 분야 */
+
+.recruit_people_list {
+    padding: 0;
+    width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.recruit_people_detail {
+    display: flex;
+    height: 133px;
+    line-height: 23px;
+    border-top: 1px solid var(--color-border);
+    justify-content: space-between;
+}
+.recruit_people_detail > div:last-child {
+    width: 23%;
+}
+
+.recruit_people_detail > div:last-child > div {
+    display: flex;
+}
+.recruit_people_detail > div:last-child > div:first-child {
+    padding-bottom: 8px;
+}
+.recruit_want {
+    padding-bottom: 8em;
+}
+.recruit_want_inner > ul:last-child {
+    border-bottom: 1px solid var(--color-border);
+} 
+.recruit_people_detail > div {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.recruit_people_job {
+    display: flex;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 30px;
+    padding-bottom: 10px;
+    letter-spacing: -0.02em;
+}
+.condition_list_all {
+    padding: 0;
+    display: flex;
+}
+.condition_list_each {
+    padding: 5px;
+    font-size: 17px;
+    font-weight: 400;
+    margin-right: 4px;
+    border-radius: 8px;
+    color: var(--color-condition-txt);
+    background-color: var(--color-condition-back);
+}
+.recruit_people_state > div {
+    color: var(--color-condition-txt);
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.recruit_people_expire {
+    color: var(--color-pospot) !important;
+}
+
