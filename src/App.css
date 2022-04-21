@@ -1,3 +1,26 @@
+:root {
+  /* color */
+  --color-footer : #FAFAFB;
+  --color-pospot : #8B51CF;
+  --color-info : #B5B5B5;
+  --color-background : #ffffff;
+
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+  font-family: 'Pretendard-Regular';
+}
+html, body, #root, .App {
+  height: 100%;
+  width: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -5,6 +28,215 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+.headerWrapper {
+  height: 100px;
+}
+.header {
+  width: 70%;
+  display: flex;
+  padding: 1rem 0;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  
+}
+.header> ul > li:first-child,
+.header> ul > li:last-child {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.logo {
+  float: left;
+  display: block;
+  margin-top: auto;
+}
+.logoImg {
+  width: 10rem;
+}
+
+.navBar {
+  width: 36%;
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  padding-inline-start: 0;
+}
+
+.navBar > li {
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0 0.7rem;
+}
+.navBar > li > a {
+  text-decoration: none;
+  text-underline-offset: 0.8rem;
+  color: black;
+}
+.navBar > li > a:focus {
+  text-decoration: underline 2px;
+}
+
+.content {
+  height: 70%;
+  overflow-y: scroll;
+}
+.footerWrapper {
+  height: 20%;
+  
+  background-color: var(--color-footer);
+}
+.footer {
+  width: 70%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+}
+
+.footer > div {
+  display: grid;
+  margin-top: 3em;
+}
+.information {
+  padding-left: 5em;
+}
+address {
+  font-size: 13px;
+  font-weight: 400;
+}
+address > div {
+  clear: both;
+  float: left;
+  font-style: normal;
+}
+address > div:first-child,
+address > div:nth-child(2) {
+  padding-bottom: 3px;
+}
+address > div:last-child {
+  padding: 20px 0;
+}
+.pospotAddress {
+  text-align: initial;
+}
+
+.socialMedias {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+.socialMedias > li {
+  padding-right: 10px;
+}
+.blogWrapper {
+  width: 70%;
+  height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blogHeader {
+  height: 155px;
+}
+.post {
+  width: 45%;
+  height: 824px;
+  background-color: var(--color-background);
+}
+.postWrapper {
+  height: 100%;
+}
+.even {
+  position: relative;
+  left:132%
+}
+.pospotlog {
+  height: 20%;
+  color: var(--color-pospot);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: -0.02em;
+}
+.pospotlogIntro {
+  display: flex;
+  height: 80%;
+  justify-content: space-between;
+}
+.pospotlogIntro > div {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.pospotlogKor {
+  font-size: 40px;
+  font-weight: 700;
+  width: 34%;
+  margin-left: auto;
+  margin-right: 7.5em;
+}
+.pospotlogEng {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  transform: rotate(90deg);
+}
+.category {
+  position: relative;
+  top: -90%;
+  right: -35%;
+}
+.category > img {
+  width: 17%;
+}
+.category > div {
+  position: absolute;
+  top: 50%;
+  right: 45%;
+}
+.postImg {
+  height: 65%;
+}
+.postContent {
+  height: 20%;
+  padding: 0 1em;
+  margin-right: 3em;
+}
+.postTitle {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: initial;
+  padding: 1em 0;
+  margin: 0;
+}
+.postDetail {
+  text-align: initial;
+  font-size: 16px;
+  font-weight: 400;
+
+}
+.postInfo {
+  display: flex;
+  padding: 1em;
+  color: var(--color-info);
+}
+.postInfo  div {
+  height: inherit;
+  
+}
+.postWrapper > .socialMedias {
+  height: 5%;
+  margin: 0;
+  padding-left: 1em;
+}
+.postImg > img {
+  height: 100%;
+  border-radius: 44px;
+  width:90%;
+  float: left;
 }
 
 @media (prefers-reduced-motion: no-preference) {
