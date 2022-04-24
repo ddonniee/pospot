@@ -81,12 +81,12 @@ html, body, #root, .App {
 }
 
 .content {
-  height: 70%;
+  /* height: 70%; */
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .footerWrapper {
-  height: 20%;
-  
+  height: 300px;
   background-color: var(--color-footer);
 }
 .footer {
@@ -135,26 +135,30 @@ address > div:last-child {
 .blogWrapper {
   width: 70%;
   height: 100%;
-  display: block;
+  display: flex;
   margin-left: auto;
   margin-right: auto;
 }
-.blogHeader {
-  height: 155px;
-}
+
 .post {
-  width: 45%;
-  height: 824px;
+  /* height: 824px; */
+  width: 100%;
   background-color: var(--color-background);
 }
 .postWrapper {
-  height: 100%;
+  height: 824px;
+  width:6 49px;
 }
 .even {
   position: relative;
   left:132%
 }
-.pospotlog {
+.pageInfo {
+  height: 155px;
+  position: relative;
+  padding-bottom: 5em;
+}
+.pageInfoTitle {
   height: 20%;
   color: var(--color-pospot);
   font-size: 19px;
@@ -162,7 +166,7 @@ address > div:last-child {
   line-height: 23px;
   letter-spacing: -0.02em;
 }
-.pospotlogIntro {
+/* .pospotlogIntro {
   display: flex;
   height: 80%;
   justify-content: space-between;
@@ -170,19 +174,27 @@ address > div:last-child {
 .pospotlogIntro > div {
   margin-top: auto;
   margin-bottom: auto;
-}
-.pospotlogKor {
-  font-size: 40px;
+} */
+
+.pageInfoDetail {
+  
   font-weight: 700;
-  width: 34%;
-  margin-left: auto;
-  margin-right: 7.5em;
+  font-size: 44px;
+  line-height: 60px;
+  /* or 136% */
+  text-align: center;
+  letter-spacing: -0.02em;
+
 }
-.pospotlogEng {
+.pageInfoDeco {
+  top: 50%;
+  right: -3%;
   font-size: 15px;
   font-weight: 700;
   line-height: 18px;
   transform: rotate(90deg);
+  position: absolute;
+  
 }
 .category {
   position: relative;
