@@ -1,3 +1,17 @@
+/***********************************************************************************************************
+    Name : api.js
+    Description : admin 페이지에 필요한 함수 작업
+    Revisions :
+        Ver      Date         Author         Description
+       -----  ----------  -------------- --------------------
+        1.0     22-04-20      서희정          JS 생성
+
+    Remark : 로그인 시 토큰 발행 (login), 포스팟로그 게시판 리스트 (listPospotLog),  
+             포스팟로그 글번호 (numPospotLog), 포스팟로그 글 업로드 (addPospotLog), 
+             이미지 파일 저장 (imgUpload), 포스팟로그 글 삭제 (delPospotLog), 이미지 삭제 (imgDelete), 
+             포스팟로그 수정글 (editPospotLog), 포스팟로그 글 수정 (updatePospotLog)  
+**************************************************************************************************************/
+
 const db_config = require("../config/mysql.js");
 const conn = db_config.init();
 const bodyParser = require("body-parser");
@@ -8,315 +22,298 @@ const auth = require("../config/auth.js");
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.JWTKEY;
-const moment = require("moment");
+var fs = require("fs");
+const console = require("console");
 
-/*
-    로그인 DB 처리 로직
-*/
+
+
+// 로그인 시 토큰 발행
 exports.login = (req, res)=> {
     console.log(req.body)
-    let pwd = md5(req.body.userpwd);
-    const sql = "select count(userid) as cnt from member where userid = " + conn.escape(req.body.userid)+" and userpwd = '"+pwd+"'";
-    
-    conn.query(sql, function(err, rows, fields) {
-        if(err) {
-            console.log("LOGIN SELECT FAIL"+err);
-            res.send({
-                code : 400,
-                msg : "FAIL",
-                data: ""
-            })
-        } else {
-            console.log("LOGIN SELECT SUCCESS");
-
-            if (rows[0].cnt > 0) {
+    const id = req.body.id;
+    const pwd = md5(req.body.password);
+    try {
+        if (id == process.env.ADMINID) {
+            if(pwd == md5(process.env.ADMINPWD)) {
+                //jwt.sign(payload, secretOrPrivateKey, [options, callback])
                 const token = jwt.sign({
                     type: 'JWT',
-                    nickname: req.body.userid
+                    nickname: id
                 }, SECRET_KEY, {
-                    expiresIn: '1d', // 만료시간 15분
+                    expiresIn: '1d', // 만료시간 1일
                     issuer: '토큰발급자',
                 });
                 res.send({
                     code : 200,
                     msg : "SUCCESS",
-                    data: "",
                     token: token
                 })
             } else {
                 res.send({
-                    code : 400,
-                    msg : "아이디 패스워드를 확인하세요",
-                    data: ""
+                    code : 402,
+                    msg : "패스워드를 확인하세요",
                 })
             }
+        } else {
+            res.send({
+                code : 401,
+                msg : "아이디를 확인하세요",
+            })
         }
-     });
+    } catch (error) {
+        console.log(error)
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
 }
 
-exports.join = (req, res) => {
-    if (req.body.userpwd1 === req.body.userpwd2) {
-        const sqlpre = "select count(userid) as cnt from member where  userid = " + conn.escape(req.body.userid);
-        conn.query(sqlpre, function(err, rows, fields) {
+
+// 포스팟로그 게시판 리스트 가져오기
+exports.listPospotLog = (req, res) => {
+    try {
+        const query = `select * from pospot_log_posting order by posting_id asc`;
+        conn.query(query, function(err, rows, fields) {
             if (err) {
                 res.send({
                     code : 400,
                     msg : "FAIL",
-                    data: ""
+                    data: err
                 })
+                console.log(err);
             } else {
-                if (rows[0].cnt === 0) {
-                    let userpwdtomd5 = md5(req.body.userpwd1);
-                    const sql = "insert into member (userid, email, userpwd, username) values ("+conn.escape(req.body.userid)+", '"+req.body.userid+"@pospot.kr', '"+userpwdtomd5+"',"+conn.escape(req.body.username)+")";
-                    conn.query(sql, function(err, rows, fields) {
-                        if (err) {
-                            res.send({
-                                code : 400,
-                                msg : "DB오류",
-                                data: err
-                            })
-                        } else {
-                            res.send({
-                                code : 200,
-                                msg : "등록 완료",
-                                data: rows
-                            })
-                        }
-                    })
-                   
-                } else {
-                    res.send({
-                        code : 201,
-                        msg : "존재하는 아이디 !!",
-                        data: rows
-                    })
-                }
-                
-            }
-        })
-    } else {
-        res.send({
-            code : 202,
-            msg : "입력한 비밀번호가 다름",
-            data: ""
-        })  
-    }
-    
-}
-
-/*
-    사원 리스트 출력 DB 처리 로직
-*/
-exports.memberList = (req, res)=> {
-    console.log(req)
-    var sql = "select userid, email from member where userid = " + conn.escape(req.body.userid);
-    console.log(sql);
-    conn.query(sql, function(err, rows, fields) {
-        if(err) {
-            console.log("LOGIN SELECT FAIL"+err);
-            res.send({
-                code : 400,
-                msg : "FAIL"
-            })
-        } else {
-            console.log("LOGIN SELECT SUCCESS");
-            res.send({
-                code : 200,
-                msg : "SUCCESS",
-                data: rows
-            })
-        }
-     });
-}
-
-
-/*
-    개별 평가 저장 처리 로직
-*/
-exports.voteInsert = (req, res)=> {
-    
-    try {      
-        const decoded = jwt.verify(req.headers.authorization, SECRET_KEY);        
-        let md5userid = md5(decoded.nickname);       
-        let chk = "";
-        const sqlpre = "select count(votenum) as cnt from tbl_voteresult where guestid = "+conn.escape(req.body.guestid)+" and hostid = '"+md5userid+"' and votenum = "+conn.escape(req.body.votenum)+"";
-        
-        conn.query(sqlpre, function(err, rows, fields) {
-            if (err) {
                 res.send({
-                    code : 400,
-                    msg : err
+                    code : 200,
+                    msg : "SUCCESS",
+                    data : rows
                 })
-                console.log(err)
-            } else {
-               
-                if (rows[0].cnt === 0) {
-                    
-                    let   sql = "insert into tbl_voteresult (guestid, hostid, regdate,votenum, q11, q12, q13, q14, q15, q16, q17, q18, q21, q22, q23, q24, q25, q26, q27, q28, q31, q32, q33, q34, q35, q36, q37, q38,totalsum, qnum, qtext1, qtext2, status) ";
-                            sql = sql + " values ( ";
-                            sql = sql + conn.escape(req.body.guestid)+',"'+md5userid+'",now(),'+conn.escape(req.body.votenum)+",";
-                            sql = sql + req.body.q11+','+req.body.q12+','+req.body.q13+','+req.body.q14+','+req.body.q15+','+req.body.q16+','+req.body.q17+','+req.body.q18+",";
-                            sql = sql + req.body.q21+','+req.body.q22+','+req.body.q23+','+req.body.q24+','+req.body.q25+','+req.body.q26+','+req.body.q27+','+req.body.q28+",";
-                            sql = sql + req.body.q31+','+req.body.q32+','+req.body.q33+','+req.body.q34+','+req.body.q35+','+req.body.q36+','+req.body.q37+','+req.body.q38+",";
-                            sql = sql + totalsum+','+qnum+','+conn.escape(req.body.qtext1)+','+conn.escape(req.body.qtext2)+','+conn.escape(req.body.vstatus)+")";                    
-                    //return true;
-                    console.log(sql);
-                    conn.query(sql, function(err, rows, fields) {
-                        if(err) {
-                            console.log("제출 api"+err);
-                            res.send({
-                                code : 400,
-                                msg : err
-                            })
-                        } else {
-                            console.log("제출 성공");
-                            res.send({
-                                code : 200,
-                                msg : "SUCCESS",
-                                data: rows
-                            })
-                        }
-                    });
-                } else {       
-                                 
-                    res.send({
-                        code : 201,
-                        msg : "이미 평가를 완료한 사원입니다."
-                    })
-                }
             }
         })
-
-    
     } catch (error) {
         res.send({
             code : 400,
             msg : error
         }) 
     }
-    
 }
 
-
-/*
-    개별 평가 불러오기 처리 로직
-*/
-exports.voteSelect = (req, res)=> {
-    console.log(req.body)
-    var sql = "select userid, email from member where userid = " + conn.escape(req.body.userid);
-    console.log(sql);
-    conn.query(sql, function(err, rows, fields) {
-        if(err) {
-            console.log(""+err);
-            res.send({
-                code : 400,
-                msg : "FAIL"
-            })
-        } else {
-            console.log("LOGIN SELECT SUCCESS");
-            res.send({
-                code : 200,
-                msg : "SUCCESS",
-                data: rows
-            })
-        }
-     });
-}
-
-/*
-    해당 달의 사원리스트 및 평가 여부 
-*/
-exports.memberList = (req, res)=> {
-    const decoded = jwt.verify(req.headers.authorization, SECRET_KEY);        
-    let md5userid = md5(decoded.nickname); 
-    console.log(req.body)
-    var sql = "select A.userid,A.username,(select count(hostid) from tbl_voteresult where votenum='"+req.body.votenum+"' and guestid=A.userid and hostid ='"+md5userid+"' ) AS cnt , ";
-        sql = sql + "(select regdate from tbl_voteresult where votenum='"+req.body.votenum+"' and guestid=A.userid and hostid ='"+md5userid+"' ) AS regdate from member as A where A.userid != '"+decoded.nickname+"' ";
-    console.log(sql);
-    conn.query(sql, function(err, rows, fields) {
-        if(err) {
-            console.log("LOGIN SELECT FAIL"+err);
-            res.send({
-                code : 300,
-                msg : "DB오류", 
-                data: err
-            })
-        } else {
-            console.log("LOGIN SELECT SUCCESS");
-            res.send({
-                code : 200,
-                msg : "SUCCESS",
-                data: rows
-            })
-        }
-     });
-}
-
-/*
-    해당 달의 사원리스트 및 평가 여부 
-*/
-exports.MyPoint = (req, res) => {
+// 포스팟로그 글번호 가져오기
+exports.numPospotLog = (req, res) => {
     try {
-        const decoded = jwt.verify(req.headers.authorization, SECRET_KEY);   
-        let sql = "select guestid, votenum, sum(totalsum) as totalsum,count(hostid) as cnt, qnum from tbl_voteresult where guestid = '"+decoded.nickname+"' group by votenum" 
-        console.log(sql);
-        conn.query(sql, function(err, rows, fields) {
-            if(err) {
+        // auto_increment 현재값 +1 
+        const query = `SELECT  max(last_insert_id(posting_id)+1) num  FROM pospot_log_posting`;
+        conn.query(query, function(err, rows, fields) {
+            console.log(num);
+            console.log(err)
+            if (err) {
                 res.send({
                     code : 400,
-                    msg : "DB오류",
-                    data : err
+                    msg : "FAIL",
+                    data: '1'
                 })
+                console.log(err);
             } else {
                 res.send({
                     code : 200,
-                    msg : "데이터 추출 성공",
-                    data: rows
+                    msg : "SUCCESS",
+                    data : rows
                 })
             }
-        });
+        })
     } catch (error) {
-        console.log(error)
         res.send({
             code : 400,
-            msg : "db오류",
-            data: error
-        })
+            msg : error
+        }) 
     }
 }
 
 
-/*
-    해당월의 나의 평가 상세보기 
-    쿼리에 무리를 주지 않기 위해 전체 항목을 한번에 쿼리 하지 않고 ... 큰 섹션 3개로 나눠서 각각 3번의 쿼리를 실행 
-*/
-exports.MyPointDetail = async (req, res) => {
+// 포스팟로그 글 업로드
+exports.addPospotLog = (req, res) => {
     try {
-        console.log(req.body.votenum);
-        const decoded = jwt.verify(req.headers.authorization, SECRET_KEY);   
-        let sql = "select *I from member";
-        console.log(sql)
-        conn.query(sql, await function(err, rows, fields) {
-            if(err) {
+        const { category_id, category_name, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link } = req.body;
+        let now = new Date();
+        let writer = 'admin';
+
+        const query = `insert into pospot_log_posting ( category_id, category_name, title, preview, content, writer, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link, create_date, modify_date ) `
+            + `values(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const values = [category_id, category_name, title, preview, content, writer, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link, now, now];
+        console.log(query);
+        conn.query(query, values, function(err, rows, fields) {
+            if (err) {
                 res.send({
                     code : 400,
                     msg : "DB오류",
-                    data : err
+                    data: err
                 })
+                console.log(err);
             } else {
                 res.send({
                     code : 200,
-                    msg : "데이터 추출 성공",
-                    data: rows
+                    msg : "등록 완료"
                 })
             }
-        });
+        })
     } catch (error) {
-        console.log(error)
         res.send({
             code : 400,
-            msg : "db오류",
-            data: error
+            msg : error
+        }) 
+    }
+}
+
+// 이미지 파일 저장
+exports.imgUpload = (req, res) => {
+    try {
+        res.send({
+            code : 200,
+            msg : "포스팅이 등록되었습니다.",
+        }) 
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+// 포스팟로그 글 삭제
+exports.delPospotLog = (req, res) => {
+    try {
+        const postingId = req.body.postingId;
+        const selectQuery = `select count(posting_id) as cnt from pospot_log_posting where posting_id = ` + postingId;
+        
+        conn.query(selectQuery, function(err, rows, fields) {
+            if (err) {
+                console.log(err)
+                res.send({
+                    code : 400,
+                    msg : "FAIL",
+                    data: ""
+                })
+            } else {
+                if (rows[0].cnt === 1) {
+                    imgDelete(postingId);
+                    const deleteQuery = `delete from pospot_log_posting where posting_id=? `
+                    conn.query(deleteQuery, postingId, function(err, rows, fields) {
+                        if (err) {
+                            res.send({
+                                code : 400,
+                                msg : "DB오류",
+                                data: err
+                            })
+                            console.log(err);
+                        } else {
+                            
+                            res.send({
+                                code : 200,
+                                msg : "포스팅이 삭제되었습니다."
+                            })
+                        }
+                    })
+                } else {
+                    res.send({
+                        code : 201,
+                        msg : "게시글이 존재하지 않습니다."
+                    })
+                }
+            }
         })
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+
+// 이미지 삭제
+function imgDelete(postingId) {
+    console.log(postingId)
+    try {
+        const imgQuery = `select img_path1 as '1' ,img_path2 as '2' ,img_path3 as '3' ,img_path4 as '4' ,img_path5 as '5' ,img_path6 as '6' from pospot_log_posting where posting_id=? `
+        conn.query(imgQuery, postingId, function(err, img, fields) {
+            console.log(err)
+            for(i of Object.values(img[0])) {
+                if(i == '') {
+                    continue;
+                } else if (fs.existsSync(i)) {
+                    // 파일이 존재한다면 true 그렇지 않은 경우 false 반환 (npm install fs)
+                    try {
+                        fs.unlinkSync("./" + i);
+                        console.log(i + " image delete");
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            }
+        })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// 포스팟로그 수정 글 가져오기
+exports.editPospotLog = (req, res) => {
+    try {
+        const postingId = req.body.postingId;
+        const query = `select * from pospot_log_posting where posting_id=? `
+        conn.query(query, postingId, function(err, rows, fields) {
+            if (err) {
+                res.send({
+                    code : 400,
+                    msg : "FAIL",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "SUCCESS",
+                    data : rows
+                })
+            }
+        })
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+ // 포스팟로그 글 수정
+exports.updatePospotLog = (req, res) => {
+    try {
+        const { posting_id, category_id, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link } = req.body;
+        let now = new Date();
+
+        const query = `update pospot_log_posting set category_id=?, title=?, preview=?, content=?, img_path1=?, img_path2=?, img_path3=?, img_path4=?, img_path5=?, img_path6=?, ` +
+                `link=?, blog_link=?, facebook_link=?, instagram_link=?, modify_date=? where posting_id=?`;
+        const values = [category_id, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link, now, posting_id];
+        console.log(query);
+        conn.query(query, values, function(err, rows, fields) {
+            if (err) {
+                res.send({
+                    code : 400,
+                    msg : "포스팅 수정에 실패했습니다.",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "포스팅이 수정되었습니다"
+                })
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        res.send({
+            code : 400,
+            msg : error
+        }) 
     }
 }

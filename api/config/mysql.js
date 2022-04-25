@@ -1,10 +1,10 @@
 var mysql = require('mysql2');
 var db_info = {
-    host: '3.38.129.8',
-    port: '3309',
+    host: process.env.DBHOST,
+    port: process.env.DBPORT,
     user: process.env.DBID,
     password: process.env.DBPWD,
-    database: 'vote'
+    database: process.env.DBNAME
 }
 
 module.exports = {
