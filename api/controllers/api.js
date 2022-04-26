@@ -25,7 +25,7 @@ const SECRET_KEY = process.env.JWTKEY;
 var fs = require("fs");
 const console = require("console");
 
-
+const moment = require("moment");
 
 // 로그인 시 토큰 발행
 exports.login = (req, res)=> {
@@ -69,7 +69,7 @@ exports.login = (req, res)=> {
     }
 }
 
-
+/* ------------------ 포스팟로그 ------------------ */
 // 포스팟로그 게시판 리스트 가져오기
 exports.listPospotLog = (req, res) => {
     try {
@@ -311,6 +311,119 @@ exports.updatePospotLog = (req, res) => {
         })
     } catch (error) {
         console.log(error);
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+/* ------------------ 채용공고 ------------------ */
+// 채용공고 게시판 리스트 가져오기
+exports.listRecruit= (req, res) => {
+    try {
+        const query = `select recruit_id, recruit_title, state, deadline, create_date from pospot_recruit order by recruit_id asc`;
+        conn.query(query, function(err, rows, fields) {
+            if (err) {
+                res.send({
+                    code : 400,
+                    msg : "FAIL",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "SUCCESS",
+                    data : rows
+                })
+            }
+        })
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+// 채용공고 글 업로드
+exports.addRecruit = (req, res) => {
+    try {
+        const { recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline,remark } = req.body;
+        let now = new Date();
+        let writer = 'admin';
+        let submitDate = moment(deadline).format('YYYY-MM-DD HH:mm:ss');
+
+        const query = `insert into pospot_recruit ( recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline,writer,remark,create_date,modify_date ) `
+            + `values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const values = [ recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,submitDate,writer,remark,now,now];
+        console.log(query);
+        conn.query(query, values, function(err, rows, fields) {
+            if (err) {
+                console.log(err);
+                res.send({
+                    code : 400,
+                    msg : "DB오류",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "등록 완료"
+                })
+            }
+        })
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+// 포스팟로그 글 삭제
+exports.delRecruit = (req, res) => {
+    try {
+        const recruitId = req.body.recruitId;
+        const selectQuery = `select count(recruit_id) as cnt from pospot_recruit where recruit_id = ` + recruitId;
+        
+        conn.query(selectQuery, function(err, rows, fields) {
+            if (err) {
+                console.log(err)
+                res.send({
+                    code : 400,
+                    msg : "FAIL",
+                    data: ""
+                })
+            } else {
+                if (rows[0].cnt === 1) {
+                    const deleteQuery = `delete from pospot_recruit where recruit_id=? `
+                    conn.query(deleteQuery, recruitId, function(err, rows, fields) {
+                        if (err) {
+                            res.send({
+                                code : 400,
+                                msg : "DB오류",
+                                data: err
+                            })
+                            console.log(err);
+                        } else {
+                            res.send({
+                                code : 200,
+                                msg : "포스팅이 삭제되었습니다."
+                            })
+                        }
+                    })
+                } else {
+                    res.send({
+                        code : 201,
+                        msg : "게시글이 존재하지 않습니다."
+                    })
+                }
+            }
+        })
+    } catch (error) {
         res.send({
             code : 400,
             msg : error
