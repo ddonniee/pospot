@@ -9,7 +9,7 @@
     Remark : 로그인 시 토큰 발행 (login), 포스팟로그 게시판 리스트 (listPospotLog),  
              포스팟로그 글번호 (numPospotLog), 포스팟로그 글 업로드 (addPospotLog), 
              이미지 파일 저장 (imgUpload), 포스팟로그 글 삭제 (delPospotLog), 이미지 삭제 (imgDelete), 
-             포스팟로그 수정글 (editPospotLog), 포스팟로그 글 수정 (updatePospotLog)  
+             포스팟로그 세부내용 (detailPospotLog), 포스팟로그 글 수정 (updatePospotLog)  
 **************************************************************************************************************/
 
 const db_config = require("../config/mysql.js");
@@ -104,7 +104,6 @@ exports.numPospotLog = (req, res) => {
         // auto_increment 현재값 +1 
         const query = `SELECT  max(last_insert_id(posting_id)+1) num  FROM pospot_log_posting`;
         conn.query(query, function(err, rows, fields) {
-            console.log(num);
             console.log(err)
             if (err) {
                 res.send({
@@ -201,7 +200,7 @@ exports.delPospotLog = (req, res) => {
                         if (err) {
                             res.send({
                                 code : 400,
-                                msg : "DB오류",
+                                msg : "포스팅이 삭제에 실패했습니다.",
                                 data: err
                             })
                             console.log(err);
@@ -256,8 +255,8 @@ function imgDelete(postingId) {
     }
 }
 
-// 포스팟로그 수정 글 가져오기
-exports.editPospotLog = (req, res) => {
+// 포스팟로그 수정할 세부내용 가져오기
+exports.detailPospotLog = (req, res) => {
     try {
         const postingId = req.body.postingId;
         const query = `select * from pospot_log_posting where posting_id=? `
@@ -287,30 +286,50 @@ exports.editPospotLog = (req, res) => {
  // 포스팟로그 글 수정
 exports.updatePospotLog = (req, res) => {
     try {
-        const { posting_id, category_id, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link } = req.body;
+        const { posting_id, category_id, category_name, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link } = req.body;
         let now = new Date();
-
-        const query = `update pospot_log_posting set category_id=?, title=?, preview=?, content=?, img_path1=?, img_path2=?, img_path3=?, img_path4=?, img_path5=?, img_path6=?, ` +
-                `link=?, blog_link=?, facebook_link=?, instagram_link=?, modify_date=? where posting_id=?`;
-        const values = [category_id, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link, now, posting_id];
-        console.log(query);
-        conn.query(query, values, function(err, rows, fields) {
+        const selectQuery = `select count(posting_id) as cnt from pospot_log_posting where posting_id = ` + posting_id;
+        
+        conn.query(selectQuery, function(err, rows, fields) {
             if (err) {
+                console.log(err)
                 res.send({
                     code : 400,
-                    msg : "포스팅 수정에 실패했습니다.",
-                    data: err
+                    msg : "FAIL",
+                    data: ""
                 })
-                console.log(err);
             } else {
-                res.send({
-                    code : 200,
-                    msg : "포스팅이 수정되었습니다"
-                })
+                if (rows[0].cnt === 1) {
+                    console.log(rows[0].cnt)
+                    imgDelete(posting_id);
+                    const updateQuery = `update pospot_log_posting set category_id=?, category_name=?, title=?, preview=?, content=?, img_path1=?, img_path2=?, img_path3=?, img_path4=?, img_path5=?, img_path6=?, ` +
+                    `link=?, blog_link=?, facebook_link=?, instagram_link=?, modify_date=? where posting_id=?`;
+                    const values = [category_id, category_name, title, preview, content, img_path1, img_path2, img_path3, img_path4, img_path5, img_path6, link, blog_link, facebook_link, instagram_link, now, posting_id];
+            
+                    conn.query(updateQuery, values, function(err, rows, fields) {
+                        if (err) {
+                            res.send({
+                                code : 400,
+                                msg : "포스팅 수정에 실패했습니다.",
+                                data: err
+                            })
+                            console.log(err);
+                        } else {
+                            res.send({
+                                code : 200,
+                                msg : "포스팅이 수정되었습니다"
+                            })
+                        }
+                    })
+                } else {
+                    res.send({
+                        code : 201,
+                        msg : "게시글이 존재하지 않습니다."
+                    })
+                }
             }
         })
     } catch (error) {
-        console.log(error);
         res.send({
             code : 400,
             msg : error
@@ -350,14 +369,14 @@ exports.listRecruit= (req, res) => {
 // 채용공고 글 업로드
 exports.addRecruit = (req, res) => {
     try {
-        const { recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline,remark } = req.body;
+        const { recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline } = req.body;
         let now = new Date();
         let writer = 'admin';
-        let submitDate = moment(deadline).format('YYYY-MM-DD HH:mm:ss');
+        let submitDate = moment(deadline).format('YYYY-MM-DD');
 
-        const query = `insert into pospot_recruit ( recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline,writer,remark,create_date,modify_date ) `
-            + `values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [ recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,submitDate,writer,remark,now,now];
+        const query = `insert into pospot_recruit ( recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline,writer,create_date,modify_date ) `
+            + `values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const values = [ recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,submitDate,writer,now,now];
         console.log(query);
         conn.query(query, values, function(err, rows, fields) {
             if (err) {
@@ -371,7 +390,7 @@ exports.addRecruit = (req, res) => {
             } else {
                 res.send({
                     code : 200,
-                    msg : "등록 완료"
+                    msg : "채용공고가 등록되었습니다."
                 })
             }
         })
@@ -383,7 +402,7 @@ exports.addRecruit = (req, res) => {
     }
 }
 
-// 포스팟로그 글 삭제
+// 채용공고 글 삭제
 exports.delRecruit = (req, res) => {
     try {
         const recruitId = req.body.recruitId;
@@ -411,7 +430,7 @@ exports.delRecruit = (req, res) => {
                         } else {
                             res.send({
                                 code : 200,
-                                msg : "포스팅이 삭제되었습니다."
+                                msg : "채용공고가 삭제되었습니다."
                             })
                         }
                     })
@@ -424,6 +443,76 @@ exports.delRecruit = (req, res) => {
             }
         })
     } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+
+// 채용공고 수정할 세부내용 가져오기
+exports.detailRecruit = (req, res) => {
+    try {
+        const recruitId = req.body.recruitId;
+        
+        const query = `select *,  DATE_FORMAT(deadline, "%Y-%m-%d") as deadlineParse  from pospot_recruit where recruit_id=? `
+        conn.query(query, recruitId, function(err, rows, fields) {
+            if (err) {
+                res.send({
+                    code : 400,
+                    msg : "FAIL",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "SUCCESS",
+                    data : rows
+                })
+            }
+        })
+    } catch (error) {
+        res.send({
+            code : 400,
+            msg : error
+        }) 
+    }
+}
+ // 채용공고 글 수정
+exports.updateRecruit = (req, res) => {
+    try {
+        const { recruit_id, recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,
+            working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,
+            notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline } = req.body;
+        let now = new Date();
+        let submitDate = moment(deadline).format('YYYY-MM-DD');
+
+        const query = `update pospot_recruit set recruit_id=?, recruit_title=?, task_1=?, task_2=?,task_3=?,task_4=?,task_5=?,spec_1=?,spec_2=?,spec_3=?,spec_4=?,spec_5=?,
+        prefer_1=?,prefer_2=?,prefer_3=?,prefer_4=?,prefer_5=?,working_conditions_1=?,working_conditions_2=?,working_conditions_3=?,working_conditions_4=?,working_conditions_5=?,
+        notice_1=?,notice_2=?,notice_3=?,notice_4=?,notice_5=?,receiving_1=?,receiving_2=?,receiving_3=?,receiving_4=?,receiving_5=?,workType=?,career=?,education=?,state=?,
+        deadline=?, modify_date=? where recruit_id=?`;
+        const values = [ recruit_id, recruit_title, task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,
+            working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,notice_4,
+            notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,submitDate, now, recruit_id];
+        console.log(query);
+        conn.query(query, values, function(err, rows, fields) {
+            if (err) {
+                res.send({
+                    code : 400,
+                    msg : "채용공고 수정에 실패했습니다.",
+                    data: err
+                })
+                console.log(err);
+            } else {
+                res.send({
+                    code : 200,
+                    msg : "채용공고가 수정되었습니다"
+                })
+            }
+        })
+    } catch (error) {
+        console.log(error);
         res.send({
             code : 400,
             msg : error

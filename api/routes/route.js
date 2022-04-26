@@ -15,10 +15,10 @@ module.exports = app => {
   // 포스팟로그
   router.post("/loginprocess", admin.login);  
   router.post("/listPospotLog", auth, admin.listPospotLog);
-  router.post("/numPospotLog", admin.numPospotLog);
+  router.post("/numPospotLog", auth, admin.numPospotLog);
   router.post("/addPospotLog", admin.addPospotLog);
   router.post("/delPospotLog", auth, admin.delPospotLog);
-  router.post("/editPospotLog", auth, admin.editPospotLog);
+  router.post("/detailPospotLog", auth, admin.detailPospotLog);
   router.post("/updatePospotLog", admin.updatePospotLog);
   router.post("/imgUpload" ,upload.array("uploadImages"), admin.imgUpload);
 
@@ -26,12 +26,14 @@ module.exports = app => {
   router.post("/listRecruit", auth, admin.listRecruit);
   router.post("/addRecruit", admin.addRecruit);
   router.post("/delRecruit", auth, admin.delRecruit);
+  router.post("/detailRecruit", auth, admin.detailRecruit);
+  router.post("/updateRecruit", admin.updateRecruit);
   
   
   // front
   router.get("/pospotLogList", front.pospotLogList);
   router.get("/recruitList", front.recruitList);
-  router.post("/recruitContent", front.recruitContent);
+  router.get("/recruitDetail/:id", front.recruitDetail);
   
   
   app.use('/api/', router);

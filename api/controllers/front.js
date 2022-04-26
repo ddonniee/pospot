@@ -7,7 +7,7 @@
         1.0     22-04-21      서희정          JS 생성
 
     Remark : 포스팟로그 게시판 (pospotLogList), 채용공고 게시판 (recruitList), 
-             채용공고 세부내용 (recruitContent)
+             채용공고 세부내용 (recruitDetail)
 **********************************************************************************************************/
 
 const db_config = require("../config/mysql.js");
@@ -76,9 +76,9 @@ exports.recruitList = (req, res) => {
 }
 
 // 채용공고 글 세부내용 가져오기
-exports.recruitContent = (req, res) => {
+exports.recruitDetail = (req, res) => {
     try {
-        const recruitId = req.body.recruit_id;
+        const recruitId = parseInt(req.params.id);
         const query = `select recruit_id,recruit_title,task_1,task_2,task_3,task_4,task_5,spec_1,spec_2,spec_3,spec_4,spec_5,prefer_1,prefer_2,prefer_3,prefer_4,prefer_5,`
         + `working_conditions_1,working_conditions_2,working_conditions_3,working_conditions_4,working_conditions_5,notice_1,notice_2,notice_3,`
         + `notice_4,notice_5,receiving_1,receiving_2,receiving_3,receiving_4,receiving_5,workType,career,education,state,deadline from pospot_recruit where recruit_id=? `;
