@@ -113,7 +113,7 @@ const PospotLogUpdate = () => {
 
     axios({
       method: 'POST',
-      url: process.env.REACT_APP_API+'imgUpload',
+      url: process.env.REACT_APP_API+'api/imgUpload',
       withCredentials: true,
       data: formData
     })
