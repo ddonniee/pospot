@@ -21,8 +21,6 @@ class App extends Component {
       <BrowserRouter>
         <Suspense fallback={loading}>
           <Routes>
-            <Route exact path="/" name="Main Page" element={<Login />} />
-            <Route exact path="/admin" name="Main Page" element={<Login />} />
             <Route exact path="/Login" name="Login Page" element={<Login />} />
             <Route exact path="/logout" name="Logout Page" element={<Logout />} />
             <Route path="*" name="Home" element={<DefaultLayout />} />

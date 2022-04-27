@@ -8,7 +8,8 @@ const RecruitgWrite = React.lazy(() => import('./views/management/recruit/Recrui
 const RecruitUpdate = React.lazy(() => import('./views/management/recruit/Recruit_update'))
 
 const routes = [
-  { path: '/', exact: true, name: 'admin' },
+  { path: '/', exact: true, name: 'admin', element: PospotLog},
+  { path: '/admin', exact: true, name: 'admin', element: PospotLog},
   { path: '/management', name: 'management', element: PospotLog, exact: true },
   { path: '/pospotLog', name: 'PospotLog', element: PospotLog },
   { path: '/pospotLog_write', name: 'PospotLogWrite', element: PospotLogWrite },

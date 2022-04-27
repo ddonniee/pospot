@@ -13,6 +13,12 @@ const AppBreadcrumb = () => {
     return currentRoute ? currentRoute.name : false
   }
 
+  const getRouteNameUpdate = () => {
+    // params 있는 페이지 routes Name 가져오기
+    const currentRoute = routes.find((route) => route.path === ("/"+currentLocation.split("/")[1])+"/:id")
+    return currentRoute ? currentRoute.name : false
+  }
+
   const getBreadcrumbs = (location) => {
     const breadcrumbs = []
     location.split('/').reduce((prev, curr, index, array) => {
@@ -30,20 +36,23 @@ const AppBreadcrumb = () => {
   }
 
   const breadcrumbs = getBreadcrumbs(currentLocation)
+  const tempName = getRouteNameUpdate();
 
   return (
     <CBreadcrumb className="m-0 ms-2">
-      <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
-      {breadcrumbs.map((breadcrumb, index) => {
+      <CBreadcrumbItem href="/pospotLog">Home</CBreadcrumbItem>
+      { breadcrumbs.length !== 0 ?
+      breadcrumbs.map((breadcrumb, index) => {
         return (
-          <CBreadcrumbItem
+          <CBreadcrumbItem 
             {...(breadcrumb.active ? { active: true } : { href: breadcrumb.pathname })}
             key={index}
           >
             {breadcrumb.name}
           </CBreadcrumbItem>
-        )
-      })}
+        
+         )}) : 
+         <CBreadcrumbItem> {tempName} </CBreadcrumbItem> }
     </CBreadcrumb>
   )
 }

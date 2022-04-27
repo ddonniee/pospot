@@ -148,7 +148,7 @@ const RecruitsUpdate = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>RECRUIT</strong> <small>WRITE</small>
+            <strong>RECRUIT</strong> <small>EDIT</small>
           </CCardHeader>
           <CCardBody>
             <CForm className="row g-3" id="infoForm" onSubmit={handleSubmit(onSubmit)}>
