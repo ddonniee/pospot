@@ -1,0 +1,67 @@
+// Here you can add other styles
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+#multipleContainer {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    margin: 15px;
+    border: 1px solid rgb(235, 228, 255);
+}
+.image {
+    display: block;
+    height: 100px;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid rgb(221, 221, 221);
+}
+.image-label {
+    position: relative;
+    font-size: 10px;
+}
+
+.column {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.validation_msg {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.saveBtn {
+    width: 100px;
+}
+
+label{display: block !important}
+input[type=text]  {
+
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cui-form-select-color, rgba(44, 56, 74, 0.95));
+    background-color: var(--cui-form-select-bg, #fff);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid var(--cui-form-select-border-color, #b1b7c1);
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    appearance: none;
+}
