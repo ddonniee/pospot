@@ -21,7 +21,7 @@ module.exports = app => {
   router.post("/delPospotLog", auth, admin.delPospotLog);
   router.post("/detailPospotLog", auth, admin.detailPospotLog);
   router.post("/updatePospotLog", admin.updatePospotLog);
-  router.post("/imgUpload" ,cors(), upload.array("uploadImages"), admin.imgUpload);
+  router.post("/imgUpload" ,upload.array("uploadImages"), admin.imgUpload);
 
   // 채용공고
   router.post("/listRecruit", auth, admin.listRecruit);
