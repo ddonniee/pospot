@@ -1,10 +1,15 @@
 import React from "react";
+import { Fade } from "react-reveal";
+import ir from '../svg/ir.svg';
 
 const IR =()=>{
+
     return (
-        <div>
-            서비스 준비중입니다.
+        <Fade bottom>
+        <div className="ir_tri">
+           <img src={ir} />
         </div>
+        </Fade>
     )
 }
 

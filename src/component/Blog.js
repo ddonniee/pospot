@@ -1,36 +1,38 @@
 import React, { useEffect, useState } from "react";
-
+import { Fade } from "react-reveal";
+import moment from "moment";
+import {Insight,Square ,People, News} from '../svg/blog.icon'
 import Social from './Social'
-import NavTitle from './NavTitle'
-import Ex from '../images/box2.png'
-import Sticker from '../images/sticker.jpg'
-import Jeju from '../images/jeju.jpg'
-import Left from "./Left";
-import Right from "./Right";
-
+import Post from "./Post";
 // 데이터 붙여야되는 페이지
 // NavTtile 에 url 값 넘기기
 
 const Blog =()=>{
 
     const [data, setData] = useState([]);
-    console.log(data);
-
+   
     useEffect(()=> {
-        fetch('http://localhost:3001/lists')
+        fetch('https://apipospot.anypot.co.kr/front/pospotLogList')
         .then (res => {
             return res.json();
         })
         .then (data => {
-            setData(data)
+            data.data.map((key, index) => (
+                key.id = index
+                // data.put("id":index)
+            ))
+             console.log(data)
+             setData(data.data)
         });
     },[])
-
+  
+    console.log(data)
     const Posting=({data})=> {
 
         const [schedules] = data;
-        let odd =[];
-        let even =[];
+        const [modalLoad, setModalLoad] = useState(false);
+        const [postId, setPostId]=useState();
+        
 
         return (
             <div className="post">
@@ -42,26 +44,105 @@ const Blog =()=>{
                 </div>
 
                 <div className="pageContent">
-                    <div >
-                    {schedules.map((schedule,index)=> ( 
-                        (index%2==0) ?
-                        odd = [schedule[index]]
-                        :
-                        even = schedule[index]
-                    ))}
-                    </div>
+                    <div className="pageContenSide">
+                        <div className="postWrapperLeft">
+                            {schedules
+                            .filter((schedule)=> schedule.id%2 === 0)
+                            .map((schedule, index)=> {
+                                return (
+                                <div key={index}>
+                                    <div className="postImg" name="이름">
+                                        <img onClick={(e)=>{
+                                            console.log(e.target.name)
+                                            setPostId(e.target.name)
+                                            setModalLoad(!modalLoad)
+                                        }}src={`https://apipospot.anypot.co.kr/${schedule.img_path1}`} name={schedule.id}></img>
+                                    </div>
+                        
+                                <div className="postContentInfo">
+                                    <div className="postContent">
+                                        <h2 className="postTitle">{schedule.title}</h2>
+                                        <div className="postDetail">{schedule.content}</div>
+                                    </div>
+                                <div className="postInfo">
+                                    <div className="postDate">{moment(schedule.modify_date).format("YYYY.M.DD")}</div>
+                                    <div className="division">{` | `}</div>
+                                    <div className="postCategory">{schedule.category_id}</div>
+                                </div>
+                                    <Social />
+                                </div>
+                        
+                                <div className="category">
+                                    {schedule.category_id==="insight" ? 
+                                        <Insight /> : 
+                                        schedule.category_id==="people" ?
+                                        <People /> :
+                                        schedule.category_id==="news" ?
+                                        <News /> :
+                                        <Square />
+                                    }
+                                 </div>
+                                </div>
+                            ) } )}
+                            </div>
+                        <div className="postWrapperRight">
+                            {schedules
+                            .filter((schedule)=> schedule.id%2 ===1)
+                            .map((schedule, index)=>(
+                                <div key={index}>
+                                    <div className="postImg" >
+                                        <img onClick={(e)=>{
+                                            console.log(e.target.name)
+                                            setPostId(e.target.name)
+                                            setModalLoad(!modalLoad)
 
-                    <div>
-                        <Left prop={[odd]} />
-                    </div>
+                                        }}src={`https://apipospot.anypot.co.kr/${schedule.img_path1}`} name={schedule.id}></img>
+                                    </div>
+                        
+                                <div className="postContentInfo">
+                                    <div className="postContent">
+                                        <h2 className="postTitle">{schedule.title}</h2>
+                                        <div className="postDetail">{schedule.content}</div>
+                                    </div>
+                                <div className="postInfo">
+                                    <div className="postDate">{moment(schedule.modify_date).format("YYYY.M.DD")}</div>
+                                    <div className="division">{` | `}</div>
+                                    <div className="postCategory">{schedule.category_id}</div>
+                                </div>
+                                    <Social />
+                                </div>
+                        
+                                <div className="category">
+                                    {schedule.category_id==="insight" ? 
+                                        <Insight /> : 
+                                        schedule.category_id==="people" ?
+                                        <People /> :
+                                        schedule.category_id==="news" ?
+                                        <News /> :
+                                        <Square />
+                                    }
+                                 </div>
+                                </div>
+
+                        
+                            ))}
+                            </div>
                 </div>
+                </div>
+
+                {modalLoad ? 
+                <Post open={modalLoad} num={postId} onClose={setModalLoad} /> 
+                : null} 
+
             </div>
         )
     }
     return (
+        <Fade bottom>
         <div className="blogWrapper">
                 <Posting data={[data]}/>
         </div>
+        </Fade>
     )
 }
 
