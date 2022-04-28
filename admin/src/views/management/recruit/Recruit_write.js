@@ -62,6 +62,43 @@ const RecruitsWrite = () => {
     deadline:""
   });
 
+  // 항목 추가용 
+  const [addNum, setAddNum] = useState({
+    task: 2,
+    spec: 2,
+    prefer: 2,
+    working_conditions: 2,
+    notice: 2,
+    receiving: 2
+  });
+  const [showInput, setShowInput] = useState({ 
+    task_2: false,
+    task_3: false,
+    task_4: false,
+    task_5: false,
+    spec_2: false,
+    spec_3: false,
+    spec_4: false,
+    spec_5: false,
+    prefer_2: false,
+    prefer_3: false,
+    prefer_4: false,
+    prefer_5: false,
+    working_conditions_2: false,
+    working_conditions_3: false,
+    working_conditions_4: false,
+    working_conditions_5: false,
+    notice_2: false,
+    notice_3: false,
+    notice_4: false,
+    notice_5: false,
+    receiving_2: false,
+    receiving_3: false,
+    receiving_4: false,
+    receiving_5: false
+  });
+
+  /*-----------------------------------------------------*/
 
   // 토큰 체크
   useEffect(() => {
@@ -117,6 +154,7 @@ const RecruitsWrite = () => {
 
   // input 값을 recruit에 데이터 저장
   const handleChange =(e)=> {
+    console.log(e)
     const { value, name } = e.target;
     setRecruit((prevState) => {
       return { ...prevState, [name]: value }
@@ -145,6 +183,27 @@ const RecruitsWrite = () => {
       return { ...prevState, 
         [name]: value,
        }
+    });
+  }
+
+  // 항목 추가용 (추가 버튼 클릭 시 안보이던 항목 보이게 추가)
+  const addInputBox =(e)=> {
+    const idValue = e.target.id + '_' + addNum[e.target.id];
+    const count = addNum[e.target.id] + 1
+    if(count > 6) {
+      alert ('최대 5개까지 추가 가능합니다.')
+      return
+    }
+    //setShowInput.idValue(true);
+    setShowInput((prevState) => {
+      return { ...prevState, 
+        [idValue]: true,
+        }
+    });
+    setAddNum((prevState) => {
+      return { ...prevState, 
+        [e.target.id]: count,
+        }
     });
   }
 
@@ -212,35 +271,41 @@ return (
                 </CCol>
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="task">담당업무</CFormLabel>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="task_1" name="task_1" 
-                  {...register('task_1', {required: true})} onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">담당업무 1</CFormLabel>
-                </CFormFloating>
-                <CCol className="mb-2">
-                  {errors.task_1 && errors.task_1.type === "required" && errors.task_1.ref.value ==='' && <div className='validation_msg'>※ `담당업무 1`은 필수 입력사항입니다.</div>}
-                </CCol>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="task_2" name="task_2" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">담당업무 2</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="task_3" name="task_3" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">담당업무 3</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="task_4" name="task_4" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">담당업무 4</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-2'> 
-                  <CFormInput type="text" id="task_5" name="task_5" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">담당업무 5</CFormLabel>
-                </CFormFloating>
+                <CFormLabel htmlFor="task">담당업무   <CButton color="secondary" variant="ghost" size='sm' id='task' onClick={addInputBox}>추가</CButton></CFormLabel>
+                  <CFormFloating className='mb-1' id='task1'>
+                    <CFormInput type="text" id="task_1" name="task_1" 
+                    {...register('task_1', {required: true})} onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">담당업무 1</CFormLabel>
+                  </CFormFloating>
+                    {errors.task_1 && errors.task_1.type === "required" && errors.task_1.ref.value ==='' && <div className='validation_msg'>※ `담당업무 1`은 필수 입력사항입니다.</div>}
+                  { showInput.task_2 &&
+                  <CFormFloating className='mb-1' id='task2'>
+                    <CFormInput type="text" id="task_3" name="task_3" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">담당업무 2</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.task_3 &&
+                  <CFormFloating className='mb-1'  id='task3'>
+                    <CFormInput type="text" id="task_3" name="task_3" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">담당업무 3</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.task_4 &&
+                  <CFormFloating className='mb-1' id='task4'>
+                    <CFormInput type="text" id="task_4" name="task_4" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">담당업무 4</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.task_5 &&
+                  <CFormFloating className='mb-2' id='task5'> 
+                    <CFormInput type="text" id="task_5" name="task_5" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">담당업무 5</CFormLabel>
+                  </CFormFloating>
+                  }
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="task">자격요건</CFormLabel>
-                <CFormFloating className='mb-1'>
+                <CFormLabel htmlFor="task">자격요건   <CButton color="secondary" variant="ghost" size='sm' id='spec' onClick={addInputBox}>추가</CButton></CFormLabel>
+                <CFormFloating className='mb-1' id="spec1">
                   <CFormInput type="text" id="spec_1" name="spec_1" 
                   {...register('spec_1', {required: true})} onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">자격요건 1</CFormLabel>
@@ -248,26 +313,34 @@ return (
                 <CCol className="mb-2">
                   {errors.spec_1 && errors.spec_1.type === "required" && errors.spec_1.ref.value ==='' && <div className='validation_msg'>※ `자격요건 1`은 필수 입력사항입니다.</div>}
                 </CCol>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="spec_2" name="spec_2" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">자격요건 2</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="spec_3" name="spec_3" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">자격요건 3</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-1'>
-                  <CFormInput type="text" id="spec_4" name="spec_4" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">자격요건 4</CFormLabel>
-                </CFormFloating>
-                <CFormFloating className='mb-2'> 
-                  <CFormInput type="text" id="spec_5" name="spec_5" onChange={handleChange} />
-                  <CFormLabel htmlFor="floatingInput">자격요건 5</CFormLabel>
-                </CFormFloating>
+                  { showInput.spec_2 &&
+                  <CFormFloating className='mb-1' id="spec2">
+                    <CFormInput type="text" id="spec_2" name="spec_2" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">자격요건 2</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.spec_3 &&
+                  <CFormFloating className='mb-1' id="spec3">
+                    <CFormInput type="text" id="spec_3" name="spec_3" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">자격요건 3</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.spec_4 &&
+                  <CFormFloating className='mb-1' id="spec4">
+                    <CFormInput type="text" id="spec_4" name="spec_4" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">자격요건 4</CFormLabel>
+                  </CFormFloating>
+                  }
+                  { showInput.spec_5 &&
+                  <CFormFloating className='mb-2' id="spec5">
+                    <CFormInput type="text" id="spec_5" name="spec_5" onChange={handleChange} />
+                    <CFormLabel htmlFor="floatingInput">자격요건 5</CFormLabel>
+                  </CFormFloating>
+                  }
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="prefer">우대사항</CFormLabel>
-                <CFormFloating className='mb-1'>
+                <CFormLabel htmlFor="prefer">우대사항   <CButton color="secondary" variant="ghost" size='sm' id='prefer' onClick={addInputBox}>추가</CButton></CFormLabel>
+                <CFormFloating className='mb-1'  id="prefer1">
                   <CFormInput type="text" id="prefer_1" name="prefer_1" 
                   {...register('prefer_1', {required: true})} onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">우대사항 1</CFormLabel>
@@ -275,26 +348,34 @@ return (
                 <CCol className="mb-2">
                   {errors.prefer_1 && errors.prefer_1.type === "required" && errors.prefer_1.ref.value ==='' && <div className='validation_msg'>※ `우대사항 1`은 필수 입력사항입니다.</div>}
                 </CCol>
-                <CFormFloating className='mb-1'>
+                { showInput.prefer_2 &&
+                <CFormFloating className='mb-1' id="prefer2">
                   <CFormInput type="text" id="prefer_2" name="prefer_2" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">우대사항 2</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.prefer_3 &&
+                <CFormFloating className='mb-1' id="prefer3">
                   <CFormInput type="text" id="prefer_3" name="prefer_3" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">우대사항 3</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.prefer_4 &&
+                <CFormFloating className='mb-1' id="prefer4">
                   <CFormInput type="text" id="prefer_4" name="prefer_4" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">우대사항 4</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-2'> 
+                }
+                { showInput.prefer_5 &&
+                <CFormFloating className='mb-2' id="prefer5"> 
                   <CFormInput type="text" id="prefer_5" name="prefer_5" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">우대사항 5</CFormLabel>
                 </CFormFloating>
+                }
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="working_conditions">근무조건</CFormLabel>
-                <CFormFloating className='mb-1'>
+                <CFormLabel htmlFor="working_conditions">근무조건   <CButton color="secondary" variant="ghost" size='sm' id='working_conditions' onClick={addInputBox}>추가</CButton></CFormLabel>
+                <CFormFloating className='mb-1' id="working_conditions1" >
                   <CFormInput type="text" id="working_conditions_1" name="working_conditions_1" 
                   {...register('working_conditions_1', {required: true})} onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">근무조건 1</CFormLabel>
@@ -302,26 +383,34 @@ return (
                 <CCol className="mb-2">
                   {errors.working_conditions_1 && errors.working_conditions_1.type === "required" && errors.working_conditions_1.ref.value ==='' && <div className='validation_msg'>※ `근무조건 1`은 필수 입력사항입니다.</div>}
                 </CCol>
-                <CFormFloating className='mb-1'>
+                { showInput.working_conditions_2 &&
+                <CFormFloating className='mb-1' id="working_conditions2" >
                   <CFormInput type="text" id="working_conditions_2" name="working_conditions_2" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">근무조건 2</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.working_conditions_3 &&
+                <CFormFloating className='mb-1' id="working_conditions3" >
                   <CFormInput type="text" id="working_conditions_3" name="working_conditions_3" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">근무조건 3</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.working_conditions_4 &&
+                <CFormFloating className='mb-1' id="working_conditions4" >
                   <CFormInput type="text" id="working_conditions_4" name="working_conditions_4" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">근무조건 4</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-2'> 
+                }
+                { showInput.working_conditions_5 &&
+                <CFormFloating className='mb-2' id="working_conditions5" >
                   <CFormInput type="text" id="working_conditions_5" name="working_conditions_5" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">근무조건 5</CFormLabel>
                 </CFormFloating>
+                }
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="notice">유의사항</CFormLabel>
-                <CFormFloating className='mb-1'>
+                <CFormLabel htmlFor="notice">유의사항   <CButton color="secondary" variant="ghost" size='sm' id='notice' onClick={addInputBox}>추가</CButton></CFormLabel>
+                <CFormFloating className='mb-1' id="notice1">
                   <CFormInput type="text" id="notice_1" name="notice_1" 
                   {...register('notice_1', {required: true})} onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">유의사항 1</CFormLabel>
@@ -329,26 +418,34 @@ return (
                 <CCol className="mb-2">
                   {errors.notice_1 && errors.notice_1.type === "required" && errors.notice_1.ref.value ==='' && <div className='validation_msg'>※ `유의사항 1`은 필수 입력사항입니다.</div>}
                 </CCol>
-                <CFormFloating className='mb-1'>
+                { showInput.notice_2 &&
+                <CFormFloating className='mb-1' id="notice2">
                   <CFormInput type="text" id="notice_2" name="notice_2" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">유의사항 2</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.notice_3 &&
+                <CFormFloating className='mb-1' id="notice3">
                   <CFormInput type="text" id="notice_3" name="notice_3" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">유의사항 3</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.notice_4 &&
+                <CFormFloating className='mb-1' id="notice4">
                   <CFormInput type="text" id="notice_4" name="notice_4" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">유의사항 4</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-2'> 
+                }
+                { showInput.notice_5 &&
+                <CFormFloating className='mb-2' id="notice5"> 
                   <CFormInput type="text" id="notice_5" name="notice_5" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">유의사항 5</CFormLabel>
                 </CFormFloating>
+                }
               </CCol>
               <CCol xs={12}>
-                <CFormLabel htmlFor="receiving">접수기간/방법</CFormLabel>
-                <CFormFloating className='mb-1'>
+                <CFormLabel htmlFor="receiving">접수기간/방법   <CButton color="secondary" variant="ghost" size='sm' id='receiving' onClick={addInputBox}>추가</CButton></CFormLabel>
+                <CFormFloating className='mb-1' id="receiving1">
                   <CFormInput type="text" id="receiving_1" name="receiving_1" 
                   {...register('receiving_1', {required: true})} onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">접수기간/방법 1</CFormLabel>
@@ -356,22 +453,30 @@ return (
                 <CCol className="mb-2">
                   {errors.receiving_1 && errors.receiving_1.type === "required" && errors.receiving_1.ref.value ==='' && <div className='validation_msg'>※ `접수기한/방법 1`은 필수 입력사항입니다.</div>}
                 </CCol>
-                <CFormFloating className='mb-1'>
+                { showInput.receiving_2 &&
+                <CFormFloating className='mb-1' id="receiving2">
                   <CFormInput type="text" id="receiving_2" name="receiving_2" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">접수기간/방법 2</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.receiving_3 &&
+                <CFormFloating className='mb-1' id="receiving3">
                   <CFormInput type="text" id="receiving_3" name="receiving_3" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">접수기간/방법 3</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-1'>
+                }
+                { showInput.receiving_4 &&
+                <CFormFloating className='mb-1' id="receiving4">
                   <CFormInput type="text" id="receiving_4" name="receiving_4" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">접수기간/방법 4</CFormLabel>
                 </CFormFloating>
-                <CFormFloating className='mb-2'> 
+                }
+                { showInput.receiving_5 &&
+                <CFormFloating className='mb-2' id="receiving5">
                   <CFormInput type="text" id="receiving_5" name="receiving_5" onChange={handleChange} />
                   <CFormLabel htmlFor="floatingInput">접수기간/방법 5</CFormLabel>
                 </CFormFloating>
+                }
               </CCol>
               
               <CCol md={3}>
