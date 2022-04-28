@@ -3,6 +3,7 @@ module.exports = app => {
   const front = require("../controllers/front.js");
   const {auth} = require("../config/auth.js");
   const {upload} = require("../config/imgUpload.js");
+  const cors = require('cors')
   var router = require("express").Router();
 
   // admin
@@ -20,7 +21,7 @@ module.exports = app => {
   router.post("/delPospotLog", auth, admin.delPospotLog);
   router.post("/detailPospotLog", auth, admin.detailPospotLog);
   router.post("/updatePospotLog", admin.updatePospotLog);
-  router.post("/imgUpload" ,upload.array("uploadImages"), admin.imgUpload);
+  router.post("/imgUpload" ,cors(), upload.array("uploadImages"), admin.imgUpload);
 
   // 채용공고
   router.post("/listRecruit", auth, admin.listRecruit);
