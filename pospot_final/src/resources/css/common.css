@@ -48,13 +48,36 @@ header
 .header .top-nav .logoClass {
     width: 145px; height: 40px; left: 312px; top: 30px; float: left;
 }
+
+@media only screen and (max-device-width: 480px){
+    .header .top-nav .logoClass  {
+        width: 145px; height: 40px; left: -0px; top: 30px; float: left; margin-left:-70px
+    }
+    .logosvg {
+        width:200px; height:80px;
+    }
+}
+
 .header .top-nav .menu {
     float: right;
 }
+
 .header .top-nav .menu li {
     float: left; margin-left: 35px; height: 20px; font-weight: 700; font-size: 17px; 
     line-height: 20px; letter-spacing: -0.05em;
 }
+
+@media only screen and (max-device-width: 480px){
+    .header .top-nav .menu {
+        float: right;
+        margin-right:-70px;
+    }
+    .header .top-nav .menu  li {
+        
+        font-size:35px;
+    }
+}
+
 .header .top-nav .menu a,
 .header .top-nav .menu p {
     padding: 0px 3px;
@@ -105,7 +128,15 @@ header
 .ir {
     cursor: pointer;
 }
+@media only screen and (max-device-width: 480px){
+    .arrow-box1 {
 
+    }
+
+    .arrow-box1:after {
+       left: 251px;
+    }
+}
 /*
 footer
 */

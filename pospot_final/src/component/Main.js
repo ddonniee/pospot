@@ -33,11 +33,11 @@ class Main extends Component
             const {data} = await axios.get('https://apipospot.anypot.co.kr/front/pospotLogList');
             this.setState({logData : data.data, popupShow : false});
 
-            console.log(this.state);
+            //console.log(this.state);
 
           } catch (error) {
             //응답 실패
-            console.error(error);
+           // console.error(error);
           }
         
     }
@@ -77,7 +77,7 @@ class Main extends Component
 
         // Scroll Animation (sa, 스크롤 애니메이션)
         const saTriggerMargin = 500;
-        const saTriggerMargin2 = 3200;
+        const saTriggerMargin2 = 3000;
         const saElementList = document.querySelectorAll('.sa');
         const hidden = document.querySelector('.section2 .copyDiv.hid1');
         const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
@@ -107,7 +107,7 @@ class Main extends Component
 
         return(
             <div className='Main'>
-                <div className="container">
+                <div className="container" >
                     <div className="main">
                         <div className="contents wide"> 
                             <div className="section1">
@@ -724,7 +724,7 @@ class Main extends Component
                                 </div>
                                 <div className="imgDiv imgDiv3" >
                                     <div className="box2" >
-                                    <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <mask id="mask0_582_4058" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                         <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                         </mask>
@@ -740,7 +740,7 @@ class Main extends Component
                                     </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5415" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -754,7 +754,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5425" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -769,7 +769,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5436" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -786,7 +786,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5449" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -801,7 +801,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5460" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -816,7 +816,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_5471" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -835,7 +835,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     <div className="box2">
-                                        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_582_4142" style={{maskType:"alpha"}}np maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
                                             <path d="M90 180C139.706 180 180 139.706 180 90C180 40.2944 139.706 0 90 0C40.2944 0 0 40.2944 0 90C0 139.706 40.2944 180 90 180Z" fill="#7661CC"/>
                                             </mask>
@@ -1354,7 +1354,7 @@ class Main extends Component
                                                 <rect width="15.8333" height="15" fill="white" transform="translate(12.083 12.5)"/>
                                                 </clipPath>
                                                 </defs>
-                                            </svg>
+                                            </svg> 
                                         </a>
                                     </div>
                                 </div>

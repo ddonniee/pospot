@@ -9,6 +9,18 @@
 .wide {
     width: 100vw; margin-left: calc(-50vw + 50%); text-align: center;
 }
+@media only screen and (max-device-width: 480px){
+    .rec_svg {
+        width:"1000px";height:"600px"
+    }
+
+    .wide {
+        width: 100vw; margin-left: calc(-50vw + 50%); text-align: center;
+       
+    }
+    
+
+}
 .top-div {
     height: 100px;
 }
@@ -133,6 +145,11 @@
 }
 .main .section2 .box2 {
     width: 208px; height: 208px; border-radius: 50%; margin: 24.5px; /*margin: 2.05%;*/
+}
+@media only screen and (max-device-width: 480px){
+    .main .section2 .box2 {
+        
+    }
 }
 .main .section3 {
     width: 100%; height: 952px; background: #363537; padding: 1px; display: flex; justify-content: center;
@@ -385,7 +402,7 @@
 채용공고_list
 **/
 .recruit .section1 {
-    height: 660px;
+    height: 660px; width:100%;background-color:#4d3362
 }
 .recruit .section2 {
     height: 960px; background-color: #FAFAFB; padding: 1px;
@@ -483,6 +500,9 @@ div[class|=recruit] .joinBtn {
 /**
 제휴 및 문의
 **/
+.contact .section1 {
+    background-color:#cdbaf2;
+}
 .contact .section2 {
     background-color: #FAFAFB; padding: 100px 0px;
 }
@@ -575,6 +595,15 @@ div[class|=recruit] .joinBtn {
 }
 .closeBtn {
     position: absolute; top: 0%; left: 102%;
+}
+@media only screen and (max-device-width: 480px){
+    .closeBtn {
+        position: absolute; top: -110px; left: 92%; width:100px;height:100px;
+        border:0px solid red
+    }
+    .closeBtn svg {
+        width:100px;height:100px;
+    }
 }
 
 /* 포스팟 로그 */
