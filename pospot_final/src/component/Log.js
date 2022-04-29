@@ -256,7 +256,7 @@ class Log extends Component
                                         <Carousel 
                                             showThumbs={false}
                                             showStatus={false}                                            
-                                               
+                                            autoPlay={true} 
                                             
                                             // renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
                                             //     hasPrev && (

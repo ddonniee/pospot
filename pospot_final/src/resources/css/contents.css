@@ -254,7 +254,33 @@
 .main .section5 .content-title .info span {
     margin: 0 8px;
 }
+.main .imsitxt {
+    
+    font-family: "Pretendard";
+    font-weight: bold;
+    font-size:28px;
+    color:#ffffff;    
+    text-align: left;    
+    position:relative;
+    width:100%;
+    margin-left:100px;
+    margin-top:199px;
+    z-index: 99999999999;
+}
 
+@media only screen and (max-device-width: 1620px){
+    .main .imsitxt {
+    display: hidden;
+    margin-left:-100px;
+    }
+}
+
+@media only screen and (max-device-width: 480px){
+    .main .imsitxt {
+    display: hidden;
+    margin-left:-100px;
+    }
+}
 /**
 포스팟 로그_list
 **/

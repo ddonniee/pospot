@@ -597,6 +597,7 @@ class Main extends Component
                                     <p className='disc2'>포스팟은 장소의 추억을 저장하는 서비스를 만들기로 했습니다.<br/>곳;감은 블록체인 기술로 감성까지 전달하는<br/>위치기반 감성 SNS 플랫폼입니다.</p>
                                 </div>
                                 <div className="imgDiv">
+                                    {/* <div className="imsitxt">상쾌한</div> */}
                                 <History/>
                                 </div>
                             </div>
