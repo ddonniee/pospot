@@ -402,7 +402,7 @@ class Log extends Component
                                         <p className="main-title">{this.state.popData.title}</p>
                                         <p className="desc">{this.state.popData.content}</p>
                                         <p className="info">{moment(this.state.popData.create_date).format('YYYY.M.DD')}<span>|</span>{this.state.popData.category_name}</p>
-                                        <div className="content-logo">
+                                        {/* <div className="content-logo">
                                             <a href="#">
                                                 <svg className="linkIcon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <circle cx="20" cy="20" r="19.5" stroke="#444444"/>
@@ -430,7 +430,7 @@ class Log extends Component
                                                     </defs>
                                                 </svg>
                                             </a>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                     <button id="closeBtn" className="closeBtn" onClick={()=>this.setState({popupShow : false, popData : null})}>
