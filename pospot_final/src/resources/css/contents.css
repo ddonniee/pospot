@@ -273,13 +273,14 @@
     display: hidden;
     margin-left:-100px;
     }
+    
 }
 
 @media only screen and (max-device-width: 480px){
     .main .imsitxt {
     display: hidden;
     margin-left:-100px;
-    }
+    }   
 }
 /**
 포스팟 로그_list
@@ -527,7 +528,12 @@ div[class|=recruit] .joinBtn {
 제휴 및 문의
 **/
 .contact .section1 {
-    background-color:#cdbaf2;
+    background-color:#cdbaf2;width:1920px;height:660px;
+}
+@media only screen and (max-device-width: 480px){
+    .contact .section1 {
+        background-color:#cdbaf2;width:100%;height:600px;
+    }
 }
 .contact .section2 {
     background-color: #FAFAFB; padding: 100px 0px;
