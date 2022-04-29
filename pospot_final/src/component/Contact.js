@@ -19,7 +19,7 @@ class Contact extends Component
                     <div className="contact">
                         <div className="contents wide">
                             <div className="section1" style={{height:"660px"}}>
-                                <svg width="1920" height="660" viewBox="0 0 1920 660" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                <svg width="100%" height="660" viewBox="0 0 1920 660" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                     <rect width="100%" height="660" fill="url(#pattern0)"/>
                                     <defs>
                                     <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
