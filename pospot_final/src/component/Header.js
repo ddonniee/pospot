@@ -145,14 +145,23 @@ class Header extends Component
                 let txt4section = $("#txt4section").offset().top;
                 let txt5section = $("#txt5section").offset().top;
                 let txt6section = $("#txt6section").offset().top;
-                
-    
+
+   
                 // console.log(parseInt(spaceroffset))
                 // console.log(parseInt(scrollTop2)) 
     
                 if(scrollTop2 < spacerheight) {
                     $(".header").attr('style', 'background-color : #EAECF9;');
+                   
                 }
+
+                if(parseInt(spacerheight)-300 < parseInt(scrollTop2) ) {                   
+                    $("#parasec1").fadeOut(500, function() {
+                         $("#parasec2").show()                        
+                    });                    
+                } 
+
+                
                 
                 if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
                    
@@ -165,7 +174,16 @@ class Header extends Component
 
                 if(parseInt(txt3section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #FFFFFF;');
+                
                 }
+                if(parseInt(txt3section-300) < parseInt(scrollTop2) ) {                
+                
+                    $("#fl1").fadeOut(500, function() {
+                        $("#fl2").show()
+                        
+                   });
+                }
+
                 if(parseInt(txt4section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #FFFFFF;');
                 }
@@ -176,6 +194,8 @@ class Header extends Component
                 if(parseInt(txt6section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #FFFFFF;');
                 }
+
+               
             });
     }
     

@@ -98,8 +98,8 @@ class Main extends Component
             }
         }
 
-        window.addEventListener('load', saFunc);
-        window.addEventListener('scroll', saFunc);
+        // window.addEventListener('load', saFunc);
+        // window.addEventListener('scroll', saFunc);
     }
 
     render(){
@@ -590,10 +590,10 @@ class Main extends Component
                             </div>
                             <div id="trigger" className='spacer'></div>
                             <div className="section2 scroll"  id="txt1section">
-                                <div className="copyDiv hid1">
+                                <div className="copyDiv " id="parasec1">
                                     <p className="disc">추억의 장소를 어떻게 기억하시나요?<br/>감성적인 경험은 그때 그곳을 특별하게 만듭니다.<br/>그리고 추억은 우리를 앞으로 나아가게 만들죠.</p>
                                 </div>
-                                <div className="copyDiv2 sa sa-up">
+                                <div className="copyDiv2 " id="parasec2" style={{display:"none"}}>
                                     <p className='disc2'>포스팟은 장소의 추억을 저장하는 서비스를 만들기로 했습니다.<br/>곳;감은 블록체인 기술로 감성까지 전달하는<br/>위치기반 감성 SNS 플랫폼입니다.</p>
                                 </div>
                                 <div className="imgDiv">
@@ -719,10 +719,10 @@ class Main extends Component
                                 </div>
                             </div>
                             <div className="section2" id="txt3section">
-                                <div className="copyDiv hid2" id="fl1">
+                                <div className="copyDiv" id="fl1">
                                     <p className="disc">수어를 알고 계신가요?<br/>수어는 30만명이 넘는 한국인이 사용하는 제2의 국어입니다.<br/>하지만 수어를 인식하는 서비스는 찾아보기 힘들죠.</p>
                                 </div>
-                                <div className="copyDiv2 sa sa-up"  id="fl2">
+                                <div className="copyDiv2"  id="fl2" style={{display:"none"}}>
                                     <p className='disc2'>우리는 장애가 더이상 차별이 아닌 세상을 꿈꿉니다.<br/>포스팟은 정확도 높은 인공지능 수어 인식 기술로<br/>수어 사용자에게 더 넓은 세상을 경험하게 할 것입니다.</p>
                                 </div>
                                 <div className="imgDiv imgDiv3" >
