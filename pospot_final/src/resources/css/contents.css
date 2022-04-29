@@ -611,14 +611,34 @@ div[class|=recruit] .joinBtn {
     /* width: 1512px; height: 812px; */
     width: 1512px; height: 947px;
 }
+
 .logPop {
     display: flex; justify-content: space-between;
 }
+
+
 .logPop .pic {
     /* width: 1012px; height: 812px; overflow: hidden; */
     width: 1012px; height: 1012px; overflow: hidden;
     /* max-width: 1012px; max-height: 100%; */
 }
+
+@media only screen and (max-device-width: 480px){
+    .lPop {       
+        width: 1512px; height:auto;
+    }
+    .logPop {
+        display: block 
+    }
+
+    .logPop .pic {
+        /* width: 1012px; height: 812px; overflow: hidden; */
+        width: 100%; height: 1012px; overflow: hidden;
+        /* max-width: 1012px; max-height: 100%; */
+    }
+}
+
+
 .logPop .pic img {
     width: 100%; height: 100%; object-fit: cover; background-color: lightgray;
 }
@@ -654,6 +674,20 @@ div[class|=recruit] .joinBtn {
 }
 .logPop .content .content-logo a {
     margin-right: 10px;
+}
+@media only screen and (max-device-width: 480px){
+    .logPop .content {
+        width: 80%; padding: 70px 48px;
+    }
+    .logPop .content .main-title {
+        font-weight: 700; font-size: 50px; line-height: 58px; letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .logPop .content .desc {
+        font-size: 36px; line-height: 54px;
+    }
+    .logPop .content .info {
+        font-size: 35px; line-height: 18px; color: #B5B5B5; margin-top: 20px; margin-bottom: 40px;
+    }
 }
 
 /* 채용공고 */

@@ -122,9 +122,7 @@ header
     margin-bottom: -7px; margin-left: 3px;
 }
 .show .arrow-box1,
-.show .arrow-box1:after {
-    transition: all .5s;
-}
+.show .arrow-box1:after { transition: all .5s; }
 .ir {
     cursor: pointer;
 }
@@ -132,7 +130,6 @@ header
     .arrow-box1 {
 
     }
-
     .arrow-box1:after {
        left: 251px;
     }

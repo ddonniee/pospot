@@ -13,7 +13,7 @@ import { ReactComponent as Insight } from '../resources/svg/Insight2.svg';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-
+import $ from 'jquery';
 
 // import $ from 'jquery';
 // import ScrollMagic, { Controller, Scene } from 'scrollmagic';
@@ -77,7 +77,7 @@ class Main extends Component
 
         // Scroll Animation (sa, 스크롤 애니메이션)
         const saTriggerMargin = 500;
-        const saTriggerMargin2 = 3000;
+        const saTriggerMargin2 = 3200;
         const saElementList = document.querySelectorAll('.sa');
         const hidden = document.querySelector('.section2 .copyDiv.hid1');
         const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
@@ -86,10 +86,13 @@ class Main extends Component
             for (const element of saElementList) {
                 if (!element.classList.contains('show')) {
                     if (window.innerHeight > element.getBoundingClientRect().top + saTriggerMargin) {
-                        element.classList.add('show');
-                        hidden.classList.add('sa');
+                        // element.classList.add('show');
+                        // hidden.classList.add('sa');
+                        
+                        console.log(111)
                     } else if(window.scrollY > saTriggerMargin2) {
-                        hidden2.classList.add('sa');
+                        // hidden2.classList.add('sa');
+                        // console.log(222)
                     }
                 }
             }
@@ -716,10 +719,10 @@ class Main extends Component
                                 </div>
                             </div>
                             <div className="section2" id="txt3section">
-                                <div className="copyDiv hid2">
+                                <div className="copyDiv hid2" id="fl1">
                                     <p className="disc">수어를 알고 계신가요?<br/>수어는 30만명이 넘는 한국인이 사용하는 제2의 국어입니다.<br/>하지만 수어를 인식하는 서비스는 찾아보기 힘들죠.</p>
                                 </div>
-                                <div className="copyDiv2 sa sa-up">
+                                <div className="copyDiv2 sa sa-up"  id="fl2">
                                     <p className='disc2'>우리는 장애가 더이상 차별이 아닌 세상을 꿈꿉니다.<br/>포스팟은 정확도 높은 인공지능 수어 인식 기술로<br/>수어 사용자에게 더 넓은 세상을 경험하게 할 것입니다.</p>
                                 </div>
                                 <div className="imgDiv imgDiv3" >
