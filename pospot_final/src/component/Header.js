@@ -16,6 +16,35 @@ class Header extends Component
 
         $(".header").attr('style', 'background-color : transparent;');
 
+        // Top 메뉴 후버 기능 start 
+        $('.intro').hover(function(){
+            $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        }, function() {
+            $(".intro").attr('style', '');
+        });
+
+        $('.pospotLog').hover(function(){
+            $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        }, function() {
+            $(".pospotLog").attr('style', '');
+        });
+
+        $('.tmenurecruit').hover(function(){
+            $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        }, function() {
+            $(".tmenurecruit").attr('style', '');
+        });
+
+        $('.tmenucontact').hover(function(){
+            $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        }, function() {
+            $(".tmenucontact").attr('style', '');
+        });
+
+        // 후버 처리 END
+    
+    
+
         // 헤더 클릭 시 메뉴 밑줄
         $(".header li a, .logo, .goLog").on('click', function(){
             if($(this).hasClass('intro') || $(this).hasClass('logo')) {
@@ -29,11 +58,11 @@ class Header extends Component
             $(window).scrollTop(0);
             
             if($(this).hasClass('logo')) {
-                $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //$(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
             } else if($(this).hasClass('goLog')) {
-                $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+               // $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
             } else {
-                $(this).attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //$(this).attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
             }
         });
 
@@ -228,8 +257,8 @@ class Header extends Component
                             <li><Link className='intro' to='/'>회사소개</Link></li>
                             <li><p className="ir">IR</p></li>
                             <li><Link className='pospotLog' to='/log'>포스팟 로그</Link></li>
-                            <li><Link to='/recruit/list'>채용공고</Link></li>
-                            <li><Link to='/contact'>제휴 및 문의</Link></li>
+                            <li><Link className='tmenurecruit' to='/recruit/list'>채용공고</Link></li>
+                            <li><Link  className='tmenucontact' to='/contact'>제휴 및 문의</Link></li>
                         </ul>
                         <div className="arrow1">
                             <div className="window">

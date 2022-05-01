@@ -85,7 +85,20 @@ class Log extends Component
 
     componentDidMount() {
         this.logList();
+        $(".pospotlog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        $(document).ready(function() {
+            $(".pospotlog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
 
+
+            // Top 메뉴 후버 기능 start 
+            $('.pospotlog').hover(function(){
+                $(".pospotlog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+            }, function() {
+                $(".pospotlog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+            });
+        })
+
+  
         // 포스팟로그 글 상세보기 팝업
         $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
             show();
@@ -155,6 +168,9 @@ class Log extends Component
     }
     
     render(){
+
+
+
         const getLogList = Object.entries(this.state.logData).map((entrie) => {
             return entrie[1];
         });

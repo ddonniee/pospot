@@ -85,7 +85,7 @@
 }
 .main .section1 .box {
     width: 440px; height: 440px; border-radius: 150px 150px 300px 300px; position: relative;
-    overflow: hidden;
+    overflow: hidden;padding-left:62px
 }
 .main .section1 .rev,
 .main .section1 .box:nth-child(2) svg {

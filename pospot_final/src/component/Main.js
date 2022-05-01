@@ -82,6 +82,8 @@ class Main extends Component
         const hidden = document.querySelector('.section2 .copyDiv.hid1');
         const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
 
+        
+
         const saFunc = function() {
             for (const element of saElementList) {
                 if (!element.classList.contains('show')) {
@@ -103,7 +105,16 @@ class Main extends Component
     }
 
     render(){
+        $(document).ready(function() {
+            $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
 
+            // Top 메뉴 후버 기능 start 
+            $('.intro').hover(function(){
+                $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+            }, function() {
+                $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+            });
+        })
         const getLogList = Object.entries(this.state.logData).map((entrie) => {
             return entrie[1];
         });
@@ -115,7 +126,7 @@ class Main extends Component
                         <div className="contents wide"> 
                             <div className="section1">
                                 <div className="imgDiv">
-                                <div style={{padding:"62px"}}>
+                                <div >
                                     <div className="box">
                                         <svg width="440" height="440"  viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_487_1796" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="440">
@@ -327,7 +338,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                     </div>
-                                    <div style={{padding:"62px"}}>
+                                    <div >
                                     <div className="box rev">
                                         <svg width="440" height="440" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_487_1716" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="440">
@@ -429,7 +440,7 @@ class Main extends Component
                                         </svg>                                
                                     </div>
                                     </div>
-                                    <div style={{padding:"62px"}}>
+                                    <div >
                                     <div className="box">
                                         <svg width="440" height="441" viewBox="0 0 440 441" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_487_1560" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="441">
