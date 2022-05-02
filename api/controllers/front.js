@@ -16,7 +16,33 @@ const bodyParser = require("body-parser");
 db_config.connect(conn);
 
 const console = require("console");
+const sharp = require("sharp");
 
+let imgWidths = [];
+
+// image width 정보 저장 함수 (metadata()가 비동기여서 setTimeout 사용)
+async function imgInfo(rows) {
+        for (var i = 0; i < rows.length; i++) {
+            let img = {1: rows[i].img_path1, 2:rows[i].img_path2, 3:rows[i].img_path3, 4:rows[i].img_path4, 5: rows[i].img_path5, 6: rows[i].img_path6 };
+            for (var j = 1; j < 7; j++) {
+                if(img[j] !== '') {
+                    
+                    /* 이미지의 너비 구하기 220428 포기*/
+                        let image = sharp('./'+ img[j]);
+                        let imgWidth = 0;
+                        let postingId = rows[i].posting_id;
+                        let imgPath = 'img_path'+j
+                        image.metadata().then(await function(metadata) {
+                            imgWidth= metadata.width; //이미지 넓이
+                        });
+                        setTimeout(() => {
+                            imgWidths.push({postingId, imgPath,  imgWidth})
+                        },10 )
+                        
+                }
+            }
+        }
+}
 
 // 포스팟로그 데이터 모두 가져오기 (내림차순)
 exports.pospotLogList = (req, res) => {
@@ -31,11 +57,17 @@ exports.pospotLogList = (req, res) => {
                 })
                 console.log(err);
             } else {
-                res.send({
-                    code : 200,
-                    msg : "SUCCESS",
-                    data : rows
-                })
+                // image width 정보 저장
+                imgInfo(rows);
+                // 비동기 진행 후 front로 전달
+                setTimeout(() => {
+                    res.send({
+                        code : 200,
+                        msg : "SUCCESS",
+                        data : rows,
+                        width : imgWidths
+                    })
+                },30 )
             }
         })
     } catch (error) {

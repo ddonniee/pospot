@@ -43,14 +43,6 @@ const RecruitsUpdate = () => {
   const [show, setShow] = useState(false);
 
   // 항목 추가용 
-  const [addNum, setAddNum] = useState({
-    task: 2,
-    spec: 2,
-    prefer: 2,
-    working_conditions: 2,
-    notice: 2,
-    receiving: 2
-  });
   const [showInput, setShowInput] = useState({ 
     task_2: false,
     task_3: false,
@@ -100,12 +92,14 @@ const RecruitsUpdate = () => {
           let recruitList = res.data.data;
           setRecruit(recruitList[0]);
           setSubmitDate( new Date(recruitList[0].deadlineParse));
-          // 토큰이 유효하다면 화면 보이게 설정
+          
+          // input 번호 체크
           checkInputValue();
+
+          // 토큰이 유효하다면 화면 보이게 설정
           setTimeout(() => {
             setShow(true);
-          }, 10)
-          
+          }, 20)
         } 
     }).catch(error => {
       console.log(error);
@@ -130,19 +124,12 @@ const RecruitsUpdate = () => {
     Object.keys(recruit).map((entrie, idx) => {
       const name = entrie;
       const value = recruit[entrie];
-      if(idx > 2 && idx < 31) {
+      
+      if(idx > 1 && idx < 31) {
         if( value !== '') {
           setShowInput((prevState) => {
             return { ...prevState, 
               [name]: true
-             }
-          });
-          const countName = entrie.slice(0,-2);
-          let count = addNum[countName] + 1;
-          console.log(countName, count)
-          setAddNum((prevState) => {
-            return { ...prevState, 
-              [countName]: count
              }
           });
         }
@@ -150,11 +137,6 @@ const RecruitsUpdate = () => {
     })
   }
 
-  useEffect(() => {
-    console.log(addNum);
-  }, [addNum]);
-  
-  
   // 수정 데이터 API로 전송
   const onSubmit =(e)=> {
     console.log(recruit);
@@ -212,25 +194,27 @@ const RecruitsUpdate = () => {
     });
   }
 
-  
-
   // 항목 추가용 (추가 버튼 클릭 시 안보이던 항목 보이게 추가)
   const addInputBox =(e)=> {
-    const idValue = e.target.id + '_' + addNum[e.target.id];
-    const count = addNum[e.target.id] + 1
-    if(count > 6) {
+    let count = 1;
+    
+    // true 개수 (처음에 값을 가져올 수 없어서 작성)
+    for (let i = 1; i < 6; i++) {
+      // console.log(e.target.id + '_' + i, showInput[e.target.id + '_' + i])
+      if(showInput[e.target.id + '_' + i]) {
+        count += 1;
+      }
+    }
+    let idValue = e.target.id + '_' + (count);
+    
+    if(count > 5) {
       alert ('최대 5개까지 추가 가능합니다.')
       return
     }
-    //setShowInput.idValue(true);
+    
     setShowInput((prevState) => {
       return { ...prevState, 
         [idValue]: true,
-        }
-    });
-    setAddNum((prevState) => {
-      return { ...prevState, 
-        [e.target.id]: count,
         }
     });
   }
@@ -384,7 +368,7 @@ const RecruitsUpdate = () => {
                   <CFormLabel htmlFor="floatingInput">우대사항 2</CFormLabel>
                 </CFormFloating>
                 }
-                { showInput.floatingInput &&
+                { showInput.prefer_3 &&
                 <CFormFloating className='mb-1'>
                   <CFormInput type="text" id="prefer_3" name="prefer_3" onChange={handleChange} value={prefer_3 || ''} />
                   <CFormLabel htmlFor="floatingInput">우대사항 3</CFormLabel>
