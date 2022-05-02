@@ -21,7 +21,7 @@ import { ReactComponent as Insta } from '../resources/svg/Btn_insta.svg';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
-
+import {UrlShare, BlogShare, FaceBook,InstaLink} from '../resources/svg/blog.icon'
 
 class Log extends Component
 {
@@ -185,7 +185,22 @@ class Log extends Component
             $("#copytxt2"+numid).attr("class","arrow3 show");
         }
 
-        
+        // 포스팅 url 복사 22.05.02 by은정 //
+        function viewlink3(url) {
+            
+            alert(url);
+
+            var i=i;
+            var url = url;
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            $(".copy_wrapper").addClass("show");
+        }
 
         return(
             <div className='Log'>
@@ -447,7 +462,19 @@ class Log extends Component
                                                 </svg>
                                             </a>
                                         </div> */}
+
+                                    <ul className="linkToSocial">
+                                        <li className="LinksocialList" value="1"   onClick={()=>viewlink3(this.state.popData.link)}><UrlShare /></li>
+                                        <a href="https://blog.naver.com/pospot0911" target="_blank"><li className="LinksocialList"><BlogShare /></li></a>
+                                        <a href="https://www.facebook.com/pospot.kr" target="_blank"><li className="LinksocialList"><FaceBook /></li></a>
+                                        <a href="https://www.instagram.com/pospot_official" target="_blank"><li className="LinksocialList"><InstaLink/></li></a>
+                                    
+                                    {/* <PopShare url={address} classtxt={schedule.id}  /> */}
+                                    
+                                    </ul>
+
                                     </div>
+                                    
                                 </div>
                                     <button id="closeBtn" className="closeBtn" onClick={()=>this.setState({popupShow : false, popData : null})}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

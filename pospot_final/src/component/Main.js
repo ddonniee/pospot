@@ -105,16 +105,16 @@ class Main extends Component
     }
 
     render(){
-        $(document).ready(function() {
-            $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        // $(document).ready(function() {
+        //     $(".intro").attr('style', 'border-bottom: 10px dot #222222; padding-bottom: 8px;');
 
-            // Top 메뉴 후버 기능 start 
-            $('.intro').hover(function(){
-                $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-            }, function() {
-                $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-            });
-        })
+        //     // Top 메뉴 후버 기능 start 
+        //     $('.intro').hover(function(){
+        //         $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        //     }, function() {
+        //         $(".intro").attr('style', 'border-bottom: 2px solid red; padding-bottom: 8px;');
+        //     });
+        // })
         const getLogList = Object.entries(this.state.logData).map((entrie) => {
             return entrie[1];
         });

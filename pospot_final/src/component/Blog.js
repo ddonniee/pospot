@@ -21,6 +21,9 @@ const Blog =()=>{
              $(".onShare").css("display","none")
          }
      }) 
+
+     
+
     useEffect(()=> {
         fetch('https://apipospot.anypot.co.kr/front/pospotLogList')
         .then (res => {

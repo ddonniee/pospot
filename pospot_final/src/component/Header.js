@@ -44,6 +44,7 @@ class Header extends Component
         // 후버 처리 END
     
     
+        
 
         // 헤더 클릭 시 메뉴 밑줄
         $(".header li a, .logo, .goLog").on('click', function(){
@@ -76,7 +77,7 @@ class Header extends Component
         $(".header, .container, .footer, .main").on('click',function(e){
             if(!$(e.target).hasClass('ir')){
                 $(".ir").removeAttr('style');
-                $(".check").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                $(".check").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px; ');
                 arrowClose(1);
             }
             if(!$(e.target).hasClass('aIcon')){
@@ -98,6 +99,76 @@ class Header extends Component
             arrowClose(2);
             arrowShow(3);
         });
+
+        // 헤더 클릭시, 밑줄 22.05.02 by 은정
+
+        
+        $(".top-nav > .menu > ul > li").on("click", function() {
+            //$(document).ready(function() {
+    
+                var url = '';
+                url = window.document.location.pathname;
+                console.log("url")
+                console.log(url);
+    
+                if(url==="/") {
+                   
+                // Top 메뉴 후버 기능 start 
+                $('.intro').hover(function(){
+    
+                    $(".pospotLog").removeAttr('style');
+                    $(".tmenurecruit").removeAttr('style');
+                    $(".tmenucontact").removeAttr('style');
+                    
+                    $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                }, function() {
+                    $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                });
+                }
+                else if(url==="/log") {
+                   
+                    $(".intro").removeAttr('style');
+                    $(".tmenurecruit").removeAttr('style');
+                    $(".tmenucontact").removeAttr('style');
+    
+                    $('.pospotLog').hover(function(){
+                        $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    }, function() {
+                        $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    });
+                }
+    
+                else if(url==="/recruit/list") {
+    
+                    $(".intro").removeAttr('style');
+                    $(".pospotLog").removeAttr('style');
+                    $(".tmenucontact").removeAttr('style');
+    
+                   
+                    $('.tmenurecruit').hover(function(){
+                        $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    }, function() {
+                        $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    });
+                }
+                else if(url==="/contact") {
+                   
+                    $(".intro").removeAttr('style');
+                    $(".pospotLog").removeAttr('style');
+                    $(".tmenurecruit").removeAttr('style');
+    
+                    $('.tmenucontact').hover(function(){
+                        $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    }, function() {
+                        $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                    });
+                }
+    
+            })
+           
+    
+            // 헤더 클릭시, 밑줄 22.05.02 by 은정
+
 
         // 채용공고 입사지원 팝업
         $("#show").on('click',function(){ 
@@ -193,8 +264,8 @@ class Header extends Component
                 
                 
                 if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
-                   
-                    $(".header").attr('style', 'background-color : #FFFFFF;');
+                     $(".header").attr('style', 'background-color : #FFFFFF;');
+                    //$(".header").animate({'background-color' : '#FFFFFF'});
                 }
     
                 if(parseInt(txt2section-100) < parseInt(scrollTop2) ) {
