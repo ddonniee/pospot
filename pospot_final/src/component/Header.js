@@ -108,8 +108,7 @@ class Header extends Component
     
                 var url = '';
                 url = window.document.location.pathname;
-                console.log("url")
-                console.log(url);
+                console.log(this.state.prop)
     
                 if(url==="/") {
                    
