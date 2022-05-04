@@ -18,19 +18,19 @@ class RecruitView extends Component
         
         id : null,
         recruitDetail: [],
-        title:'title',
-        deadline:'',
-        career:'',
-        state:'',
-        education:'',
-        notice_1:'',notice_2:'',notice_3:'',notice_4:'',notice_5:'',
-        prefer_1:'', prefer_2:'', prefer_3:'', prefer_4:'', prefer_5:'',
-        receiving_1:'', receiving_2:'', receiving_3:'', receiving_4:'', receiving_5:'',
-        spec_1:'', spec_2:'', spec_3:'', spec_4:'', spec_5:'',
-        task_1:'', task_2:'', task_3:'', task_4:'', task_5:'',
-        workType: '',
-        working_condition_1:'', working_condition_2:'', working_condition_3:'', working_condition_4:'', working_condition_5:'',
-
+        // 배열로 받아오기
+        // title:'title',
+        // deadline:'',
+        // career:'',
+        // state:'',
+        // education:'',
+        // notice_1:'',notice_2:'',notice_3:'',notice_4:'',notice_5:'',
+        // prefer_1:'', prefer_2:'', prefer_3:'', prefer_4:'', prefer_5:'',
+        // receiving_1:'', receiving_2:'', receiving_3:'', receiving_4:'', receiving_5:'',
+        // spec_1:'', spec_2:'', spec_3:'', spec_4:'', spec_5:'',
+        // task_1:'', task_2:'', task_3:'', task_4:'', task_5:'',
+        // workType: '',
+        // working_condition_1:'', working_condition_2:'', working_condition_3:'', working_condition_4:'', working_condition_5:'',
     }
     
    
@@ -48,17 +48,20 @@ class RecruitView extends Component
         //const pathValue
 
         // 채용공고 디테일 가져오기
-        await fetch(`https://apipospot.anypot.co.kr/front/recruitDetail/${page}`)
+        // pathname을 url 값으로 넘겨줘야해
+        await fetch(`https://apipospot.anypot.co.kr/front/recruitDetail/${id[page]}`)
+        
         .then (res => {
             return res.json();
         })
         .then (data => {
             console.log("껴?")
             console.log(data.data[0])
+            console.log(data.data[1])
+            console.log(data.data[2])
              this.setState({
-                recruitDetail: data.data[this.state.id]
-                
-             })
+                recruitDetail: data.data[0]
+                             })
              console.log("쀼?")
              console.log(this.state.title)
         })
@@ -193,7 +196,7 @@ class RecruitView extends Component
                                 <path d="M10 4L2 12L10 20" stroke="#222222" strokeWidth="2.5"/>
                                 <path d="M2 12H24" stroke="#222222" strokeWidth="2.5"/>
                             </svg> &nbsp;채용공고</p>
-                            <p className="main-title">{this.state.title}</p>
+                            <p className="main-title">{this.state.recruitDetail.recruit_title}</p>
                             {/* <p className="main-title">{this.state.recruitDetail}</p> */}
                         </Link>
                     </div>
