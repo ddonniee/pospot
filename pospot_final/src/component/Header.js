@@ -4,6 +4,17 @@ import $ from 'jquery';
 
 class Header extends Component
 {
+
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         currentPage : '/'
+    //     }
+    //     selectPage =()=> this.setState(current => ({
+    //         currentPage : current,
+    //     }));
+    // }
+
     componentDidMount() {
         // 포스팟로그 글 상세보기 팝업
         $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
@@ -43,7 +54,8 @@ class Header extends Component
 
         // 후버 처리 END
     
-    
+
+        
         
 
         // 헤더 클릭 시 메뉴 밑줄
@@ -77,7 +89,7 @@ class Header extends Component
         $(".header, .container, .footer, .main").on('click',function(e){
             if(!$(e.target).hasClass('ir')){
                 $(".ir").removeAttr('style');
-                $(".check").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px; ');
+                $(".check").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
                 arrowClose(1);
             }
             if(!$(e.target).hasClass('aIcon')){
@@ -86,7 +98,6 @@ class Header extends Component
             if(!$(e.target).hasClass('copy')){
                 arrowClose(3);
             }
-            console.log(e.target);
         });
 
         $(".content-logo .aIcon").on('click',function(){ 
@@ -105,63 +116,60 @@ class Header extends Component
         
         $(".top-nav > .menu > ul > li").on("click", function() {
             //$(document).ready(function() {
-    
-                var url = '';
-                url = window.document.location.pathname;
-                console.log(this.state.prop)
-    
-                if(url==="/") {
+
+           console.log()
+                
+                // if(url==="/") {
                    
-                // Top 메뉴 후버 기능 start 
-                $('.intro').hover(function(){
+                // $('.intro').hover(function(){
     
-                    $(".pospotLog").removeAttr('style');
-                    $(".tmenurecruit").removeAttr('style');
-                    $(".tmenucontact").removeAttr('style');
+                //     $(".pospotLog").removeAttr('style');
+                //     $(".tmenurecruit").removeAttr('style');
+                //     $(".tmenucontact").removeAttr('style');
                     
-                    $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                }, function() {
-                    $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                });
-                }
-                else if(url==="/log") {
+                //     $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                // }, function() {
+                //     $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                // });
+                // }
+                // else if(url==="/log") {
                    
-                    $(".intro").removeAttr('style');
-                    $(".tmenurecruit").removeAttr('style');
-                    $(".tmenucontact").removeAttr('style');
+                //     $(".intro").removeAttr('style');
+                //     $(".tmenurecruit").removeAttr('style');
+                //     $(".tmenucontact").removeAttr('style');
     
-                    $('.pospotLog').hover(function(){
-                        $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    }, function() {
-                        $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    });
-                }
+                //     $('.pospotLog').hover(function(){
+                //         $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     }, function() {
+                //         $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     });
+                // }
     
-                else if(url==="/recruit/list") {
+                // else if(url==="/recruit/list") {
     
-                    $(".intro").removeAttr('style');
-                    $(".pospotLog").removeAttr('style');
-                    $(".tmenucontact").removeAttr('style');
+                //     $(".intro").removeAttr('style');
+                //     $(".pospotLog").removeAttr('style');
+                //     $(".tmenucontact").removeAttr('style');
     
                    
-                    $('.tmenurecruit').hover(function(){
-                        $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    }, function() {
-                        $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    });
-                }
-                else if(url==="/contact") {
+                //     $('.tmenurecruit').hover(function(){
+                //         $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     }, function() {
+                //         $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     });
+                // }
+                // else if(url==="/contact") {
                    
-                    $(".intro").removeAttr('style');
-                    $(".pospotLog").removeAttr('style');
-                    $(".tmenurecruit").removeAttr('style');
+                //     $(".intro").removeAttr('style');
+                //     $(".pospotLog").removeAttr('style');
+                //     $(".tmenurecruit").removeAttr('style');
     
-                    $('.tmenucontact').hover(function(){
-                        $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    }, function() {
-                        $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                    });
-                }
+                //     $('.tmenucontact').hover(function(){
+                //         $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     }, function() {
+                //         $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+                //     });
+                // }
     
             })
            
@@ -251,36 +259,52 @@ class Header extends Component
     
                 if(scrollTop2 < spacerheight) {
                     $(".header").attr('style', 'background-color : #EAECF9;');
-                   
+                   $("#txt1section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                   $("#txt1section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
                 }
 
-                if(parseInt(spacerheight)-300 < parseInt(scrollTop2) ) {                   
-                    $("#parasec1").fadeOut(500, function() {
-                         $("#parasec2").show()                        
-                    });                    
-                } 
+                // if(parseInt(spacerheight)-300 < parseInt(scrollTop2) ) {          
+                //     console.log("1")         
+                //     $("#parasec1").fadeOut(500, function() {
+                //          $("#parasec2").show()                        
+                //     });                    
+                // } 
 
-                
+                // 수어 이미지 변형 추가 22.05.03 은정
                 
                 if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
                      $(".header").attr('style', 'background-color : #FFFFFF;');
                     //$(".header").animate({'background-color' : '#FFFFFF'});
+
+                    $("#txt1section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px opacity: 0;') 
+                    $("#txt1section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                  
+
                 }
     
                 if(parseInt(txt2section-100) < parseInt(scrollTop2) ) {
                     $(".header").attr('style', 'background-color : #EAECF9;');
+                    $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(0deg);') 
+                    $("#txt3section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                    $("#txt3section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
                 }
 
                 if(parseInt(txt3section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #FFFFFF;');
-                
+                    $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(-45deg);') 
+                    $("#txt3section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                    $("#txt3section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                    
                 }
+
+                
                 if(parseInt(txt3section-300) < parseInt(scrollTop2) ) {                
                 
                     $("#fl1").fadeOut(500, function() {
                         $("#fl2").show()
                         
                    });
+                  
                 }
 
                 if(parseInt(txt4section-100) < parseInt(scrollTop2) ) {                
@@ -289,6 +313,7 @@ class Header extends Component
 
                 if(parseInt(txt5section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #F9F9FD;');
+                  
                 }
                 if(parseInt(txt6section-100) < parseInt(scrollTop2) ) {                
                     $(".header").attr('style', 'background-color : #FFFFFF;');
@@ -296,6 +321,16 @@ class Header extends Component
 
                
             });
+
+            // 외부 클릭시 팝업닫기 22.05.03 은정
+
+            $(document).mouseup(function(e) {
+                var OpendOne = e.target;
+
+                if(OpendOne.hasChildNodes(e.target).length === 0) {
+                    OpendOne.removeClass("show");
+                }
+            })
     }
     
     render(){

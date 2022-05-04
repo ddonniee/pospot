@@ -10,6 +10,8 @@ import { ReactComponent as People } from '../resources/svg/People2.svg';
 import { ReactComponent as Square } from '../resources/svg/Square2.svg';
 import { ReactComponent as Insight } from '../resources/svg/Insight2.svg';
 
+import { ReactComponent as ParaImg1 } from '../resources/svg/paraimg1.svg';
+import { ReactComponent as ParaImg2 } from '../resources/svg/paraimg2.svg';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -79,8 +81,9 @@ class Main extends Component
         const saTriggerMargin = 500;
         const saTriggerMargin2 = 3200;
         const saElementList = document.querySelectorAll('.sa');
-        const hidden = document.querySelector('.section2 .copyDiv.hid1');
-        const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
+        // 헤더에서 헤더바 색상, 이미지 애니메이션과 같이 처리 22.05.03 은정
+        // const hidden = document.querySelector('.section2 .copyDiv.hid1');
+        // const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
 
         
 
@@ -601,15 +604,33 @@ class Main extends Component
                             </div>
                             <div id="trigger" className='spacer'></div>
                             <div className="section2 scroll"  id="txt1section">
+                                <div className="section2_desc scroll" id="parasec1">
+                                    <p className="disc1">추억의 장소를 어떻게 기억하시나요?<br/>감성적인 경험은 그때 그곳을 특별하게 만듭니다.<br/>그리고 추억은 우리를 앞으로 나아가게 만들죠.</p>
+                                    <p className='disc2' style={{display:"none"}}>포스팟은 장소의 추억을 저장하는 서비스를 만들기로 했습니다.<br/>곳;감은 블록체인 기술로 감성까지 전달하는<br/>위치기반 감성 SNS 플랫폼입니다.</p>
+                                </div>
+
+                                {/* 
+                                헤더바 색상 변경시 텍스트 같이 바뀌게// 22.05.03 은정
                                 <div className="copyDiv " id="parasec1">
                                     <p className="disc">추억의 장소를 어떻게 기억하시나요?<br/>감성적인 경험은 그때 그곳을 특별하게 만듭니다.<br/>그리고 추억은 우리를 앞으로 나아가게 만들죠.</p>
                                 </div>
                                 <div className="copyDiv2 " id="parasec2" style={{display:"none"}}>
                                     <p className='disc2'>포스팟은 장소의 추억을 저장하는 서비스를 만들기로 했습니다.<br/>곳;감은 블록체인 기술로 감성까지 전달하는<br/>위치기반 감성 SNS 플랫폼입니다.</p>
                                 </div>
+                                 */}
                                 <div className="imgDiv">
                                     {/* <div className="imsitxt">상쾌한</div> */}
-                                <History/>
+                                
+                                {/* Main - pospot - 곶감 설명 이미지 나누기 22.05.03 */}
+                                <History/> 
+                                {/* <div className="parasection">
+                                    <div className='paraimg1'>
+
+                                    </div>
+                                    <div className='paraimg2'>
+
+                                    </div>
+                                </div> */}
                                 </div>
                             </div>
                             <div className="section1" id="txt2section">
@@ -731,12 +752,23 @@ class Main extends Component
                                 </div>
                             </div>
                             <div className="section2" id="txt3section">
+                                <div className="section2_desc">
+                                    <p className="disc1">수어를 알고 계신가요?<br/>수어는 30만명이 넘는 한국인이 사용하는 제2의 국어입니다.<br/>하지만 수어를 인식하는 서비스는 찾아보기 힘들죠.</p>
+                                    <p className='disc2' style={{
+                                        display:"none"
+                                    }}>우리는 장애가 더이상 차별이 아닌 세상을 꿈꿉니다.<br/>포스팟은 정확도 높은 인공지능 수어 인식 기술로<br/>수어 사용자에게 더 넓은 세상을 경험하게 할 것입니다.</p>
+                                </div>
+
+                                {/*
+                                 헤더바 색상 변경시 텍스트 같이 바뀌게// 22.05.03 은정
                                 <div className="copyDiv" id="fl1">
                                     <p className="disc">수어를 알고 계신가요?<br/>수어는 30만명이 넘는 한국인이 사용하는 제2의 국어입니다.<br/>하지만 수어를 인식하는 서비스는 찾아보기 힘들죠.</p>
                                 </div>
-                                <div className="copyDiv2"  id="fl2" style={{display:"none"}}>
+                                <div className="copyDiv2"  id="fl2">
                                     <p className='disc2'>우리는 장애가 더이상 차별이 아닌 세상을 꿈꿉니다.<br/>포스팟은 정확도 높은 인공지능 수어 인식 기술로<br/>수어 사용자에게 더 넓은 세상을 경험하게 할 것입니다.</p>
                                 </div>
+                                */}
+
                                 <div className="imgDiv imgDiv3" >
                                     <div className="box2" >
                                     <svg width="100%" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">

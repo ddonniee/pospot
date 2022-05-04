@@ -69,15 +69,7 @@ const Blog =()=>{
         $("#"+classtxtnum).show()
     }
 
-    const CopyDone=()=>{
-        return (
-            <div>
-                <span>콘텐츠 링크가 복사되었어요.<br>원하는 곳에 붙여넣으세요.</br></span>
-            </div>
-        )
-    }
-
-    const closeCopyPopup =() => {
+       const closeCopyPopup =() => {
         $(".onShare").hide();
         $("div[id*=copytxt1]").show();
         $("div[id*=copytxt2]").hide();
@@ -103,7 +95,16 @@ const Blog =()=>{
             // 복사 완료 창 띄우기    
                  
         }
+// 외부 클릭시 팝업닫기 22.05.03 은정
 
+        $(document).mouseup(function(e) {
+            console.log(e.target)
+            var OpendOne = e.target;
+
+            if(OpendOne.hasChildNodes(e.target).length === 0) {
+                OpendOne.removeClass("show");
+            }
+        })
 
         return (
             <div className="onShare" id={classtxt} style={{position:"absolute",zIndex:"1",display:"none"}}>

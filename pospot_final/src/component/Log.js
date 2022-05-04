@@ -154,14 +154,14 @@ class Log extends Component
         }
 
         // 링크 복사 함수
-        function copyToClipboard(val) {
-            let t = document.createElement("textarea");
-            document.body.appendChild(t);
-            t.value = val;
-            t.select();
-            document.execCommand('copy');
-            document.body.removeChild(t);
-        }
+        // function copyToClipboard(val) {
+        //     console.log("")
+        //     let t = document.createElement("textarea");
+        //     t.value = val;
+        //     t.select();
+        //     document.execCommand('copy');
+        //     document.body.removeChild(t);
+        // }
 
         
 
@@ -185,11 +185,17 @@ class Log extends Component
             $("#copytxt2"+numid).attr("class","arrow3 show");
         }
 
-        // 포스팅 url 복사 22.05.02 by은정 //
+        // 블로그 상세보기 url 복사 22.05.02 by은정 //
         function viewlink3(url) {
-            
-            alert(url);
 
+            console.log(url)
+
+            // url 값이 없을 경우? 
+            if(url===null) {
+                alert("url이 유효하지 않습니다.")
+                return;
+            }
+            
             var i=i;
             var url = url;
             var textarea = document.createElement("textarea");
@@ -199,8 +205,15 @@ class Log extends Component
             document.execCommand("copy");
             document.body.removeChild(textarea);
 
-            $(".copy_wrapper").addClass("show");
+            $(".arrow4").addClass("show");
+            
+            // url 복사 완료시 해당 창 자동 종료 22.05.03 은정
+            setTimeout(function() {
+                $(".arrow4").removeClass("show");
+            },1000)
         }
+
+       
 
         return(
             <div className='Log'>
@@ -463,6 +476,7 @@ class Log extends Component
                                             </a>
                                         </div> */}
 
+                                    {/* 블로그 상세보기 링크 복사 22.05.03 은정 */}
                                     <ul className="linkToSocial">
                                         <li className="LinksocialList" value="1"   onClick={()=>viewlink3(this.state.popData.link)}><UrlShare /></li>
                                         <a href="https://blog.naver.com/pospot0911" target="_blank"><li className="LinksocialList"><BlogShare /></li></a>
@@ -472,7 +486,14 @@ class Log extends Component
                                     {/* <PopShare url={address} classtxt={schedule.id}  /> */}
                                     
                                     </ul>
-
+                                   
+                                    <div className="arrow4">
+                                                        <div className="window">
+                                                            <div className="arrow-box4">
+                                                                <p>콘텐츠 링크가 복사되었어요.<br/>원하는 곳에 붙여넣으세요.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                     </div>
                                     
                                 </div>
