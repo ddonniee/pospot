@@ -48,7 +48,7 @@ class RecruitView extends Component
         //const pathValue
 
         // 채용공고 디테일 가져오기
-        // pathname을 url 값으로 넘겨줘야해
+        // pathname을 url 값으로 넘겨줘야해 state로 안되나? 22.05.04 은정
         await fetch(`https://apipospot.anypot.co.kr/front/recruitDetail/${id[page]}`)
         
         .then (res => {
@@ -205,22 +205,63 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">담당업무</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_1}</p>
+                                {this.state.recruitDetail.task_2 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_2}</p>
+                                : null }
+                                {this.state.recruitDetail.task_3 === null 
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_3}</p>
+                                : null }
+                                {this.state.recruitDetail.task_4 === null 
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_4}</p>
+                                : null }
+                                {this.state.recruitDetail.task_5 === null 
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_5}</p>
+                                : null }
                             </div>
                             <div className="content-box">
                                 <p className="box-title">자격요건</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_1}</p>
+                                {this.state.recruitDetail.spec_2 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_2}</p>
+                                : null}
+                                {this.state.recruitDetail.spec_3 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_3}</p>
+                                : null}
+                                {this.state.recruitDetail.spec_4 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_4}</p>
+                                : null}
+                                {this.state.recruitDetail.spec_5 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_5}</p>
+                                : null }
                             </div>
                             <div className="content-box">
                                 <p className="box-title">우대사항</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_1}</p>
+                               
+                                {this.state.recruitDetail.prefer_2 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_2}</p>
+                                : null}
+                                {this.state.recruitDetail.prefer_3 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_3}</p>
+                                : null}
+                                {this.state.recruitDetail.prefer_4 === null 
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_4}</p>
+                                : null}
+                                {this.state.recruitDetail.prefer_5 === null 
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_5}</p>
+                                : null}
                             </div>
                             <div className="content-box">
                                 <p className="box-title">전형절차</p>
@@ -271,20 +312,62 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">근무조건</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_1}</p>
+                                {this.state.recruitDetail.working_conditions_2 !== null
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_2}</p>
+                                : null }
+                                 {this.state.recruitDetail.working_conditions_3 === null
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_3}</p>
-                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_2}</p>
+                                : null }
+                                {this.state.recruitDetail.working_conditions_4 === null
+                               ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_4}</p>
+                                : null }
+                                {this.state.recruitDetail.working_conditions_5 === null
+                               ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_5}</p>
+                                : null}
                             </div>
                             <div className="content-box">
                                 <p className="box-title">유의사항</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_1}</p>
+                                {this.state.recruitDetail.notice_2 === null
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_2}</p>
+                                : null}
+                                {this.state.recruitDetail.notice_3 === null
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_3}</p>
+                                : null}
+                                {this.state.recruitDetail.notice_4 === null
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_4}</p>
+                                : null}
+                                {this.state.recruitDetail.notice_5 === null
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_5}</p>
+                                : null }
                             </div>
                             <div className="content-box">
                                 <p className="box-title">접수기간/방법</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_1}</p>
+                                {this.state.recruitDetail.receiving_2 === null
+                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_2}</p>
+                                : null}
+                                {this.state.recruitDetail.receiving_3 === null
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_3}</p>
+                                : null}
+                                {this.state.recruitDetail.receiving_4 === null
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_4}</p>
+                                : null}
+                                {this.state.recruitDetail.receiving_5 === null
+                                ?
+                                <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_5}</p>
+                                : null}
                             </div>
                             <div className="center-box">
                                 <button id="show" className="purpleBtn mt50">입사지원</button>
