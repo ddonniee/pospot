@@ -839,14 +839,18 @@ div[class|=recruit] .joinBtn {
     text-align: center; display: flex; justify-content: center; align-items: center; cursor: pointer;
     transition: all .1s;
 }
+/* 은정 아이콘 크기 일치하게 22.05.04 */
 .recruitPop .uploadFile .icon {
-    width: 100%;
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .recruitPop .uploadFile .cancelBtn-div {
     position: relative; top: -34%; left: 91%;
 }
 .recruitPop .uploadFile .fileName {
-    font-weight: 700; font-size: 15px; line-height: 18px;
+    font-weight: 700; font-size: 15px; line-height: 18px;     margin-top: 4px;
 }
 .recruitPop .uploadFile .desc {
     font-size: 15px; line-height: 22px; color: #999999; margin-top: 10px;

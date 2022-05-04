@@ -1,10 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, useDebugValue } from 'react';
 // import { Link } from 'react-router-dom';
+import { ReactComponent as Hangeul } from '../resources/svg/han.svg'
+import { ReactComponent as PDF } from '../resources/svg/pdf.svg'
+import { ReactComponent as WORD } from '../resources/svg/word.svg'
+import { ReactComponent as XSLX } from '../resources/svg/xslx.svg'
+import { ReactComponent as PPT } from '../resources/svg/ppt.svg'
+import { Link } from 'react-router-dom';
+
+import RecruitView from './RecruitView';
 import $ from 'jquery';
+import axios from 'axios';
+import moment from 'moment';
 
 class RecruitList extends Component
 {
-    componentDidMount() {
+    state = {
+        fileExe : "",
+        fileName : "파일 업로드",
+        portFolioExe : "",
+        portFolioName : "포트폴리오",
+
+        // 채용페이지
+        recruitData : [],
+        recruitLenght : 0
+    }
+       async componentDidMount() {
         // 채용공고 입사지원 팝업
         $("#show").on('click',function(){ 
             show(); 
@@ -40,6 +60,25 @@ class RecruitList extends Component
             });
         });
 
+        // 채용공고 리스트 가져오기
+        fetch('https://apipospot.anypot.co.kr/front/recruitList')
+        .then (res => {
+            return res.json();
+        })
+        .then (data => {
+           
+             
+             this.setState({
+                 recruitData:data.data,
+                 recruitLenght:data.data.length
+             })
+             console.log(this.state.recruitLenght)
+             console.log(this.state.recruitData)
+        })
+        .catch((err)=>
+        console.log(err)); 
+
+
         // 팝업 div 오픈/닫기 함수
         function show() {
             $(".background").addClass("show");
@@ -49,25 +88,81 @@ class RecruitList extends Component
             $(".background").removeClass("show");
         }
 
-        function fileType() {
-            if( $("#resume-file").val() != "" ){
-                var ext = $('#docufile').val().split('.').pop().toLowerCase();
-              if($.inArray(ext, ['pdf','hwp','Docx','xls','pptx']) == -1) {
-                 alert('등록 할수 없는 파일명입니다.');
-                 $("#resume-file").val(""); // input file 파일명을 다시 지워준다.
-                 return;
-             }
-            }
-        }
+        
+       
+        // 파일 업로드시 첨부된 파일에 따라 아이콘 변경 22.05.04 은정
+
+        
         const fileInput = document.getElementById("resume-file");
         
         fileInput.onchange=()=>{
             const docType = [...fileInput.files];
-            console.log(docType[0].type);
+
+            console.log(docType[0]);
+
+            var _fileName = docType[0];
+            var _fileLen =  _fileName.type.length;
+            var _lastDot =  _fileName.type.lastIndexOf('.');
+
+            var _fileExt =  _fileName.type.substring(_lastDot, _fileLen).toLowerCase();
+
+            console.log(_fileExt);
+
+            this.setState
+                ({
+                    fileExe:_fileExt,
+                    fileName: _fileName.name
+                })
+            console.log(this.state.fileExe)
         }
-    }
+
+        const portFolioInput = document.getElementById("portfolio-file");
+        
+        portFolioInput.onchange=()=>{
+
+            console.log(portFolioInput[0])
+            const folioType = [...portFolioInput.files];
+
+            console.log(folioType[0]);
+
+            var _portFolioName = folioType[0];
+            var _portFolioLen =  _portFolioName.type.length;
+            var _finalDot =  _portFolioName.type.lastIndexOf('.');
+
+            var _portFolioExt = _portFolioName.type.substring(_finalDot, _portFolioLen).toLowerCase();
+
+            console.log(_portFolioExt);
+
+            this.setState
+                ({
+                    portFolioExe:_portFolioExt,
+                    portFolioName: _portFolioName.name
+                })
+            console.log(this.state.portFolioExe)
+        }
+
+        }
     
     render(){
+
+        const resetUpload=(num)=> {
+            
+            if(num===1) {
+                this.setState({
+                    fileExe:'',
+                    fileName:'파일 업로드'
+                })
+                $("#resume-file").val('');
+            }else if(num===2) {
+                this.setState({
+                    portFolioExe:'',
+                    portFolioName:'포트폴리오'
+                })
+                $("#portfolio-file").val('');
+            }
+        
+        }
+       
         return(
             <div className='RecruitList'>
                 <div className="top-div"></div>
@@ -293,72 +388,69 @@ class RecruitList extends Component
                                         <path d="M13.0651 13.7299C13.0651 13.8799 13.0201 13.9474 12.8401 13.9474L7.90508 15.3574L7.81508 15.2749C7.69508 15.2149 7.64258 15.1549 7.64258 15.0949V12.3649C7.64258 12.3049 7.69508 12.2449 7.81508 12.1849C7.89575 12.1378 7.98498 12.1072 8.07758 12.0949L12.9301 13.5124C12.9901 13.5124 13.0351 13.5799 13.0651 13.7299ZM7.90508 6.36491C7.91187 6.29801 7.94409 6.23626 7.99508 6.19241L9.93008 4.24991C9.95269 4.22381 9.98022 4.20242 10.0111 4.18698C10.042 4.17153 10.0756 4.16234 10.1101 4.15991C10.1701 4.15991 10.2226 4.21991 10.2826 4.33991L12.7501 8.74991C12.8043 8.80923 12.8338 8.88704 12.8326 8.96741C12.8326 9.05741 12.7501 9.13241 12.5701 9.18491L12.3976 9.10241L7.98758 6.63491C7.94176 6.55156 7.91368 6.45964 7.90508 6.36491ZM40.5301 12.3649V15.1849C40.5304 15.2454 40.5149 15.3048 40.4851 15.3574C40.4551 15.4174 40.3801 15.4174 40.2601 15.3574L35.3251 14.0374C35.2683 14.01 35.2212 13.9658 35.1904 13.9108C35.1595 13.8558 35.1463 13.7927 35.1526 13.7299C35.1526 13.5799 35.2051 13.5124 35.3251 13.5124L40.2601 12.0949C40.2945 12.0973 40.3282 12.1065 40.359 12.122C40.3899 12.1374 40.4175 12.1588 40.4401 12.1849L40.5301 12.3649ZM35.4151 9.10241C35.3872 9.08225 35.3645 9.05576 35.3488 9.02512C35.3332 8.99448 35.325 8.96057 35.325 8.92616C35.325 8.89176 35.3332 8.85784 35.3488 8.8272C35.3645 8.79656 35.3872 8.77007 35.4151 8.74991L37.8826 4.33991C37.9444 4.2796 38.0186 4.23353 38.1001 4.20491C38.1723 4.17846 38.2482 4.16328 38.3251 4.15991L40.2601 6.19241C40.288 6.21257 40.3107 6.23906 40.3263 6.2697C40.342 6.30034 40.3501 6.33426 40.3501 6.36866C40.3501 6.40307 40.342 6.43699 40.3263 6.46762C40.3107 6.49826 40.288 6.52475 40.2601 6.54491L35.7601 9.01241L35.6701 9.10241H35.4151Z" fill="#0DBCE8"/>
                                         </svg>
                                     </p>
-                                    {/*
-                                    <div className="tblType">
-                                        <table>
-                                            <caption>공고 테이블(채용중)</caption>
-                                            <colgroup>
-                                                <col width="*"/>
-                                                <col width="20%"/>
-                                            </colgroup>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <a href='/recruit/detail'>
-                                                            <p className="field">Web, App 기획자</p><br/>
-                                                        </a>
-                                                        <span className="tag">계약직</span>
-                                                        <span className="tag">신입/경력</span>
-                                                        <span className="tag">대졸↑</span>
-                                                    </td>
-                                                    <td>
-                                                        <p className="prog">서류 제출<br/><span className="purple">12월 30일까지</span></p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href='/recruit/detail'>
-                                                            <p className="field">경영지원 부분</p><br/>
-                                                        </a>
-                                                        <span className="tag">정규직</span>
-                                                        <span className="tag">신입</span>
-                                                        <span className="tag">학력무관</span>
-                                                    </td>
-                                                    <td>
-                                                        <p className="prog">서류 접수 종료</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href='/recruit/detail'>
-                                                            <p className="field">UI/UX 디자이너</p><br/>
-                                                        </a>
-                                                        <span className="tag">프리랜서</span>
-                                                        <span className="tag">경력</span>
-                                                        <span className="tag">고졸↑</span>
-                                                    </td>
-                                                    <td>
-                                                        <p className="prog">채용 완료</p> 
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-        */}
+                                    
                                     {/* <br/><br/><br/> */}
 
+                                    {/* 채용공고 리스트 확인하여 분기 22.05.04 은정 */}
                                     <div className="tblType">
-                                        
+                                        {this.state.recruitLenght==='0' 
+                                        ?
+                                        <>
                                             <caption>공고 테이블(채용없음)</caption>
                                             <colgroup>
                                                 <col width="*"/>
                                             </colgroup>
                                             
                                                         <p className="field2">
-                                                            {/* 지금은 채용 계획이 없지만,<br/>이력서를 보내주시면 검토해볼게요.<br/> */}
+                                                            지금은 채용 계획이 없지만,<br/>이력서를 보내주시면 검토해볼게요.<br/>
                                                             <button id="show" className="purpleBtn mt50">입사지원</button>
                                                             {/* <button className="purpleBtn mt50" onClick={() => window.location.href=`https://www.jobkorea.co.kr/Recruit/GI_Read/38226031?Oem_Code=C1&logpath=1`}>입사지원</button> */}
                                             </p>
+                                            </>
+                                            :
+                                            <div className="section3">
+                                    <div className="wrapper">
+                                        
+                                        <div className="tblType">
+                                            <table>
+                                                <caption>공고 테이블</caption>
+                                                <colgroup>
+                                                    <col width="*"/>
+                                                    <col width="20%"/>
+                                                </colgroup>
+                                                {this.state.recruitData.map((data, index) =>{
+                                                    return (
+                                                        <tbody key={index}>
+                                                    <tr>
+                                                        <td>
+                                                            <Link to={{
+                                                                pathname:`/recruit/detail/${data.recruit_id}`,
+                                                                state: {
+                                                                    test:'aaa'
+                                                                }}
+                                                            }>
+                                                                <p className="field">{data.recruit_title}</p><br/>
+                                                            </Link>
+                                                            {/* <Link to="/recruit/detail">
+                                                                <p className="field">{data.recruit_title}</p><br/>
+                                                            </Link> */}
+                                                            <span className="tag">{data.workType}</span>
+                                                            <span className="tag">{data.career}</span>
+                                                            <span className="tag">{data.education}</span>
+                                                        </td>
+                                                        <td>
+                                                            <p className="prog">{data.state}<br/><span className="purple">{moment(data.deadline).format("YYYY.M.DD")}</span></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                    )
+                                                })}
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+    }
                                     </div>
                                 </div>
                             </div>
@@ -379,19 +471,45 @@ class RecruitList extends Component
                                         <div className="file">
                                             <p className="sub-title">이력서 및 자기소개서</p>
                                             <div className="box box1">
+                                            {/* 첨부 파일 있을때만 x 버튼 나오기 22.05.04 은정 */}
+                                            {this.state.fileExe !== "" ?
+                                                <div className="cancelBtn-div" style={{ 
+                                                    position:"absolute", top:"41%", left:"45%"
+                                                    }} onClick={()=>resetUpload(1)}>
+                                                    <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
+                                                    <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
+                                                    </svg>
+                                                </div>
+                                                : 
+                                                null
+                                            }
+
                                             <input type="file" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="resume-file" style={{visibility:"hidden", width:"0"}} required/>
-                                                {/* 22.05.03 은정 */}
+                                                {/* 업로드 파일 형식과 일치하는 아이콘 , 파일명 22.05.03 은정 */}
                                                 <label htmlFor='resume-file'>
 
                                                 <div className="icon icon1">
-                                                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M40 8.82501H20C17.0313 8.83148 14.1849 10.0085 12.0786 12.1007C9.97241 14.1929 8.77632 17.0314 8.75 20V40C8.77632 42.9686 9.97241 45.8071 12.0786 47.8993C14.1849 49.9915 17.0313 51.1685 20 51.175H40C42.9687 51.1685 45.8151 49.9915 47.9214 47.8993C50.0276 45.8071 51.2237 42.9686 51.25 40V20C51.2237 17.0314 50.0276 14.1929 47.9214 12.1007C45.8151 10.0085 42.9687 8.83148 40 8.82501ZM48.75 40C48.75 42.3207 47.8281 44.5463 46.1872 46.1872C44.5462 47.8281 42.3206 48.75 40 48.75H20C17.6794 48.75 15.4538 47.8281 13.8128 46.1872C12.1719 44.5463 11.25 42.3207 11.25 40V20C11.2698 17.6924 12.2004 15.486 13.8392 13.8613C15.478 12.2365 17.6923 11.3249 20 11.325H40C42.3077 11.3249 44.522 12.2365 46.1608 13.8613C47.7996 15.486 48.7302 17.6924 48.75 20V40Z" fill="#222222"/>
+                                                    {
+                                                        this.state.fileExe === '' ?
+                                                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M40 8.8252H20C17.0313 8.83166 14.1849 10.0087 12.0786 12.1009C9.97241 14.1931 8.77632 17.0316 8.75 20.0002V40.0002C8.77632 42.9688 9.97241 45.8073 12.0786 47.8995C14.1849 49.9917 17.0313 51.1687 20 51.1752H40C42.9687 51.1687 45.8151 49.9917 47.9214 47.8995C50.0276 45.8073 51.2237 42.9688 51.25 40.0002V20.0002C51.2237 17.0316 50.0276 14.1931 47.9214 12.1009C45.8151 10.0087 42.9687 8.83166 40 8.8252ZM48.75 40.0002C48.75 42.3208 47.8281 44.5464 46.1872 46.1874C44.5462 47.8283 42.3206 48.7502 40 48.7502H20C17.6794 48.7502 15.4538 47.8283 13.8128 46.1874C12.1719 44.5464 11.25 42.3208 11.25 40.0002V20.0002C11.2698 17.6926 12.2004 15.4862 13.8392 13.8614C15.478 12.2367 17.6923 11.3251 20 11.3252H40C42.3077 11.3251 44.522 12.2367 46.1608 13.8614C47.7996 15.4862 48.7302 17.6926 48.75 20.0002V40.0002Z" fill="#222222"/>
                                                         <path d="M42.5 18.75H17.5V21.25H42.5V18.75Z" fill="#222222"/>
                                                         <path d="M42.5 28.75H17.5V31.25H42.5V28.75Z" fill="#222222"/>
                                                         <path d="M30 38.75H17.5V41.25H30V38.75Z" fill="#222222"/>
-                                                    </svg>
-                                                    <p className="fileName fileName1">파일 업로드</p>
+                                                        </svg>
+                                                         :
+                                                        this.state.fileExe === '.presentation' ? 
+                                                        <PPT /> :
+                                                        this.state.fileExe === '.document' ?
+                                                        <WORD /> :
+                                                        this.state.fileExe === 'application/pdf' ?
+                                                        <PDF /> :
+                                                        null
+                                                    }
+                                                   
                                                 </div>
+                                                <p className="fileName fileName1">{this.state.fileName}</p>
                                                 </label>
                                                
                                             </div>
@@ -400,29 +518,47 @@ class RecruitList extends Component
                                         <div className="file">
                                             <p className="sub-title">포트폴리오</p>
                                             <div className="box box2">
-                                                <div className="cancelBtn-div">
+
+                                            {this.state.portFolioExe !== "" ?
+                                                <div className="cancelBtn-div" onClick={()=>resetUpload(2)} style={{
+                                                    position:"absolute", top:"41%", left:"91%"
+                                                }}>
                                                     <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
-                                                        <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
+                                                    <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
+                                                    <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
                                                     </svg>
                                                 </div>
+                                                : 
+                                                null
+                                            }
+                                                <input type="file" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="portfolio-file" style={{visibility:"hidden", width:"0"}} required/>
+                                                {/* 업로드 파일 형식과 일치하는 아이콘 , 파일명 22.05.03 은정 */}
+                                                <label htmlFor='portfolio-file'>
+                                                    
+                                                
                                                 <div className="icon icon2">
-                                                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <g clipPath="url(#clip0_263_1095)">
-                                                        <path d="M9.66992 30C9.66992 36.1 12.0931 41.9501 16.4065 46.2635C20.7198 50.5768 26.5699 53 32.6699 53C38.7699 53 44.62 50.5768 48.9334 46.2635C53.2467 41.9501 55.6699 36.1 55.6699 30H9.66992Z" fill="#DC4C2C"/>
-                                                        <path d="M32.6699 7V30H55.6699C55.6699 23.9 53.2467 18.0499 48.9334 13.7365C44.62 9.42321 38.7699 7 32.6699 7V7Z" fill="#F7A278"/>
-                                                        <path d="M32.6699 7C26.5699 7 20.7198 9.42321 16.4065 13.7365C12.0931 18.0499 9.66992 23.9 9.66992 30H32.6699V7Z" fill="#C06346"/>
-                                                        <path d="M26.37 41.67H7C6.46957 41.67 5.96086 41.4593 5.58579 41.0842C5.21071 40.7091 5 40.2004 5 39.67V20.29C5 19.7595 5.21071 19.2508 5.58579 18.8758C5.96086 18.5007 6.46957 18.29 7 18.29H26.37C26.9004 18.29 27.4091 18.5007 27.7842 18.8758C28.1593 19.2508 28.37 19.7595 28.37 20.29V39.71C28.3595 40.2334 28.1442 40.7319 27.7703 41.0984C27.3963 41.4649 26.8936 41.6701 26.37 41.67Z" fill="#9B341F"/>
-                                                        <path d="M17.45 24.18H12V35.85H14.36V31.74H17C18.0609 31.74 19.0783 31.3186 19.8284 30.5684C20.5786 29.8183 21 28.8009 21 27.74V27.67C20.9894 26.7373 20.6101 25.8466 19.9449 25.1927C19.2798 24.5387 18.3828 24.1746 17.45 24.18ZM18.5 28.08C18.5013 28.3194 18.4552 28.5566 18.3642 28.778C18.2732 28.9995 18.1392 29.2006 17.9699 29.3699C17.8006 29.5391 17.5995 29.6732 17.378 29.7642C17.1566 29.8551 16.9194 29.9013 16.68 29.9H14.36V26H16.68C16.9194 25.9987 17.1566 26.0448 17.378 26.1358C17.5995 26.2268 17.8006 26.3608 17.9699 26.5301C18.1392 26.6994 18.2732 26.9005 18.3642 27.1219C18.4552 27.3434 18.5013 27.5806 18.5 27.82V28.08Z" fill="white"/>
-                                                        </g>
-                                                        <defs>
-                                                        <clipPath id="clip0_263_1095">
-                                                        <rect width="50.67" height="46" fill="white" transform="translate(5 7)"/>
-                                                        </clipPath>
-                                                        </defs>
-                                                    </svg>
-                                                    <p className="fileName fileName2">개발자 류상훈 포트폴리오.ppt</p>
+                                                {
+                                                        this.state.portFolioExe === '' ?
+                                                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M40 8.8252H20C17.0313 8.83166 14.1849 10.0087 12.0786 12.1009C9.97241 14.1931 8.77632 17.0316 8.75 20.0002V40.0002C8.77632 42.9688 9.97241 45.8073 12.0786 47.8995C14.1849 49.9917 17.0313 51.1687 20 51.1752H40C42.9687 51.1687 45.8151 49.9917 47.9214 47.8995C50.0276 45.8073 51.2237 42.9688 51.25 40.0002V20.0002C51.2237 17.0316 50.0276 14.1931 47.9214 12.1009C45.8151 10.0087 42.9687 8.83166 40 8.8252ZM48.75 40.0002C48.75 42.3208 47.8281 44.5464 46.1872 46.1874C44.5462 47.8283 42.3206 48.7502 40 48.7502H20C17.6794 48.7502 15.4538 47.8283 13.8128 46.1874C12.1719 44.5464 11.25 42.3208 11.25 40.0002V20.0002C11.2698 17.6926 12.2004 15.4862 13.8392 13.8614C15.478 12.2367 17.6923 11.3251 20 11.3252H40C42.3077 11.3251 44.522 12.2367 46.1608 13.8614C47.7996 15.4862 48.7302 17.6926 48.75 20.0002V40.0002Z" fill="#222222"/>
+                                                        <path d="M42.5 18.75H17.5V21.25H42.5V18.75Z" fill="#222222"/>
+                                                        <path d="M42.5 28.75H17.5V31.25H42.5V28.75Z" fill="#222222"/>
+                                                        <path d="M30 38.75H17.5V41.25H30V38.75Z" fill="#222222"/>
+                                                        </svg>
+                                                         :
+                                                        this.state.portFolioExe === '.presentation' ? 
+                                                        
+                                                        <PPT /> :
+                                                        this.state.portFolioExe === '.document' ?
+                                                        <WORD /> :
+                                                        this.state.portFolioExe === 'application/pdf' ?
+                                                        <PDF /> :
+                                                        null
+                                                    }
+                                                   
                                                 </div>
+                                                <p className="fileName fileName1">{this.state.portFolioName}</p>
+                                                </label>
                                             </div>
                                             <p className="desc">PDF, HWP, Docx, XLS, PPT 형식만 등록 가능, 최대 10MB까지</p>
                                         </div>

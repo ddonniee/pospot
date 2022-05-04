@@ -118,7 +118,6 @@ class Log extends Component
             if(!$(e.target).hasClass('copy')){
                 arrowClose(3);
             }
-            console.log(e.target);
         });
 
         $(".content-logo .linkIcon *").on('click',function(){ 
@@ -231,7 +230,7 @@ class Log extends Component
                                 getLogList.map((data, index) =>{
                                     
                                     return ( 
-                                        <li className="content-box">
+                                        <li className="content-box" key={index}>
                                             <div className="content-pic" onClick={()=>this.openPop(data)}>{/* openPop(data.posting_id) */}
                                                 <div className="pic"><img key={index} src={`https://apipospot.anypot.co.kr/${data.img_path1}`}/></div>
                                                 {

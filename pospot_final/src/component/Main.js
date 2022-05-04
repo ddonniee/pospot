@@ -103,8 +103,94 @@ class Main extends Component
             }
         }
 
-        // window.addEventListener('load', saFunc);
-        // window.addEventListener('scroll', saFunc);
+         // 스크롤 값 확인
+        // 스크롤 값 확인 
+        window.addEventListener('scroll', function(){
+            //    // console.log(window.scrollY)
+            //    console.log($(window).height())
+            //    console.log($(".spacer").offset().top);
+            //     console.log($(".spacer").height())
+             //   let windowheight = $(window).height()
+                let spaceroffset = $(".spacer").offset().top;
+                let spacerheight = $("#txt1section").height()
+                let scrollTop2 = $(window).scrollTop();
+                
+                            
+                let txt2section = $("#txt2section").offset().top;
+                let txt3section = $("#txt3section").offset().top;
+                let txt4section = $("#txt4section").offset().top;
+                let txt5section = $("#txt5section").offset().top;
+                let txt6section = $("#txt6section").offset().top;
+
+   
+                
+                // console.log(parseInt(spaceroffset))
+                // console.log(parseInt(scrollTop2)) 
+    
+                if(scrollTop2 < spacerheight) {
+                    $(".header").attr('style', 'background-color : #EAECF9;');
+                   $("#txt1section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                   $("#txt1section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                }
+
+                // if(parseInt(spacerheight)-300 < parseInt(scrollTop2) ) {          
+                //     console.log("1")         
+                //     $("#parasec1").fadeOut(500, function() {
+                //          $("#parasec2").show()                        
+                //     });                    
+                // } 
+
+                // 수어 이미지 변형 추가 22.05.03 은정
+                
+                if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
+                     $(".header").attr('style', 'background-color : #FFFFFF;');
+                    //$(".header").animate({'background-color' : '#FFFFFF'});
+
+                    $("#txt1section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px opacity: 0;') 
+                    $("#txt1section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                  
+
+                }
+    
+                if(parseInt(txt2section-100) < parseInt(scrollTop2) ) {
+                    $(".header").attr('style', 'background-color : #EAECF9;');
+                    $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(0deg);') 
+                    $("#txt3section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                    $("#txt3section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                }
+
+                if(parseInt(txt3section-100) < parseInt(scrollTop2) ) {                
+                    $(".header").attr('style', 'background-color : #FFFFFF;');
+                    $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(-45deg);') 
+                    $("#txt3section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                    $("#txt3section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                    
+                }
+
+                
+                if(parseInt(txt3section-300) < parseInt(scrollTop2) ) {                
+                
+                    $("#fl1").fadeOut(500, function() {
+                        $("#fl2").show()
+                        
+                   });
+                  
+                }
+
+                if(parseInt(txt4section-100) < parseInt(scrollTop2) ) {                
+                    $(".header").attr('style', 'background-color : #FFFFFF;');
+                }
+
+                if(parseInt(txt5section-100) < parseInt(scrollTop2) ) {                
+                    $(".header").attr('style', 'background-color : #F9F9FD;');
+                  
+                }
+                if(parseInt(txt6section-100) < parseInt(scrollTop2) ) {                
+                    $(".header").attr('style', 'background-color : #FFFFFF;');
+                }
+
+               
+            });
     }
 
     render(){
