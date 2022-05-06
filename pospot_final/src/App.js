@@ -17,11 +17,13 @@ import Log2 from './component/Log2';
 import RecruitList from './component/RecruitList';
 import RecruitView from './component/RecruitView';
 import Contact from './component/Contact';
+import ScrollToTop from './component/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
     <div className="App">
+      <ScrollToTop />
       <Header/>
       <div className="Content">
         <Routes>

@@ -52,6 +52,7 @@ class Log extends Component
     }
     
     openPop(data) {
+        console.log("======check path")
         console.log(data)
 
         const list = [];
@@ -261,8 +262,8 @@ class Log extends Component
                                                     <div className="arrow2" id={"copytxt"+index} style={{position:"absolute",zIndex:"1"}}>
                                                         <div className="window">
                                                             <div className="arrow-box2">
-                                                                <a className="link" href="contact@pospot.kr">http://pospot.kr/log</a>
-                                                                <p className="purple copy" onClick={()=>viewlink2(index)}>복사</p>
+                                                                <a className="link" href="contact@pospot.kr">{this.state.logData[index].link}</a>
+                                                                <p className="purple copy" onClick={()=>viewlink3(this.state.logData[index].link)}>복사</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -478,6 +479,7 @@ class Log extends Component
                                     {/* 블로그 상세보기 링크 복사 22.05.03 은정 */}
                                     <ul className="linkToSocial">
                                         <li className="LinksocialList" value="1"   onClick={()=>viewlink3(this.state.popData.link)}><UrlShare /></li>
+
                                         <a href="https://blog.naver.com/pospot0911" target="_blank"><li className="LinksocialList"><BlogShare /></li></a>
                                         <a href="https://www.facebook.com/pospot.kr" target="_blank"><li className="LinksocialList"><FaceBook /></li></a>
                                         <a href="https://www.instagram.com/pospot_official" target="_blank"><li className="LinksocialList"><InstaLink/></li></a>

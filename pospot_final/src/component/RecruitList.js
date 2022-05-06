@@ -74,6 +74,13 @@ class RecruitList extends Component
              })
              console.log(this.state.recruitLenght)
              console.log(this.state.recruitData)
+             let deadline = moment(this.state.recruitData[0].deadline).add(30,"days")
+             let now = moment();
+            //  let datesDay = dates.getDate();
+             console.log(now)
+             console.log(deadline)
+
+             console.log(now <= deadline)
         })
         .catch((err)=>
         console.log(err)); 
@@ -393,7 +400,7 @@ class RecruitList extends Component
 
                                     {/* 채용공고 리스트 확인하여 분기 22.05.04 은정 */}
                                     <div className="tblType">
-                                        {this.state.recruitLenght==='0' 
+                                        {this.state.recruitLenght===0
                                         ?
                                         <>
                                             <caption>공고 테이블(채용없음)</caption>
@@ -408,6 +415,7 @@ class RecruitList extends Component
                                             </p>
                                             </>
                                             :
+                                            
                                             <div className="section3">
                                     <div className="wrapper">
                                         
