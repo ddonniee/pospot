@@ -17,6 +17,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import $ from 'jquery';
 
+import * as config from '../config'
 // import $ from 'jquery';
 // import ScrollMagic, { Controller, Scene } from 'scrollmagic';
 
@@ -32,7 +33,7 @@ class Main extends Component
     async logList() {
         try {
             //응답 성공
-            const {data} = await axios.get('https://apipospot.anypot.co.kr/front/pospotLogList');
+            const {data} = await axios.get(config.POSPOT_LOG);
             this.setState({logData : data.data, popupShow : false});
 
             //console.log(this.state);
@@ -84,8 +85,6 @@ class Main extends Component
         // 헤더에서 헤더바 색상, 이미지 애니메이션과 같이 처리 22.05.03 은정
         // const hidden = document.querySelector('.section2 .copyDiv.hid1');
         // const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
-
-        
 
         const saFunc = function() {
             for (const element of saElementList) {
@@ -208,6 +207,7 @@ class Main extends Component
             return entrie[1];
         });
 
+        console.log(getLogList, "checking")
         return(
             <div className='Main'>
                 <div className="container" >
@@ -1272,11 +1272,15 @@ class Main extends Component
                                     </Link>
                                 </div>
                                 <div className="img">
-                                    <ul className="content-list">                                    {
-                                        getLogList.map((data, index) => (
+                                    <ul className="content-list">     
+                                    {/* main에서 포스팟로그 리스트 세개만 보여주기 22.05.08 은정*/}
+                                    {getLogList.map((data, index) => (
+                                            index >= 3 ?
+                                            null
+                                            :
                                             <li className="content-box">
                                             <div className="content-pic" onClick={()=>this.openPop(data)}>
-                                                <div className="pic"><img  key={index} src={`https://apipospot.anypot.co.kr/${data.img_path1}`}/></div>
+                                                <div className="pic"><img  key={index} src={config.IMG_PATH+data.img_path1}/></div>
                                                 {
                                                     {
                                                         news : <div className="icon-rt"><News/></div>,
@@ -1293,6 +1297,7 @@ class Main extends Component
                                         </li>
                                         ))
                                     }
+
                                     </ul>
                                 </div>
                             </div>

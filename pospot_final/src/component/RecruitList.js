@@ -12,6 +12,8 @@ import $ from 'jquery';
 import axios from 'axios';
 import moment from 'moment';
 
+import * as config from '../config'
+
 class RecruitList extends Component
 {
     state = {
@@ -61,7 +63,7 @@ class RecruitList extends Component
         });
 
         // 채용공고 리스트 가져오기
-        fetch('https://apipospot.anypot.co.kr/front/recruitList')
+        fetch(config.RECRUIT_LIST)
         .then (res => {
             return res.json();
         })
@@ -74,13 +76,7 @@ class RecruitList extends Component
              })
              console.log(this.state.recruitLenght)
              console.log(this.state.recruitData)
-             let deadline = moment(this.state.recruitData[0].deadline).add(30,"days")
-             let now = moment();
-            //  let datesDay = dates.getDate();
-             console.log(now)
-             console.log(deadline)
 
-             console.log(now <= deadline)
         })
         .catch((err)=>
         console.log(err)); 
@@ -426,7 +422,11 @@ class RecruitList extends Component
                                                     <col width="*"/>
                                                     <col width="20%"/>
                                                 </colgroup>
-                                                {this.state.recruitData.map((data, index) =>{
+                                                {/* 제출 기한 확인하여 프론트에서 차단? 22.05.06 은정 */}
+                                                {this.state.recruitData
+                                                .filter((data)=>moment(data.deadline).add(30,"days")>=moment())
+                                                .map((data, index) =>{
+                                                    
                                                     return (
                                                         <tbody key={index}>
                                                     <tr>
@@ -452,6 +452,7 @@ class RecruitList extends Component
                                                     </tr>
                                                 </tbody>
                                                     )
+                                                    
                                                 })}
                                                 
                                             </table>

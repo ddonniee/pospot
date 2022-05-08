@@ -5,6 +5,18 @@ import $ from 'jquery';
 class Header extends Component
 {
 
+
+    shouldComponentUpdate() {
+            // 외부 클릭시 팝업닫기 22.05.03 은정
+            // pospot log 에서만 안됨 ;ㅁ;
+            
+            $(document).mouseup(function(e) {
+                var OpendOne = e.target;
+                if(OpendOne.hasChildNodes(e.target).length === 0) {
+                    OpendOne.removeClass("show")
+                }
+            })
+    }
     componentDidMount() {
         // 포스팟로그 글 상세보기 팝업
         $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
@@ -226,15 +238,7 @@ class Header extends Component
 
        
 
-            // 외부 클릭시 팝업닫기 22.05.03 은정
 
-            $(document).mouseup(function(e) {
-                var OpendOne = e.target;
-
-                if(OpendOne.hasChildNodes(e.target).length === 0) {
-                    OpendOne.removeClass("show");
-                }
-            })
     }
     
     render(){

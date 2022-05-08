@@ -8,6 +8,8 @@ import { ReactComponent as WORD } from '../resources/svg/word.svg'
 import { ReactComponent as XSLX } from '../resources/svg/xslx.svg'
 import { ReactComponent as PPT } from '../resources/svg/ppt.svg'
 
+import * as config from '../config'
+
 class RecruitView extends Component
 {
     state = {
@@ -38,7 +40,9 @@ class RecruitView extends Component
 
         // 채용공고 디테일 가져오기
         // pathname을 url 값으로 넘겨줘야해 state로 안되나? 22.05.04 은정
-        await fetch(`https://apipospot.anypot.co.kr/front/recruitDetail/${id[page]}`)
+        console.log(id[page], "working?")
+        await fetch(config.RECRUIT_DETAIL+id[page])
+
         
         .then (res => {
             return res.json();
@@ -47,12 +51,13 @@ class RecruitView extends Component
              this.setState({
                 recruitDetail: data.data[0]
                              })
+                             console.log(this.state.recruitDetail[0])
         })
         .catch((err)=>
         console.log(err)); 
 
         // 채용공고 리스트 가져오기
-        fetch('https://apipospot.anypot.co.kr/front/recruitList')
+        fetch(config.RECRUIT_LIST)
         .then (res => {
             return res.json();
         })
@@ -72,8 +77,6 @@ class RecruitView extends Component
     }
     
     componentDidMount() {
-        
-        console.log("did_mount")
         
         $("#show").on('click',function(){ 
             show(); 
@@ -163,7 +166,7 @@ class RecruitView extends Component
                 })
             console.log(this.state.portFolioExe)
         }
-  
+
 
     }
    
@@ -423,7 +426,7 @@ class RecruitView extends Component
                                                 {this.state.recruitData
                                                 .filter((data)=>moment(data.deadline).add(30,"days")>=moment())
                                                 .map((data, index) =>{
-                                                    
+                                                    console.log(data)
                                                     return (
                                                         <tbody key={index}>
                                                     <tr>

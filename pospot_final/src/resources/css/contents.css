@@ -404,8 +404,7 @@
     position: absolute; top: 15px;
     display: flex; align-items: center; justify-content: space-around;
     padding: 13px;
-    width: 300px;
-    height: 56px;
+    /* height: 56px; */
     background: #FFFFFF;
     box-sizing: border-box;
     border-radius: 28px;
@@ -413,7 +412,12 @@
     line-height: 22px;
     letter-spacing: -0.05em;
     box-shadow: 0 2px 20px rgba(229, 229, 229, 0.8);
-    z-index:111111111111
+    z-index:111111111111;
+
+    /* link 길이에 따라 말풍선 크기 조정 22.05.08 은정*/
+    overflow-x: hidden;
+    width: auto;
+    height: auto;
 }
 .arrow-box2:after {
     position: absolute;
@@ -432,7 +436,9 @@
     margin-left: -20px;
 }
 .arrow-box2 .copy {
-    text-decoration: underline; text-underline-position: under;
+    text-decoration: underline; text-underline-position: under; 
+    /* link 길이에 따라 말품선크기 조정 22.05.08 은정 */
+    width: 27px; padding-left: 43px;
 }
 .show .arrow-box2,
 .show .arrow-box2:after,

@@ -23,13 +23,16 @@ import { Carousel } from 'react-responsive-carousel';
 
 import {UrlShare, BlogShare, FaceBook,InstaLink} from '../resources/svg/blog.icon'
 
+import * as config from '../config'
+
 class Log extends Component
 {
     state = {
         logData : [],
         popupShow : false,
         popData : {},
-        popImages : []
+        popImages : [],
+        cutUrl: '',
     };
 
     constructor(props) {
@@ -39,7 +42,7 @@ class Log extends Component
     async logList() {
         try {
             //응답 성공
-            const {data} = await axios.get('https://apipospot.anypot.co.kr/front/pospotLogList');
+            const {data} = await axios.get(config.POSPOT_LOG);
             this.setState({logData : data.data, popupShow : false});
 
             console.log(this.state); // state에 포스팟로그 data 객체배열 담김
@@ -52,9 +55,6 @@ class Log extends Component
     }
     
     openPop(data) {
-        console.log("======check path")
-        console.log(data)
-
         const list = [];
         if( data.img_path1 && data.img_path1.length > 0 )
             list.push(data.img_path1);
@@ -153,6 +153,7 @@ class Log extends Component
             $(".arrow"+num).removeClass("show");
         }
 
+        
         // 링크 복사 함수
         // function copyToClipboard(val) {
         //     console.log("")
@@ -175,9 +176,10 @@ class Log extends Component
             return entrie[1];
         });
 
-        function viewlink(numid) {
+        function viewlink(numid, url) {
             //console.log(numid)
             $("#"+numid).attr("class","arrow2 show");
+            // shortenUrl(url);
         }
 
         function viewlink2(numid) {
@@ -212,8 +214,21 @@ class Log extends Component
                 $(".arrow4").removeClass("show");
             },1000)
         }
+        // url 글자 46자 이상이면 ... 붙이기 22.05.08 은정
 
-       
+        // function shortenUrl(url){
+        //     console.log(url,"checking params")
+        //         let spell = '';
+        //         for(let i=0; i<46; i++) {
+        //             spell += url.charAt(i);
+        //         }
+        //         spell += '...'
+        //         this.setState({
+        //             cutUrl:spell,
+        //         })
+        // }
+
+        console.log(this.state.popData, "popdata")
 
         return(
             <div className='Log'>
@@ -248,21 +263,25 @@ class Log extends Component
                                                 <p className="desc">{data.content}</p>
                                                 <p className="info">{moment(data.create_date).format('YYYY.M.DD')}<span>|</span>{data.category_name}</p>
                                                 <div className="content-logo">
-                                                    <div className='linkIcon' onClick={()=>viewlink("copytxt"+index)} ><Share/></div>
+                                                    {data.link !== null ?
+                                                    
+                                                    <div className='linkIcon' onClick={()=>viewlink("copytxt"+index,this.state.logData[index].link )} ><Share/></div>
+                                                    : 
+                                                    null }
                                                     {
-                                                        data.blog_link === 1 && <a href="https://blog.naver.com/pospot0911" target={"_blank"}><Blog/></a>
+                                                        data.blog_link === 1 && <a href={data.link} target={"_blank"}><Blog/></a>
                                                     }
                                                     {
-                                                        data.facebook_link === 1 && <a href="https://www.facebook.com/pospot.kr" target={"_blank"}><Facebook/></a>
+                                                        data.facebook_link === 1 && <a href={data.facebook_link} target={"_blank"}><Facebook/></a>
                                                     }
                                                     {
-                                                        data.instagram_link === 1 && <a href="https://www.instagram.com/pospot_official" target={"_blank"}><Insta/></a>
+                                                        data.instagram_link === 1 && <a href={data.instagram_link} target={"_blank"}><Insta/></a>
                                                     }
                                                     
                                                     <div className="arrow2" id={"copytxt"+index} style={{position:"absolute",zIndex:"1"}}>
                                                         <div className="window">
                                                             <div className="arrow-box2">
-                                                                <a className="link" href="contact@pospot.kr">{this.state.logData[index].link}</a>
+                                                                <p className="link">{this.state.logData[index].link}</p>
                                                                 <p className="purple copy" onClick={()=>viewlink3(this.state.logData[index].link)}>복사</p>
                                                             </div>
                                                         </div>
@@ -478,11 +497,22 @@ class Log extends Component
 
                                     {/* 블로그 상세보기 링크 복사 22.05.03 은정 */}
                                     <ul className="linkToSocial">
+                                        {this.state.popData.link !== null ?
                                         <li className="LinksocialList" value="1"   onClick={()=>viewlink3(this.state.popData.link)}><UrlShare /></li>
-
-                                        <a href="https://blog.naver.com/pospot0911" target="_blank"><li className="LinksocialList"><BlogShare /></li></a>
-                                        <a href="https://www.facebook.com/pospot.kr" target="_blank"><li className="LinksocialList"><FaceBook /></li></a>
-                                        <a href="https://www.instagram.com/pospot_official" target="_blank"><li className="LinksocialList"><InstaLink/></li></a>
+                                        :
+                                        null }
+                                        {this.state.popData.blog_link === 0 ?
+                                        null :
+                                        <a href={this.state.popData.blog_link} target="_blank"><li className="LinksocialList"><BlogShare /></li></a>
+                                        }
+                                        {this.state.popData.facebook_link === 0 ?
+                                        null :
+                                        <a href={this.state.popData.facebook_link} target="_blank"><li className="LinksocialList"><FaceBook /></li></a>
+                                        }
+                                        {this.state.popData.instagram_link === 0 ?
+                                        null :
+                                        <a href={this.state.popData.instagram_link} target="_blank"><li className="LinksocialList"><InstaLink/></li></a>
+                                        }
                                     
                                     {/* <PopShare url={address} classtxt={schedule.id}  /> */}
                                     
