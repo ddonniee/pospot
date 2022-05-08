@@ -1383,7 +1383,7 @@ class Main extends Component
                                     >
                                         { this.state.popImages && this.state.popImages.map( img => 
                                         <div>
-                                            <img key='img_path1' src={`https://apipospot.anypot.co.kr/${img}`}/>                                                
+                                            <img key='img_path1' src={config.IMG_PATH+img}/>                                                
                                         </div>) }                                          
                                         
                                     </Carousel>

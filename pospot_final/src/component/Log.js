@@ -248,7 +248,7 @@ class Log extends Component
                                     return ( 
                                         <li className="content-box" key={index}>
                                             <div className="content-pic" onClick={()=>this.openPop(data)}>{/* openPop(data.posting_id) */}
-                                                <div className="pic"><img key={index} src={`https://apipospot.anypot.co.kr/${data.img_path1}`}/></div>
+                                                <div className="pic"><img key={index} src={config.IMG_PATH+data.img_path1}/></div>
                                                 {
                                                     {
                                                         news : <div className={index%2 ? `icon-ld`: `icon-rt`}><News/></div>,
@@ -382,7 +382,7 @@ class Log extends Component
                                         >
                                             { this.state.popImages && this.state.popImages.map( img => 
                                             <div>
-                                                <img key='img_path1' src={`https://apipospot.anypot.co.kr/${img}`}/>                                                
+                                                <img key='img_path1' src={config.IMG_PATH+img}/>                                                
                                             </div>) }                                          
                                             
                                         </Carousel>
