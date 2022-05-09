@@ -115,13 +115,57 @@
     font-size: 32px;
     line-height: 38px;
 }
+
+/* 반응형 22.05.03 원은정 */
+
+@media only screen and (max-width: 1900px){
+    .main .section1 .box {
+        width: 400px; height: 400px;
+    }
+}
+@media only screen and (max-width: 1780px){
+    .main .section1 .box {
+        width: 370px; height: 370px; margin: 0px 50px;
+    }
+    .main .section1 .main-title {
+        font-size: 55px; line-height: 68px;
+    }
+    .main .section1 .sub-title {
+        font-size: 29px; line-height: 30px;
+    }
+}
+@media only screen and (max-width: 1630px){
+    .main .section1 .box {
+        width: 330px; height: 330px;
+    }
+    .main .section1 .main-title {
+        font-size: 51px; line-height: 64px;
+    }
+    .main .section1 .sub-title {
+        font-size: 27px; line-height: 22px;
+    }
+}
+@media only screen and (max-width: 1520px){
+    .main .section1 .box {
+        width: 300px; height: 300px
+    }
+    .main .section1 .main-title {
+        font-size: 46px; line-height: 60px;
+    }
+    .main .section1 .sub-title {
+        font-size: 25px; line-height: 16px;
+    }
+}
+
+
 .main .section2 {
     height: 1140px; background: #FFFFFF; padding: 1px; 
     /* transition: all ease 2s; */
 }
 
 .main .section2 .section2_desc p {
-    transition: all ease 1s;;
+    transition: all ease 1s;
+    transition-duration: 2s;
 }
 .main .section2 .section2_desc p:first-child
 {
@@ -137,26 +181,6 @@
     margin-bottom: 260px; font-weight: 700; font-size: 34px; line-height: 60px; 
    letter-spacing: -0.02em;
 }
-
-/* 
-은정 테스트
-
-.main .section2 .copyDiv p {
-    transition: all ease 1s;
-}
-.main .section2 .copyDiv {
-    margin-top: 300px; margin-bottom: 260px; font-weight: 700; font-size: 34px; line-height: 60px;
-   letter-spacing: -0.02em;
-}
-.main .section2 .copyDiv2 p {
-    transition: all ease 1s; display: none;
-}
-.main .section2 .copyDiv2 {
-    margin-top: 300px; margin-bottom: 260px; font-weight: 700; font-size: 34px; line-height: 60px;
-    letter-spacing: -0.02em;
-}
-
-*/
 
 .main .section2 .imgDiv {
     width: 100%;
@@ -225,6 +249,24 @@
 .main .section3 .list .dt {
     width: 83px;
 }
+
+/* 반응형 22.05.03 원은정 */
+
+@media only screen and (max-width: 1600px){
+    .main .section3 .left {
+        margin-right: 141px;
+    }
+    .main .section3 .main-title {
+        font-size: 52px; line-height: 80px;
+    }
+    .main .section3 .sub-title {
+        font-size: 24px; line-height: 38px; margin-top: 40px;
+    }
+    .main .section3 .list * {
+        display: inline; font-size: 20px; line-height: 32px;
+    }
+}
+
 .main .section4 {
     height: 1460px; background: #F9F9FD; padding: 1px; text-align: center;
 }
@@ -309,6 +351,31 @@
     z-index: 99999999999;
 }
 
+/* 반응형 22.05.03 원은정 */
+
+@media only screen and (max-width: 1620px) {
+
+    .main .section5 {
+        width: 90%; max-width: 1448px; margin: 0 auto;
+    }
+    .main .section5 .content-list .content-box {
+        width: 400px; height: 440px;
+    }
+    .main .section5 .content-list .content-box:not(:last-child) {
+        margin-right: 64px;
+    }
+    .main .section5 .content-pic .pic {
+        position: static; width: 100%; height: 400px; left: 0px; top: 0px; background: #C4C4C4; 
+        border-radius: 44px; background-color: lightgray; overflow: hidden;
+    }
+    .main .section5 .content-pic .pic img {
+        width: 100%; height: 100%; object-fit: cover;
+    }
+    .main .section5 .content-pic .icon-rt {
+        position: absolute; top: 55px; left: 310px;
+    }
+}
+
 @media only screen and (max-device-width: 1620px){
     .main .imsitxt {
     display: hidden;
@@ -323,6 +390,7 @@
     margin-left:-100px;
     }   
 }
+
 /**
 포스팟 로그_list
 **/
@@ -586,15 +654,20 @@ div[class|=recruit] .joinBtn {
 /**
 제휴 및 문의
 **/
+
+/* 22.05.03 원은정 */
 .contact .section1 {
-    background-color:#cdbaf2;height:660px;
-    /* width:1920px; */
+    background-color:#cdbaf2; /*width:1920px;*/ width: 100%; height:660px; position: relative;
+}
+.contact .section1 svg {
+    position: absolute; left: 50%; bottom: 0px; transform: translateX(-50%);
 }
 @media only screen and (max-device-width: 480px){
     .contact .section1 {
-        background-color:#cdbaf2;width:100%;height:600px;
+        background-color:#cdbaf2; width:100%; height:600px;
     }
 }
+
 .contact .section2 {
     background-color: #FAFAFB; padding: 100px 0px;
 }
@@ -645,6 +718,51 @@ div[class|=recruit] .joinBtn {
     margin-top: 40px;
 }
 
+/* 반응형 22.05.03 원은정 */
+
+@media only screen and (max-width: 1600px) {
+    .contact .section2 .content-list .content-box {
+        width: 248px; height: 354px; margin: 6px;
+    }
+    .contact .section2 .content-list .content {
+        margin-left: 22px; margin-top: 38px;
+    }
+    .contact .section2 .content-list .icon svg {
+        width: 50px; height: 50px;
+    }
+    .contact .section2 .content-list .text1 {
+        font-size: 24px; line-height: 32px; margin-top: 24px;
+    }
+    .contact .section2 .content-list .text2 {
+        font-size: 14px; line-height: 22px;
+    }
+    .contact .section2 .content-list .icon2 {
+        margin-top: 60px;
+    }
+    .contact .section3 .map-box {
+        width: 1040px; height: 400px;
+    }
+    .contact .section3 .map {
+        position: absolute; top: 0; left: -13%;
+    }
+    .contact .section3 .info .text1 {
+        font-size: 20px; line-height: 24px; margin-bottom: 6px;
+    }
+    .contact .section3 .info .text2 {
+        font-size: 17px; line-height: 29px; color: #444444;
+    }
+    .contact .section3 .info span {
+        line-height: 18px; color: #C4C4C8; margin: 0 8px;
+    }
+    .contact .section3 .infoBtn {
+        width: 104px; height: 40px; border: 1px solid #222222; box-sizing: border-box; border-radius: 25px;
+        margin-top: 40px; font-weight: 600; font-size: 16px; line-height: 20px;
+    }
+    .contact .section3 .tel {
+        margin-top: 40px;
+    }
+}
+
 /**
 팝업
 **/
@@ -688,6 +806,7 @@ div[class|=recruit] .joinBtn {
 .closeBtn {
     position: absolute; top: 0%; left: 102%;
 }
+
 
 /* 포스팅 링크 22.05.02 by은정 */
 .linkToSocial {
@@ -889,3 +1008,16 @@ div[class|=recruit] .joinBtn {
     opacity: 1;
     transform: none;
 }
+
+/* 22.05.03 원은정 */
+/* 메인 수어 손모양 회전 */
+.rttr45 {
+    animation: rotate_imageR 1s linear;
+    animation-fill-mode: forwards;
+}
+.rttl45 {
+    animation: rotate_imageL 1s linear;
+    animation-fill-mode: forwards;
+}
+@keyframes rotate_imageR{ 100% { transform: rotate(45deg); } }
+@keyframes rotate_imageL{ 100% { transform: rotate(-45deg); } }

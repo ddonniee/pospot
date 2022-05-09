@@ -34,16 +34,17 @@ class RecruitView extends Component
         const id = url.split("/")
         const page = id.length-1;
         this.setState({
-            id: id[page]
+            id: id[page],
         })
         //const pathValue
 
         // 채용공고 디테일 가져오기
         // pathname을 url 값으로 넘겨줘야해 state로 안되나? 22.05.04 은정
         console.log(id[page], "working?")
+        console.log(this.state.id)
         await fetch(config.RECRUIT_DETAIL+id[page])
-
-        
+        // await fetch(config.RECRUIT_DETAIL+id[this.state.id])
+       
         .then (res => {
             return res.json();
         })
@@ -51,7 +52,6 @@ class RecruitView extends Component
              this.setState({
                 recruitDetail: data.data[0]
                              })
-                             console.log(this.state.recruitDetail[0])
         })
         .catch((err)=>
         console.log(err)); 
@@ -68,7 +68,6 @@ class RecruitView extends Component
                  recruitData:data.data,
                  recruitLenght:data.data.length
              })
-             console.log(this.state.recruitLenght)
              console.log(this.state.recruitData)
         })
         .catch((err)=>
@@ -191,7 +190,7 @@ class RecruitView extends Component
         }
 
         
-
+        console.log(this.state.recruitDetail, "detail")
         return(
             <div className='RecruitView'>
                 <div className="top-div"></div>
@@ -212,19 +211,19 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">담당업무</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_1}</p>
-                                {this.state.recruitDetail.task_2 === null 
+                                {this.state.recruitDetail.task_2 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_2}</p>
                                 : null }
-                                {this.state.recruitDetail.task_3 === null 
+                                {this.state.recruitDetail.task_3 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_3}</p>
                                 : null }
-                                {this.state.recruitDetail.task_4 === null 
+                                {this.state.recruitDetail.task_4 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_4}</p>
                                 : null }
-                                {this.state.recruitDetail.task_5 === null 
+                                {this.state.recruitDetail.task_5 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.task_5}</p>
                                 : null }
@@ -232,19 +231,19 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">자격요건</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_1}</p>
-                                {this.state.recruitDetail.spec_2 === null 
+                                {this.state.recruitDetail.spec_2 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_2}</p>
                                 : null}
-                                {this.state.recruitDetail.spec_3 === null 
+                                {this.state.recruitDetail.spec_3 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_3}</p>
                                 : null}
-                                {this.state.recruitDetail.spec_4 === null 
+                                {this.state.recruitDetail.spec_4 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_4}</p>
                                 : null}
-                                {this.state.recruitDetail.spec_5 === null 
+                                {this.state.recruitDetail.spec_5 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.spec_5}</p>
                                 : null }
@@ -253,19 +252,19 @@ class RecruitView extends Component
                                 <p className="box-title">우대사항</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_1}</p>
                                
-                                {this.state.recruitDetail.prefer_2 === null 
+                                {this.state.recruitDetail.prefer_2 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_2}</p>
                                 : null}
-                                {this.state.recruitDetail.prefer_3 === null 
+                                {this.state.recruitDetail.prefer_3 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_3}</p>
                                 : null}
-                                {this.state.recruitDetail.prefer_4 === null 
+                                {this.state.recruitDetail.prefer_4 !== "" 
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_4}</p>
                                 : null}
-                                {this.state.recruitDetail.prefer_5 === null 
+                                {this.state.recruitDetail.prefer_5 !== ""  
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.prefer_5}</p>
                                 : null}

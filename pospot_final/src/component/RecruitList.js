@@ -21,10 +21,10 @@ class RecruitList extends Component
         fileName : "파일 업로드",
         portFolioExe : "",
         portFolioName : "포트폴리오",
-
+        
         // 채용페이지
         recruitData : [],
-        recruitLenght : 0
+        recruitLenght : 0,
     }
        async componentDidMount() {
         // 채용공고 입사지원 팝업
@@ -81,6 +81,7 @@ class RecruitList extends Component
         .catch((err)=>
         console.log(err)); 
 
+        console.log(this.state.recruitData)
 
         // 팝업 div 오픈/닫기 함수
         function show() {

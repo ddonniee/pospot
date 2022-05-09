@@ -176,15 +176,14 @@ class Log extends Component
             return entrie[1];
         });
 
-        function viewlink(numid, url) {
-            //console.log(numid)
+        function viewlink(numid) {
             $("#"+numid).attr("class","arrow2 show");
-            // shortenUrl(url);
         }
 
-        function viewlink2(numid) {
-            //console.log(numid)
+        function viewlink2(numid,url) {
+            console.log(numid, url)
             $("#copytxt2"+numid).attr("class","arrow3 show");
+            console.log($('#copytxt2'+numid));
         }
 
         // 블로그 상세보기 url 복사 22.05.02 by은정 //
@@ -212,7 +211,7 @@ class Log extends Component
             // url 복사 완료시 해당 창 자동 종료 22.05.03 은정
             setTimeout(function() {
                 $(".arrow4").removeClass("show");
-            },1000)
+            },2000)
         }
         // url 글자 46자 이상이면 ... 붙이기 22.05.08 은정
 
@@ -282,7 +281,7 @@ class Log extends Component
                                                         <div className="window">
                                                             <div className="arrow-box2">
                                                                 <p className="link">{this.state.logData[index].link}</p>
-                                                                <p className="purple copy" onClick={()=>viewlink3(this.state.logData[index].link)}>복사</p>
+                                                                <p className="purple copy" onClick={()=>viewlink2("copytxt2"+index, this.state.logData[index].link)}>복사</p>
                                                             </div>
                                                         </div>
                                                     </div>

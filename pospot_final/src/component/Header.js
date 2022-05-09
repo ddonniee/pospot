@@ -62,6 +62,11 @@ class Header extends Component
 
         // 헤더 클릭 시 메뉴 밑줄
         $(".header li a, .logo, .goLog").on('click', function(){
+
+            let pathname = window.location.pathname;
+            let url = pathname.split('/');
+            
+
             if($(this).hasClass('intro') || $(this).hasClass('logo')) {
                 $(".header").attr('style', 'background-color : transparent;');
                 $(".top-div").attr('style', 'background-color : #EAECF9;');
@@ -118,8 +123,7 @@ class Header extends Component
         
         $(".top-nav > .menu > ul > li").on("click", function() {
             //$(document).ready(function() {
-
-           console.log()
+           
                 
                 // if(url==="/") {
                    

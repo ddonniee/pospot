@@ -19,7 +19,10 @@ import RecruitView from './component/RecruitView';
 import Contact from './component/Contact';
 import ScrollToTop from './component/ScrollToTop';
 
+
 function App() {
+
+  
   return (
     <BrowserRouter>
     <div className="App">
