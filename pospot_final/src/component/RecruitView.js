@@ -318,19 +318,19 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">근무조건</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_1}</p>
-                                {this.state.recruitDetail.working_conditions_2 !== null
+                                {this.state.recruitDetail.working_conditions_2 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_2}</p>
                                 : null }
-                                 {this.state.recruitDetail.working_conditions_3 === null
+                                 {this.state.recruitDetail.working_conditions_3 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_3}</p>
                                 : null }
-                                {this.state.recruitDetail.working_conditions_4 === null
+                                {this.state.recruitDetail.working_conditions_4 !== ""
                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_4}</p>
                                 : null }
-                                {this.state.recruitDetail.working_conditions_5 === null
+                                {this.state.recruitDetail.working_conditions_5 !== ""
                                ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.working_conditions_5}</p>
                                 : null}
@@ -338,19 +338,19 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">유의사항</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_1}</p>
-                                {this.state.recruitDetail.notice_2 === null
+                                {this.state.recruitDetail.notice_2 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_2}</p>
                                 : null}
-                                {this.state.recruitDetail.notice_3 === null
+                                {this.state.recruitDetail.notice_3 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_3}</p>
                                 : null}
-                                {this.state.recruitDetail.notice_4 === null
+                                {this.state.recruitDetail.notice_4 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_4}</p>
                                 : null}
-                                {this.state.recruitDetail.notice_5 === null
+                                {this.state.recruitDetail.notice_5 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.notice_5}</p>
                                 : null }
@@ -358,19 +358,19 @@ class RecruitView extends Component
                             <div className="content-box">
                                 <p className="box-title">접수기간/방법</p>
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_1}</p>
-                                {this.state.recruitDetail.receiving_2 === null
+                                {this.state.recruitDetail.receiving_2 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_2}</p>
                                 : null}
-                                {this.state.recruitDetail.receiving_3 === null
+                                {this.state.recruitDetail.receiving_3 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_3}</p>
                                 : null}
-                                {this.state.recruitDetail.receiving_4 === null
+                                {this.state.recruitDetail.receiving_4 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_4}</p>
                                 : null}
-                                {this.state.recruitDetail.receiving_5 === null
+                                {this.state.recruitDetail.receiving_5 !== ""
                                 ?
                                 <p className="desc"><span className="dot">·&nbsp;</span>{this.state.recruitDetail.receiving_5}</p>
                                 : null}
