@@ -10,7 +10,9 @@ class Header extends Component
             // 외부 클릭시 팝업닫기 22.05.03 은정
             // pospot log 에서만 안됨 ;ㅁ;
             
-            $(document).mouseup(function(e) {
+            // 다른 메뉴에 hover 시에 꺼지게하기
+            
+            $(document).mouseon(function(e) {
                 var OpendOne = e.target;
                 if(OpendOne.hasChildNodes(e.target).length === 0) {
                     OpendOne.removeClass("show")

@@ -17,8 +17,8 @@ class RecruitView extends Component
         fileName : "파일 업로드",
         portFolioExe : "",
         portFolioName : "포트폴리오",
-        
         id : null,
+        temp:"null",
         recruitDetail: [],
         recruitData: [],
         recruitLenght: 0,
@@ -33,28 +33,13 @@ class RecruitView extends Component
         const url = window.location.pathname;
         const id = url.split("/")
         const page = id.length-1;
+
         this.setState({
             id: id[page],
         })
-        //const pathValue
-
         // 채용공고 디테일 가져오기
         // pathname을 url 값으로 넘겨줘야해 state로 안되나? 22.05.04 은정
-        console.log(id[page], "working?")
-        console.log(this.state.id)
-        await fetch(config.RECRUIT_DETAIL+id[page])
-        // await fetch(config.RECRUIT_DETAIL+id[this.state.id])
-       
-        .then (res => {
-            return res.json();
-        })
-        .then (data => {
-             this.setState({
-                recruitDetail: data.data[0]
-                             })
-        })
-        .catch((err)=>
-        console.log(err)); 
+        
 
         // 채용공고 리스트 가져오기
         fetch(config.RECRUIT_LIST)
@@ -68,15 +53,28 @@ class RecruitView extends Component
                  recruitData:data.data,
                  recruitLenght:data.data.length
              })
-             console.log(this.state.recruitData)
         })
         .catch((err)=>
         console.log(err));
 
     }
     
-    componentDidMount() {
+     componentDidUpdate() {
         
+         fetch(config.RECRUIT_DETAIL+this.state.id)
+        // await fetch(config.RECRUIT_DETAIL+id[this.state.id])
+       
+        .then (res => {
+            return res.json();
+        })
+        .then (data => {
+             this.setState({
+                recruitDetail: data.data[0]
+                             })
+        })
+        .catch((err)=>
+        console.log(err));     
+
         $("#show").on('click',function(){ 
             show(); 
         });
@@ -109,6 +107,7 @@ class RecruitView extends Component
             });
         });
 
+      
         // 팝업 div 오픈/닫기 함수
         function show() {
             $(".background").addClass("show");
@@ -168,9 +167,10 @@ class RecruitView extends Component
 
 
     }
+
    
     render(){
-        console.log("render")
+        
         const resetUpload=(num)=> {
             
             if(num===1) {
@@ -189,8 +189,14 @@ class RecruitView extends Component
         
         }
 
-        
-        console.log(this.state.recruitDetail, "detail")
+      const resetPage=(data)=> {
+         
+        this.setState({
+            id:data,
+        })
+        window.scrollTo(0,0);
+      }
+     
         return(
             <div className='RecruitView'>
                 <div className="top-div"></div>
@@ -425,19 +431,22 @@ class RecruitView extends Component
                                                 {this.state.recruitData
                                                 .filter((data)=>moment(data.deadline).add(30,"days")>=moment())
                                                 .map((data, index) =>{
-                                                    console.log(data)
                                                     return (
                                                         <tbody key={index}>
                                                     <tr>
                                                         <td>
-                                                            <Link to={{
+                                                            <div className='onAnotherRecruit'onClick={()=>resetPage(data.recruit_id)} >
+                                                                <p className="field">{data.recruit_title}</p><br/>
+                                                            </div>
+
+                                                            {/* <Link to={{
                                                                 pathname:`/recruit/detail/${data.recruit_id}`,
                                                                 state: {
                                                                     test:'aaa'
                                                                 }}
                                                             }>
                                                                 <p className="field">{data.recruit_title}</p><br/>
-                                                            </Link>
+                                                            </Link> */}
                                                             {/* <Link to="/recruit/detail">
                                                                 <p className="field">{data.recruit_title}</p><br/>
                                                             </Link> */}

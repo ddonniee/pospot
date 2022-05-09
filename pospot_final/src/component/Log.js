@@ -27,25 +27,32 @@ import * as config from '../config'
 
 class Log extends Component
 {
-    state = {
-        logData : [],
-        popupShow : false,
-        popData : {},
-        popImages : [],
-        cutUrl: '',
-    };
+    
 
     constructor(props) {
         super(props);
     }
 
+    state = {
+        logData : [],
+        popupShow : false,
+        popData : {},
+        popImages : [],
+        
+    };
+
+  
     async logList() {
         try {
+            
             //응답 성공
             const {data} = await axios.get(config.POSPOT_LOG);
+            console.log(data.data,"data")
+            data.data.map((key,index)=>{
+                key.width = data.width[0].imgWidth
+            })
             this.setState({logData : data.data, popupShow : false});
-
-            console.log(this.state); // state에 포스팟로그 data 객체배열 담김
+            console.log(this.state,"state"); // state에 포스팟로그 data 객체배열 담김
             
           } catch (error) {
             //응답 실패
@@ -54,35 +61,92 @@ class Log extends Component
         
     }
     
-    openPop(data) {
-        const list = [];
-        if( data.img_path1 && data.img_path1.length > 0 )
-            list.push(data.img_path1);
-        if( data.img_path2 && data.img_path2.length > 0 )
-            list.push(data.img_path2);
-        if( data.img_path3 && data.img_path3.length > 0 )
-            list.push(data.img_path3);
-        if( data.img_path4 && data.img_path4.length > 0 )
-            list.push(data.img_path4);
-        if( data.img_path5 && data.img_path5.length > 0 )
-            list.push(data.img_path5);
-        if( data.img_path6 && data.img_path6.length > 0 )
-            list.push(data.img_path6);
+    // img width 값 추가
+    // openPop(data) {
+    //     console.log(data)
+    //     const list = [];
+    //     if( data.img_path1 && data.img_path1.length > 0 )
+    //         var img_info1 = {path : data.img_path1, width:data.width};
+    //         list.push(img_info1);
+    //         // list.push(data.img_path1);
+    //     if( data.img_path2 && data.img_path2.length > 0 )
+    //         var img_info2 = {path : data.img_path2, width:data.width};
+    //         list.push(img_info2);
+    //     if( data.img_path3 && data.img_path3.length > 0 )
+    //         var img_info3 = {path : data.img_path3, width:data.width};
+    //         list.push(img_info3);
+    //     if( data.img_path4 && data.img_path4.length > 0 )
+    //         var img_info4 = {path : data.img_path4, width:data.width};
+    //         list.push(img_info4);
+    //     if( data.img_path5 && data.img_path5.length > 0 )
+    //         var img_info5 = {path : data.img_path5, width:data.width};
+    //         list.push(img_info5);
+    //     if( data.img_path6 && data.img_path6.length > 0 )
+    //         var img_info6 = {path : data.img_path6, width:data.width};
+    //         list.push(img_info6);
+       
+        
+    //     this.setState(preState => ({
+    //         popupShow : true,
+    //         popData : data,
+    //         popImages: list
+    //     }));
+    // }
 
+    
+
+    openPop(data) {
+        //console.table(data)
+        const list = [];
+        if( data.img_path1 && data.img_path1.length > 0 ) {
+            var img_info1 = {path : data.img_path1, width:data.width};
+            list.push(img_info1);
+        } 
+            // list.push(data.img_path1);
+        if( data.img_path2 && data.img_path2.length > 0 ) {
+            var img_info2 = {path : data.img_path2, width:data.width};
+            list.push(img_info2);
+        } else {
+                var img_info2 = {path : "", width:""};
+                list.push(img_info2);
+        }
+        if( data.img_path3 && data.img_path3.length > 0 ) {
+            var img_info3 = {path : data.img_path3, width:data.width};
+            list.push(img_info3);
+        }else {
+            var img_info3 = {path : "", width:""};
+            list.push(img_info3);
+        }
+        if( data.img_path4 && data.img_path4.length > 0 ) {
+            var img_info4 = {path : data.img_path4, width:data.width};
+            list.push(img_info4);
+        }else {
+            var img_info4 = {path : "", width:""};
+            list.push(img_info4);
+        }
+        if( data.img_path5 && data.img_path5.length > 0 ) {
+            var img_info5 = {path : data.img_path5, width:data.width};
+            list.push(img_info5);
+        }else {
+            var img_info5 = {path : "", width:""};
+            list.push(img_info5);
+        }
+        if( data.img_path6 && data.img_path6.length > 0 ) {
+            var img_info6 = {path : data.img_path6, width:data.width};
+            list.push(img_info6);
+        }else {
+            var img_info6 = {path : "", width:""};
+            list.push(img_info6);
+        }
+       
+           
         this.setState(preState => ({
             popupShow : true,
             popData : data,
             popImages: list
         }));
-
-
-        // return(
-            
-        // )
-            
     }
 
-    
 
     componentDidMount() {
         this.logList();
@@ -171,7 +235,6 @@ class Log extends Component
     render(){
 
 
-
         const getLogList = Object.entries(this.state.logData).map((entrie) => {
             return entrie[1];
         });
@@ -226,9 +289,6 @@ class Log extends Component
         //             cutUrl:spell,
         //         })
         // }
-
-        console.log(this.state.popData, "popdata")
-
         return(
             <div className='Log'>
                 <div className="top-div"></div>
@@ -243,7 +303,6 @@ class Log extends Component
                             <ul className="content-list">
                             {
                                 getLogList.map((data, index) =>{
-                                    
                                     return ( 
                                         <li className="content-box" key={index}>
                                             <div className="content-pic" onClick={()=>this.openPop(data)}>{/* openPop(data.posting_id) */}
@@ -379,10 +438,26 @@ class Log extends Component
                                             
                                             
                                         >
-                                            { this.state.popImages && this.state.popImages.map( img => 
+                                            { this.state.popImages && this.state.popImages.map((img,index) => 
+                                            img.path !== ''
+                                            ?
                                             <div>
-                                                <img key='img_path1' src={config.IMG_PATH+img}/>                                                
-                                            </div>) }                                          
+                                                {img.width < 1920 
+                                                ?
+                                                <img key={`img_path`+index} src={config.IMG_PATH+img.path} style={{
+                                                    padding: "64px",
+                                                    width: "100%"
+                                                }}/> 
+                                                :
+                                                <img key={`img_path`+index} src={config.IMG_PATH+img.path} style={{
+                                                    padding: "none",
+                                                    width:"100%",
+                                                }}/>
+                                                }                                            
+                                            </div>
+                                            :
+                                            null
+                                            ) }                                          
                                             
                                         </Carousel>
                                             

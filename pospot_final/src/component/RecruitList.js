@@ -74,14 +74,10 @@ class RecruitList extends Component
                  recruitData:data.data,
                  recruitLenght:data.data.length
              })
-             console.log(this.state.recruitLenght)
-             console.log(this.state.recruitData)
 
         })
         .catch((err)=>
         console.log(err)); 
-
-        console.log(this.state.recruitData)
 
         // 팝업 div 오픈/닫기 함수
         function show() {
@@ -167,6 +163,9 @@ class RecruitList extends Component
         
         }
        
+        console.log("서버에 입력된 채용공고 list")
+        console.log(this.state.recruitData)
+
         return(
             <div className='RecruitList'>
                 <div className="top-div"></div>

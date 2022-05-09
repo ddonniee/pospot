@@ -18,7 +18,7 @@ import RecruitList from './component/RecruitList';
 import RecruitView from './component/RecruitView';
 import Contact from './component/Contact';
 import ScrollToTop from './component/ScrollToTop';
-
+import NotFound from './component/NotFound';
 
 function App() {
 
@@ -35,6 +35,7 @@ function App() {
           <Route path='/recruit/list' element={<RecruitList/>}></Route>
           <Route path='/recruit/detail/:id' element={<RecruitView/>}></Route>
           <Route path='/contact' element={<Contact/>}></Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer/>

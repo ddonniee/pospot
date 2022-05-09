@@ -455,6 +455,14 @@
 .log .content-list .content-logo .linkIcon {
     display: inline; margin-right: 10px;
 }
+.carousel-root > div > .slider-wrapper {
+    background:  #E5E5E5;
+}
+.carousel-root > div > .slider-wrapper > ul > li {
+    display: block;
+    margin-bottom: auto;
+    margin-top: auto;
+}
 /* 링크 말풍선 */
 
 .arrow2, .arrow3, .arrow4 {
@@ -889,7 +897,8 @@ div[class|=recruit] .joinBtn {
 
 
 .logPop .pic img {
-    width: 100%; height: 100%; object-fit: cover; background-color: lightgray;
+    /* width: 100%; height: 100%;  */
+    object-fit: cover; background-color: lightgray;
 }
 .logPop .pic .slideBtn {
     position: absolute; top: 50%; display: flex; justify-content: space-between; width: 1012px;
