@@ -50,10 +50,16 @@ header
 
 @media only screen and (max-device-width: 480px){
     .header .top-nav .logoClass  {
-        width: 145px; height: 40px; left: -0px; top: 30px; float: left; margin-left:-70px
+        width: 109px; height: 30px; left: -0px; top: 30px; float: left; margin-left:-40px;
     }
-    .logosvg {
-        width:200px; height:80px;
+    .header {
+        height: 60px;
+    }
+    .header .top-nav .menu {
+        display: none;
+    }
+    .header .top-nav .logoClass svg {
+        width: 109px; height: 30px;
     }
 }
 
@@ -75,11 +81,60 @@ header
         
         font-size:35px;
     }
+    /* 대웅 */
+
+    .header .top-nav .logoClass {
+        width: 109px;
+        height: 30px;
+        margin: 15px 0 15px 20px;
+    }
+    .header .top-nav .logoClass svg{
+        width: 109px;
+        height: 30px;
+    }
+    .header .top-nav .menu {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .header .top-nav .menu.active {
+        display: flex;
+    }
+    .header .top-nav .menu ul {
+        text-align: center;
+        margin-top: 60px;
+    }
+    .header .top-nav .menu ul li {
+        float: none;
+        font-size: 22px;
+        line-height: 26px;
+        margin: 0 0 51px 0;
+    }
+    .header .top-nav .menuBtn {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+    }
+    #close {
+        display: none;
+    }
+    .arrow-box1 {
+        position: absolute; 
+        top: -230px;
+        left: -140px;
+    }
+
 }
 
 .header .top-nav .menu a,
 .header .top-nav .menu p {
     padding: 0px 3px;
+}
+.underBar {
+    border-bottom: 2px solid #222222;
+    padding-bottom: 8px !important;
 }
 .arrow1 {
     z-index: 1000;
@@ -125,10 +180,24 @@ header
 .ir {
     cursor: pointer;
 }
-@media only screen and (max-device-width: 480px){
-    .arrow-box1 {
-
+/* 1은정 */
+@media only screen and (max-width: 1600px){
+    .header .top-nav {
+        margin: 0 50px;
     }
+}
+@media only screen and (max-width: 1366px){
+    .header .top-nav .logoClass svg {
+        width: 140px; height: 35px;
+    }
+    .header .top-nav .menu li {
+        font-size: 16px;
+    }
+    .arrow-box1 {
+        left: 17px;
+    }
+}
+@media only screen and (max-device-width: 480px){
     .arrow-box1:after {
        left: 251px;
     }
@@ -160,4 +229,70 @@ footer
 }
 .footer .copyRight .copySns a {
     margin-right: 20px;
+}
+
+/* 대웅 */
+
+@media only screen and (max-device-width: 480px){
+    .footer {
+        height: 285px;
+        margin-top: 60px;
+    }
+    .footer .copyArea {
+        width: 100%;
+        margin-top: 40px;
+        margin-left: 24px;
+    }
+    .footer .copyLogo{
+        display: block;
+        width: 100px;
+        height: 28px;
+        margin-bottom: 16px;
+    }
+    .footer .copyLogo .logoClass {
+        width: 100px;
+        height: 28px;
+        margin-right: 80px;
+    }
+    .footer .copyRight {
+        font-size: 11px;
+        line-height: 17px;
+        letter-spacing: -0.02em;
+    }
+    .footer .copyInfo {
+        display: none;
+    }
+    .footer .copyInfo-mo {
+        display: block;
+    }
+    .footer .copyRight p:last-child {
+        font-size: 11px;
+        line-height: 13px;
+        letter-spacing: -0.02em;
+        margin-top: 18px;
+    }
+    .footer .copyRight .copySns {
+        margin-top: 28px;
+    }
+    .footer .copyRight .copySns a {
+        margin-right: 12px;
+    }
+}
+/* 1은정 */
+
+@media only screen and (max-width: 1600px){
+    .footer .copyArea {
+        margin: 48px 50px 0px 50px;
+    }
+}
+@media only screen and (max-width: 1366px){
+    .footer .copyLogo .logoClass {
+        width: 140px; height: 35px;
+    }
+    .footer .copyRight {
+        font-size: 14px; line-height: 25px;
+    }
+    .footer .copyRight p:last-child {
+        font-size: 13px; line-height: 16.8px; margin-top: 24px;
+    }
 }

@@ -34,6 +34,16 @@ class Footer extends Component
                             <p>경기도 안양시 동안구 엘에스로 116번길 118 508호 (안양2차 SKV1 센터, 호계동), Tel : 031-5175-1108, Fax : 070-4015-3985</p>
                             <p>Copyright © POSPOT Co., Ltd. 2018 All Rights Reserved.</p>
                         </div>
+
+                        {/* 대웅 */}
+                        <div className="copyInfo-mo">
+                            <p>대표이사 : 김교순</p>
+                            <p>사업자등록번호 : 545-86-01108, contact@pospot.kr</p>
+                            <p>경기도 안양시 동안구 엘에스로 116번길 118 508호 (안양2차 SKV1 센터, 호계동)</p>
+                            <p>Tel : 031-5175-1108, Fax : 070-4015-3985</p>
+                            <p>Copyright © POSPOT Co., Ltd. 2018 All Rights Reserved.</p>
+                        </div>
+                        
                         <div className="copySns">
                             <a href="https://blog.naver.com/pospot0911" target={"_blank"}>
                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

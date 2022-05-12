@@ -5,6 +5,16 @@ class Contact extends Component
     componentDidMount() {
         
         $(".header").attr('style', 'background-color : #FFFFFF; ');
+
+        //페이지 이동시 자동 메뉴바 꺼짐 대웅
+        $(document).ready(function() {
+            if($(".menu").hasClass("active")) {
+                $(".menu").removeClass("active");
+                $("#close").css("display","none");
+                $("#hamburger").css("display","block");
+            }
+        });
+        
     }
     render(){
         return(

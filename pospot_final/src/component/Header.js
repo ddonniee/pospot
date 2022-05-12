@@ -5,21 +5,36 @@ import $ from 'jquery';
 class Header extends Component
 {
 
-
-    shouldComponentUpdate() {
-            // 외부 클릭시 팝업닫기 22.05.03 은정
-            // pospot log 에서만 안됨 ;ㅁ;
-            
-            // 다른 메뉴에 hover 시에 꺼지게하기
-            
-            $(document).mouseon(function(e) {
-                var OpendOne = e.target;
-                if(OpendOne.hasChildNodes(e.target).length === 0) {
-                    OpendOne.removeClass("show")
-                }
-            })
-    }
     componentDidMount() {
+
+        // 대웅
+
+        // 메뉴바 클릭 이벤트
+        $(document).ready(function() {
+            $(".menuBtn").off("click").on("click", function() {
+                if($(".menu").hasClass("active")) {
+                    $(".menu").removeClass("active");
+                    $("#close").css("display","none");
+                    $("#hamburger").css("display","block");
+                    // console.log("off");
+                } else {
+                    $(".menu").addClass("active");
+                    $("#hamburger").css("display","none");
+                    $("#close").css("display","block");
+                    // console.log("on");
+                }
+            });
+        });
+
+        //페이지 이동시 자동 메뉴바 꺼짐
+        $(document).ready(function() {
+            if($(".menu").hasClass("active")) {
+                $(".menu").removeClass("active");
+                $("#close").css("display","none");
+                $("#hamburger").css("display","block");
+            }
+        });
+
         // 포스팟로그 글 상세보기 팝업
         $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
             show();
@@ -31,36 +46,82 @@ class Header extends Component
 
         $(".header").attr('style', 'background-color : transparent;');
 
-        // Top 메뉴 후버 기능 start 
+         // Top 메뉴 후버 기능 start
+        // IR 말풍선 다른 메뉴 hover시에 꺼지게 하기 22.05.10 1은정
         $('.intro').hover(function(){
             $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-        }, function() {
+            $(".ir").removeAttr('style');
+            arrowClose(1);
+        }, function(){
             $(".intro").attr('style', '');
+        });
+
+        $('.ir').hover(function(){
+            $(".ir").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
+        }, function(){
+            $(".ir").attr('style', '');
         });
 
         $('.pospotLog').hover(function(){
             $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-        }, function() {
+            $(".ir").removeAttr('style');
+            arrowClose(1);
+        }, function(){
             $(".pospotLog").attr('style', '');
         });
 
         $('.tmenurecruit').hover(function(){
             $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-        }, function() {
+            $(".ir").removeAttr('style');
+            arrowClose(1);
+        }, function(){
             $(".tmenurecruit").attr('style', '');
         });
 
         $('.tmenucontact').hover(function(){
             $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-        }, function() {
+            $(".ir").removeAttr('style');
+            arrowClose(1);
+        }, function(){
             $(".tmenucontact").attr('style', '');
         });
-
         // 후버 처리 END
     
+// Top 메뉴 클릭 시 언더바 생성 22.05.10 1은정
+$(".header .top-nav .menu li").on('click', function(e){
+    if($(e.target).hasClass('intro')) {
+        $(".pospotLog, .tmenurecruit, .tmenucontact").removeClass('underBar');
+        $(".intro").addClass('underBar');
+    } else if($(e.target).hasClass('pospotLog')) {
+        $(".intro, .tmenurecruit, .tmenucontact").removeClass('underBar');
+        $(".pospotLog").addClass('underBar');
+    } else if($(e.target).hasClass('tmenurecruit')) {
+        $(".intro, .pospotLog, .tmenucontact").removeClass('underBar');
+        $(".tmenurecruit").addClass('underBar');
+    } else if($(e.target).hasClass('tmenucontact')) {
+        $(".intro, .pospotLog, .tmenurecruit").removeClass('underBar');
+        $(".tmenucontact").addClass('underBar');
+    }
+});
+$(".logoClass *").on('click', function(){
+    $(".pospotLog, .tmenurecruit, .tmenucontact").removeClass('underBar');
+    $(".intro").addClass('underBar');
+});
 
         // header 색상 변경 함수 Main.js 로 옮김 22.05.04 은정
         
+         // 헤더 클릭 시 배경색 변경
+         $(".header li a, .logoClass, .goLog, .goDetail").on('click', function(){
+            if($(this).hasClass('intro') || $(this).hasClass('logoClass')) {
+                $(".header").attr('style', 'background-color : transparent;');
+            } else {
+                $(".header").attr('style', 'background-color : #FFFFFF; background-color : transparent;');
+                $(".top-div").attr('style', 'background-color : transparent;');
+            }
+            $(".header li a").removeAttr('style');
+            // $(window).scrollTop(0);
+        });
+
 
         // 헤더 클릭 시 메뉴 밑줄
         $(".header li a, .logo, .goLog").on('click', function(){
@@ -123,68 +184,7 @@ class Header extends Component
         // 헤더 클릭시, 밑줄 22.05.02 by 은정
 
         
-        $(".top-nav > .menu > ul > li").on("click", function() {
-            //$(document).ready(function() {
-           
-                
-                // if(url==="/") {
-                   
-                // $('.intro').hover(function(){
-    
-                //     $(".pospotLog").removeAttr('style');
-                //     $(".tmenurecruit").removeAttr('style');
-                //     $(".tmenucontact").removeAttr('style');
-                    
-                //     $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                // }, function() {
-                //     $(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                // });
-                // }
-                // else if(url==="/log") {
-                   
-                //     $(".intro").removeAttr('style');
-                //     $(".tmenurecruit").removeAttr('style');
-                //     $(".tmenucontact").removeAttr('style');
-    
-                //     $('.pospotLog').hover(function(){
-                //         $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     }, function() {
-                //         $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     });
-                // }
-    
-                // else if(url==="/recruit/list") {
-    
-                //     $(".intro").removeAttr('style');
-                //     $(".pospotLog").removeAttr('style');
-                //     $(".tmenucontact").removeAttr('style');
-    
-                   
-                //     $('.tmenurecruit').hover(function(){
-                //         $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     }, function() {
-                //         $(".tmenurecruit").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     });
-                // }
-                // else if(url==="/contact") {
-                   
-                //     $(".intro").removeAttr('style');
-                //     $(".pospotLog").removeAttr('style');
-                //     $(".tmenurecruit").removeAttr('style');
-    
-                //     $('.tmenucontact').hover(function(){
-                //         $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     }, function() {
-                //         $(".tmenucontact").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-                //     });
-                // }
-    
-            })
-           
-    
-            // 헤더 클릭시, 밑줄 22.05.02 by 은정
-
-
+       
         // 채용공고 입사지원 팝업
         $("#show").on('click',function(){ 
             show(); 
@@ -246,7 +246,15 @@ class Header extends Component
 
 
     }
+    constructor (props) {
+        super(props);
     
+        // meta viewport
+        const meta = document.createElement('meta');
+        meta.name = "viewport";
+        meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover";
+        document.getElementsByTagName('head')[0].appendChild(meta);
+    }
     render(){
         return(
             <header className="header" /*style={{backgroundColor: #EAECF9;}}*/>
@@ -295,6 +303,20 @@ class Header extends Component
                             </div>
                         </div>
                     </div>
+
+                    <div className='menuBtn' id="hamburger">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 8H24" stroke="#222222" stroke-width="2.5"/>
+                            <path d="M0 16.7959H24" stroke="#222222" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div className="menuBtn" id="close">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
+                            <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    
                 </div>
             </header>
         )

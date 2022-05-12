@@ -9,6 +9,8 @@ import { ReactComponent as XSLX } from '../resources/svg/xslx.svg'
 import { ReactComponent as PPT } from '../resources/svg/ppt.svg'
 
 import * as config from '../config'
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 class RecruitView extends Component
 {
@@ -22,8 +24,9 @@ class RecruitView extends Component
         recruitDetail: [],
         recruitData: [],
         recruitLenght: 0,
+        recruitState: 0,
     }
- 
+// recruitState:-1 에러 0:default, 입사 지원 1:success,지원 완료
     
     async componentWillMount() {
 
@@ -58,7 +61,7 @@ class RecruitView extends Component
         console.log(err));
 
     }
-    
+     // 여기서만 state 값으로 fetch 가능 22.05.09 은정
      componentDidUpdate() {
         
          fetch(config.RECRUIT_DETAIL+this.state.id)
@@ -87,27 +90,6 @@ class RecruitView extends Component
             $(".inp_f1").on('click');
         });
 
-        $(".cancelBtn").on('click',function(e){
-            console.log(e);
-            $(".box2").removeClass("after");
-            $(".box2").addClass("before");
-            $(".box2").html(`<div class="icon icon2">
-                                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M40 8.82501H20C17.0313 8.83148 14.1849 10.0085 12.0786 12.1007C9.97241 14.1929 8.77632 17.0314 8.75 20V40C8.77632 42.9686 9.97241 45.8071 12.0786 47.8993C14.1849 49.9915 17.0313 51.1685 20 51.175H40C42.9687 51.1685 45.8151 49.9915 47.9214 47.8993C50.0276 45.8071 51.2237 42.9686 51.25 40V20C51.2237 17.0314 50.0276 14.1929 47.9214 12.1007C45.8151 10.0085 42.9687 8.83148 40 8.82501ZM48.75 40C48.75 42.3207 47.8281 44.5463 46.1872 46.1872C44.5462 47.8281 42.3206 48.75 40 48.75H20C17.6794 48.75 15.4538 47.8281 13.8128 46.1872C12.1719 44.5463 11.25 42.3207 11.25 40V20C11.2698 17.6924 12.2004 15.486 13.8392 13.8613C15.478 12.2365 17.6923 11.3249 20 11.325H40C42.3077 11.3249 44.522 12.2365 46.1608 13.8613C47.7996 15.486 48.7302 17.6924 48.75 20V40Z" fill="#222222"/>
-                                            <path d="M42.5 18.75H17.5V21.25H42.5V18.75Z" fill="#222222"/>
-                                            <path d="M42.5 28.75H17.5V31.25H42.5V28.75Z" fill="#222222"/>
-                                            <path d="M30 38.75H17.5V41.25H30V38.75Z" fill="#222222"/>
-                                        </svg>
-                                        <p class="fileName fileName2">파일 업로드</p>
-                                    </div>
-                                    <input class="inp_f2" type="file" accept=".pdf, .hwp, .Docx, .xls, .pptx" required>`);
-            
-            $(".icon2").on('click',function(){
-                $(".inp_f2").on('click');
-            });
-        });
-
-      
         // 팝업 div 오픈/닫기 함수
         function show() {
             $(".background").addClass("show");
@@ -196,6 +178,74 @@ class RecruitView extends Component
         })
         window.scrollTo(0,0);
       }
+
+   /* 입사지원 첨부파일 API로 전송 22.05.10 희정 */
+   const onSubmitHandler = e => {
+    e.preventDefault();
+    
+    const formData = new FormData();
+    let mailTitle = $("#mail-title");
+    let resumeFile = $("#resume-file");
+    let portfoliFile = $("#portfolio-file");
+
+    if(mailTitle.val() === "" ) {
+        alert ("제목을 입력해주세요");
+        return false;
+    } else if (resumeFile.val()  === "") { //  || portfoliFile.val() ===""
+        alert ("이력서를 첨부해주세요");
+        return false;
+    }
+
+    // 메일로 보낼 내용을 formData에 추가
+    formData.append( "pageURL", window.location.href);
+    formData.append( "recruitTitle",this.state.recruitDetail[0].recruit_title)
+    formData.append( "mailTitle", mailTitle.val());
+    formData.append( "resumeFile", resumeFile[0].files[0] );
+    formData.append( "portfoliFile", portfoliFile[0].files[0]);
+    
+    if (window.confirm("지원하시겠습니까?") === true) { // https://apipospot.anypot.co.kr
+        axios({
+            method: 'POST',
+            url: config.SUBMIT_RESUME,
+            withCredentials: true,
+            data: formData
+        })
+        .then(res => {
+            console.log(res.data.msg);
+            if(res.data.code !== 200 ) { // 200 성공 코드
+                alert (res.data.msg);
+                // input file 내용 삭제
+                if (/(MSIE|Trident)/.test(navigator.userAgent)) {
+                    // ie 일때 input[type=file] init.
+                    $("#resume-file").replaceWith( $("#resume-file").clone(true) );
+                    $("#portfolio-file").replaceWith( $("#portfolio-file").clone(true) );
+                } else {
+                    // other browser 일때 input[type=file] init.
+                    $("#resume-file").val("");
+                    $("#portfolio-file").val("");
+                }
+                // input file 이미지 삭제
+                resetUpload(1)
+                resetUpload(2)
+                this.setState({recruitState:1})
+                return false;
+            } else {
+                // console.log(res.data.msg); 
+                this.setState({recruitState:-1})
+                alert (res.data.msg);
+                $(".background").removeClass("show");
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({recruitState:-1})
+            return false;
+        });
+    } else {
+        return false;
+    }
+    console.log(formData)
+}
      
         return(
             <div className='RecruitView'>
@@ -399,7 +449,7 @@ class RecruitView extends Component
 
                                     {/* 채용공고 리스트 확인하여 분기 22.05.04 은정 */}
                                     <div className="tblType">
-                                        {this.state.recruitLenght==='0' 
+                                    {this.state.recruitLenght===0
                                         ?
                                         <>
                                             <caption>공고 테이블(채용없음)</caption>
@@ -409,14 +459,12 @@ class RecruitView extends Component
                                             
                                                         <p className="field2">
                                                             지금은 채용 계획이 없지만,<br/>이력서를 보내주시면 검토해볼게요.<br/>
-                                                            <button id="show" className="purpleBtn mt50">입사지원</button>
+                                                            <button id="show" className="purpleBtn mt50" >입사지원</button>
                                                             {/* <button className="purpleBtn mt50" onClick={() => window.location.href=`https://www.jobkorea.co.kr/Recruit/GI_Read/38226031?Oem_Code=C1&logpath=1`}>입사지원</button> */}
                                             </p>
                                             </>
                                             :
-                                            // 채용공고 디테일 페이지 하단도 데이터 붙이기 22.05.06 은정
-
-
+                                            
                                             <div className="section3">
                                     <div className="wrapper">
                                         
@@ -431,22 +479,15 @@ class RecruitView extends Component
                                                 {this.state.recruitData
                                                 .filter((data)=>moment(data.deadline).add(30,"days")>=moment())
                                                 .map((data, index) =>{
+                                                    
                                                     return (
                                                         <tbody key={index}>
                                                     <tr>
                                                         <td>
-                                                            <div className='onAnotherRecruit'onClick={()=>resetPage(data.recruit_id)} >
+                                                            {/* 상세페이지에서 다른 채용 페이지로 바로 연결 22.05.09 은정 */}
+                                                        <div className='onAnotherRecruit'onClick={()=>resetPage(data.recruit_id)} >
                                                                 <p className="field">{data.recruit_title}</p><br/>
                                                             </div>
-
-                                                            {/* <Link to={{
-                                                                pathname:`/recruit/detail/${data.recruit_id}`,
-                                                                state: {
-                                                                    test:'aaa'
-                                                                }}
-                                                            }>
-                                                                <p className="field">{data.recruit_title}</p><br/>
-                                                            </Link> */}
                                                             {/* <Link to="/recruit/detail">
                                                                 <p className="field">{data.recruit_title}</p><br/>
                                                             </Link> */}
@@ -482,10 +523,12 @@ class RecruitView extends Component
                     <div className="window">
                         <div className="popup recPop">
                             <div className="recruitPop">
-                                <form id="pospotForm" method="post">
+                                 {/* encType, onSubmit 추가 22.05.10 희정 */ }
+                                 <form id="pospotForm" method="post" encType="multipart/form-data" onSubmit={onSubmitHandler}>
                                     <p className="main-title">포스팟에 지원하세요</p>
                                     <p className="sub-title">제목</p>
-                                    <input type="text" className="input-tit" placeholder="이름과 직군을 함께 적으면 좋아요"/>
+                                    {/* name, id 추가 required 삭제 22.05.10 희정 */ }
+                                    <input type="text" name="mailTitle" id ="mail-title" className="input-tit" placeholder="이름과 직군을 함께 적으면 좋아요"/>
                                     <div className="uploadFile">
                                         <div className="file">
                                             <p className="sub-title">이력서 및 자기소개서</p>
@@ -503,9 +546,9 @@ class RecruitView extends Component
                                                 : 
                                                 null
                                             }
-
-                                            <input type="file" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="resume-file" style={{visibility:"hidden", width:"0"}} required/>
-                                                {/* 업로드 파일 형식과 일치하는 아이콘 , 파일명 22.05.03 은정 */}
+                                            {/* name 추가 required 삭제22.05.10 희정 */ }
+                                            <input type="file" name="resumeFile" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="resume-file" style={{visibility:"hidden", width:"0"}}/>
+                                            {/* 업로드 파일 형식과 일치하는 아이콘 , 파일명 22.05.03 은정 */}
                                                 <label htmlFor='resume-file'>
 
                                                 <div className="icon icon1">
@@ -522,6 +565,8 @@ class RecruitView extends Component
                                                         <PPT /> :
                                                         this.state.fileExe === '.document' ?
                                                         <WORD /> :
+                                                        this.state.fileExe === '.sheet' ? 
+                                                        <XSLX /> :
                                                         this.state.fileExe === 'application/pdf' ?
                                                         <PDF /> :
                                                         null
@@ -550,7 +595,8 @@ class RecruitView extends Component
                                                 : 
                                                 null
                                             }
-                                                <input type="file" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="portfolio-file" style={{visibility:"hidden", width:"0"}} required/>
+                                               {/* name 추가 required 삭제 22.05.10 희정 */ }
+                                               <input type="file" name="portfoliFile" className="inp_f1" accept=".pdf, .hwp, .Docx, .xls, .pptx" id="portfolio-file" style={{visibility:"hidden", width:"0"}}/>
                                                 {/* 업로드 파일 형식과 일치하는 아이콘 , 파일명 22.05.03 은정 */}
                                                 <label htmlFor='portfolio-file'>
                                                     
@@ -583,7 +629,8 @@ class RecruitView extends Component
                                         </div>
                                     </div>
                                     <div className="center-box">
-                                        <button type="submit" className="purpleBtn mt75">지원하기</button>
+                                          {/* form 추가 22.05.10 희정 */ }
+                                          <button type="submit" className="purpleBtn mt75" form="pospotForm">지원하기</button>
                                     </div>
                                 </form>
                             </div>
