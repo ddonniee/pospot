@@ -231,10 +231,15 @@ class Main extends Component
                     <div className="main">
                         <div className="contents wide"> 
                             <div className="section1">
+                                  {/* 모바일 */}
+                                  <div className="copyDiv-mo">
+                                    <p className="main-title">그때 그곳의<br/>감성을 전하세요</p>
+                                    <p className="sub-title">위치기반 SNS 플랫폼, [곳;감]</p>
+                                </div>
                             <div className="imgDiv">
-                                    <div className="box"><Gotgam1/></div>
-                                    <div className="box rev"><Gotgam2/></div>
-                                    <div className="box"><Gotgam3/></div>
+                                    <div className="box-1"><div className="box"><Gotgam1/></div></div>
+                                    <div className="box-2"><div className="box rev"><Gotgam2/></div></div>
+                                    <div className="box-3"><div className="box"><Gotgam3/></div></div>
                                 </div>
                                 <div className="copyDiv">
                                     <p className="main-title">그때 그곳의 감성을 전하세요</p>

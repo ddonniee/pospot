@@ -68,6 +68,12 @@ class Log extends Component
 
     openPop(data) {
         //console.table(data)
+        this.setState({
+            screenSize:{
+                width:window.innerWidth,
+                height:window.innerHeight,
+            }
+        })
         const list = [];
         if( data.img_path1 && data.img_path1.length > 0 ) {
             var img_info1 = {path : data.img_path1, width:data.width};
@@ -341,6 +347,7 @@ class Log extends Component
                                             ) }                                          
                                             
                                         </Carousel>
+                                            
                                             
                                         </div>
                                        

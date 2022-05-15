@@ -1736,9 +1736,10 @@ div[class|=contact] .section3 .info .infoBtn {
 
 .logPop .pic {
     /* width: 1012px; height: 812px; overflow: hidden; */
-    width: 1012px; /*height: 1012px;*/ overflow: hidden;
+    width: 1012px; height: 1012px; overflow: hidden;
     /* max-width: 1012px; max-height: 100%; */
 }
+
 /* PC 반응형 */
 @media only screen and (max-width: 1700px) {
     .lPop {
@@ -1976,6 +1977,48 @@ div[class|=contact] .section3 .info .infoBtn {
     border: 1px solid #E5E5E5; box-sizing: border-box; border-radius: 20px; width: 422px; height: 160px;
     text-align: center; display: flex; justify-content: center; align-items: center; cursor: pointer;
     transition: all .1s;
+}
+/* 대웅 */
+
+.recruitPop .uploadFile .icon {
+    width: 100%;
+}
+.recruitPop .uploadFile .cancelBtn-div {
+    position: relative; top: -34%; left: 91%;
+}
+.recruitPop .uploadFile .fileName {
+    font-weight: 700; font-size: 15px; line-height: 18px;
+}
+.recruitPop .uploadFile .desc {
+    font-size: 15px; line-height: 22px; color: #999999; margin-top: 10px;
+}
+
+
+.smilePop {
+    padding: 48px;
+}
+.failPop {
+    padding: 48px;
+}
+.smilePop .smileImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 52px;
+}
+.failPop .ufoImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.failPop .fail-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 27px;
+    margin: 0px;
 }
 
 /* 지원하기 drag로 변경시 css 22.05.11 은정
