@@ -34,6 +34,23 @@ class Header extends Component
                 $("#hamburger").css("display","block");
             }
         });
+//같은 link클릭시 메뉴바 꺼짐
+$("a").on("click", function() {
+    if($(".menu").hasClass("active")) {
+        $(".menu").removeClass("active");
+        $("#close").css("display","none");
+        $("#hamburger").css("display","block");
+    }
+})
+        //대웅 2022.05.06 메뉴버튼 버그 수정
+        $(window).on("resize", function() {
+            if($(".header").width() > 480) {
+                $(".menuBtn").css("display","none");
+            }else {
+                $(".menuBtn").css("display","block");
+                $("#close").css("display","none")
+            }
+        })
 
         // 포스팟로그 글 상세보기 팝업
         $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
@@ -44,7 +61,7 @@ class Header extends Component
             close();
         });
 
-        $(".header").attr('style', 'background-color : transparent;');
+        //$(".header").attr('style', 'background-color : transparent;');
 
          // Top 메뉴 후버 기능 start
         // IR 말풍선 다른 메뉴 hover시에 꺼지게 하기 22.05.10 1은정
@@ -109,19 +126,7 @@ $(".logoClass *").on('click', function(){
 });
 
         // header 색상 변경 함수 Main.js 로 옮김 22.05.04 은정
-        
-         // 헤더 클릭 시 배경색 변경
-         $(".header li a, .logoClass, .goLog, .goDetail").on('click', function(){
-            if($(this).hasClass('intro') || $(this).hasClass('logoClass')) {
-                $(".header").attr('style', 'background-color : transparent;');
-            } else {
-                $(".header").attr('style', 'background-color : #FFFFFF; background-color : transparent;');
-                $(".top-div").attr('style', 'background-color : transparent;');
-            }
-            $(".header li a").removeAttr('style');
-            // $(window).scrollTop(0);
-        });
-
+   
 
         // 헤더 클릭 시 메뉴 밑줄
         $(".header li a, .logo, .goLog").on('click', function(){
@@ -131,22 +136,13 @@ $(".logoClass *").on('click', function(){
             
 
             if($(this).hasClass('intro') || $(this).hasClass('logo')) {
-                $(".header").attr('style', 'background-color : transparent;');
                 $(".top-div").attr('style', 'background-color : #EAECF9;');
             } else {
-                $(".header").attr('style', 'background-color : #FFFFFF; background-color : transparent;');
-                $(".top-div").attr('style', 'background-color : transparent;');
             }
             $(".header li a").removeAttr('style');
             $(window).scrollTop(0);
             
-            if($(this).hasClass('logo')) {
-                //$(".intro").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-            } else if($(this).hasClass('goLog')) {
-               // $(".pospotLog").attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-            } else {
-                //$(this).attr('style', 'border-bottom: 2px solid #222222; padding-bottom: 8px;');
-            }
+    
         });
 
         // 헤더 IR 말풍선, 포스팟로그 링크버튼 말풍선
@@ -194,25 +190,7 @@ $(".logoClass *").on('click', function(){
             $(".inp_f1").on('click');
         });
 
-        $(".cancelBtn").on('click',function(e){
-            console.log(e);
-            $(".box2").removeClass("after");
-            $(".box2").addClass("before");
-            $(".box2").html(`<div className="icon icon2">
-                                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M40 8.82501H20C17.0313 8.83148 14.1849 10.0085 12.0786 12.1007C9.97241 14.1929 8.77632 17.0314 8.75 20V40C8.77632 42.9686 9.97241 45.8071 12.0786 47.8993C14.1849 49.9915 17.0313 51.1685 20 51.175H40C42.9687 51.1685 45.8151 49.9915 47.9214 47.8993C50.0276 45.8071 51.2237 42.9686 51.25 40V20C51.2237 17.0314 50.0276 14.1929 47.9214 12.1007C45.8151 10.0085 42.9687 8.83148 40 8.82501ZM48.75 40C48.75 42.3207 47.8281 44.5463 46.1872 46.1872C44.5462 47.8281 42.3206 48.75 40 48.75H20C17.6794 48.75 15.4538 47.8281 13.8128 46.1872C12.1719 44.5463 11.25 42.3207 11.25 40V20C11.2698 17.6924 12.2004 15.486 13.8392 13.8613C15.478 12.2365 17.6923 11.3249 20 11.325H40C42.3077 11.3249 44.522 12.2365 46.1608 13.8613C47.7996 15.486 48.7302 17.6924 48.75 20V40Z" fill="#222222"/>
-                                            <path d="M42.5 18.75H17.5V21.25H42.5V18.75Z" fill="#222222"/>
-                                            <path d="M42.5 28.75H17.5V31.25H42.5V28.75Z" fill="#222222"/>
-                                            <path d="M30 38.75H17.5V41.25H30V38.75Z" fill="#222222"/>
-                                        </svg>
-                                        <p className="fileName fileName2">파일 업로드</p>
-                                    </div>
-                                    <input className="inp_f2" type="file" accept=".pdf, .hwp, .Docx, .xls, .pptx" required>`);
-            
-            $(".icon2").on('click',function(){
-                $(".inp_f2").on('click');
-            });
-        });
+    
 
         // 팝업 div 오픈/닫기 함수
         function show() {

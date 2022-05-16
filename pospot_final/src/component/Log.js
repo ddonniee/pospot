@@ -29,10 +29,6 @@ class Log extends Component
 {
     
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         logData : [],
         popupShow : false,
@@ -145,17 +141,6 @@ class Log extends Component
             }
         });
   
-        // 포스팟로그 글 상세보기 팝업
-        $(".content-pic, .log .main-title, .log .desc").on('click', function(){ 
-            show();
-        });
-
-        $(".header").attr('style', 'background-color : #FFFFFF;');
-        
-        $("#closeBtn").on('click',function(){ 
-            close();
-        });
-
         // 포스팟로그 링크버튼 말풍선
         $(".header, .container, .footer").on('click',function(e){
             if(!$(e.target).hasClass('linkIcon')){
@@ -177,19 +162,7 @@ class Log extends Component
             arrowShow(3);
         });
 
-        // 팝업 div 오픈/닫기 함수
-
-        
-
-        function show() {
-            $(".background").addClass("show");
-        }
-
-        function close() {
-            $(".background").removeClass("show");
-        }
-
-        // 말풍선 오픈/닫기 함수
+          // 말풍선 오픈/닫기 함수
         function arrowShow(num) {
             $(".arrow"+num+":first-of-type").addClass("show");
         }
@@ -198,7 +171,20 @@ class Log extends Component
             $(".arrow"+num).removeClass("show");
         }
 
+  // 해상도에 구하여 썸네일 사이즈 조정 22.05.10 2은정
+  window.addEventListener("resize", function() {
+    let curWidth = window.innerWidth;
+    let curHeight = window.innerHeight;
 
+    if(curWidth !== this.state.screenSize.width || curHeight !== this.state.screenSize.height) {
+        this.setState({
+            screenSize:{
+                width: curWidth,
+                height: curHeight,
+            }
+        })
+    }
+})
     }
     
     render(){
@@ -208,15 +194,44 @@ class Log extends Component
             return entrie[1];
         });
 
-        function viewlink(numid) {
-            $("#"+numid).attr("class","arrow2 show");
+        function viewlink(numid, link) {
+            $("#copytxt"+numid).attr("class","arrow2 show");
+            $("#link-copytxt2"+numid).text(checkMaxString(link));
         }
 
-      // 링크 복사 1은정
-        function viewlink2(numid) {
-            $("#"+numid).attr("class","arrow3 show");
-            copyToClipboard("#link-"+numid, $("#link-"+numid).text());
-        }
+      // 포스팟로그 링크 말풍선 글자수 제한 1은정
+      function checkMaxString(obj) {
+        var str_len = obj.length;
+        var byte = 0;
+        var len = 0;
+        var one_char = "";
+        var str2 = "";
+        for( var j=0; j<str_len; j++) { 
+            one_char = obj.charAt(j); 
+            if(escape(one_char).length > 4) { 
+                byte += 2; 
+            } else { 
+                byte++; 
+            }
+            if(byte <= 30) { 
+                len = j+1; 
+            } 
+        } 
+        if(byte > 30) { 
+            str2 = obj.substr(0, len)+"..."; 
+        } else { 
+            str2 = obj; 
+        } 
+
+        return str2;
+    }
+
+    // 링크 복사 1은정
+    function viewlink2(numid, link) {
+        $("#"+numid).attr("class","arrow3 show");
+        copyToClipboard("#link-"+numid, link);
+    }
+      
 
         function copyToClipboard(node, val) {
             let t = document.createElement("textarea");
@@ -227,7 +242,33 @@ class Log extends Component
             document.execCommand("copy");
             t.remove();
         }
-    
+           // 블로그 상세보기 url 복사 22.05.02 by은정
+           function viewlink3(url) {
+
+            console.log(url)
+
+            // url 값이 없을 경우? 
+            if(url===null) {
+                alert("url이 유효하지 않습니다.")
+                return;
+            }
+
+            var i=i;
+            var url = url;
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            $(".arrow4").addClass("show");
+
+            // url 복사 완료시 해당 창 자동 종료 22.05.03 은정
+            setTimeout(function() {
+                $(".arrow4").removeClass("show");
+            },2000)
+        }
         return(
             <div className='Log'>
                 <div className="top-div"></div>
@@ -278,8 +319,12 @@ class Log extends Component
                                                     <div className="arrow2" id={"copytxt"+index} style={{position:"absolute",zIndex:"1"}}>
                                                         <div className="window">
                                                             <div className="arrow-box2">
-                                                            <p className="link" id={"link-copytxt2"+index}>{this.state.logData[index].link}</p>
-                                                                <p className="purple copy" onClick={()=>viewlink2("copytxt2"+index)}>복사</p>
+                                                            {/* <p className="link" id={"link-copytxt2"+index}>{this.state.logData[index].link}</p>
+                                                                <p className="purple copy" onClick={()=>viewlink2("copytxt2"+index)}>복사</p> */}
+
+                                                                <p className="link" id={"link-copytxt2"+index}></p>
+                                                                {/* {this.state.logData[index].link} {this.state.cutLink}*/}
+                                                                <p className="purple copy" onClick={()=>viewlink2("copytxt2"+index, this.state.logData[index].link)}>복사</p>
                                                             </div>
                                                         </div>
                                                     </div>

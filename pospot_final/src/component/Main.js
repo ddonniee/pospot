@@ -76,11 +76,7 @@ class Main extends Component
             popImages: list
         }));
 
-
-        // return(
-            
-        // )
-            
+     
     }
 
     componentDidMount() {
@@ -100,10 +96,6 @@ class Main extends Component
         const saTriggerMargin = 500;
         const saTriggerMargin2 = 3200;
         const saElementList = document.querySelectorAll('.sa');
-        // 헤더에서 헤더바 색상, 이미지 애니메이션과 같이 처리 22.05.03 은정
-        // const hidden = document.querySelector('.section2 .copyDiv.hid1');
-        // const hidden2 = document.querySelector('.section2 .copyDiv.hid2');
-
         const saFunc = function() {
             for (const element of saElementList) {
                 if (!element.classList.contains('show')) {
@@ -119,94 +111,101 @@ class Main extends Component
                 }
             }
         }
-
-         // 스크롤 값 확인
         // 스크롤 값 확인 
         window.addEventListener('scroll', function(){
 
+             // top 못 잡는 에러처리 22.05.09 은정
+             let tempTag = $(".spacer") 
+             if(tempTag.length) {
+                     let spaceroffset = $(".spacer").offset().top;
+                     let spacerheight = $("#txt1section").height()
+                     let scrollTop2 = $(window).scrollTop();
+                     let txt2section = $("#txt2section").offset().top;
+                     let txt3section = $("#txt3section").offset().top;
+                     let txt4section = $("#txt4section").offset().top;
+                     let txt5section = $("#txt5section").offset().top;
+                     let txt6section = $("#txt6section").offset().top;
+                   
+                     
+                    //  mobile 헤더 색상 변경 22.05.16 2은정
+                     if(this.window.innerWidth <= 480) {
 
-                // top 못 잡는 에러처리 22.05.09 은정
-                let tempTag = $(".spacer") 
-
-                if(tempTag.length) {
-                    let spaceroffset = $(".spacer").offset().top;
-                    let spacerheight = $("#txt1section").height()
-                    let scrollTop2 = $(window).scrollTop();
-                    
-                                
-                    let txt2section = $("#txt2section").offset().top;
-                    let txt3section = $("#txt3section").offset().top;
-                    let txt4section = $("#txt4section").offset().top;
-                    let txt5section = $("#txt5section").offset().top;
-                    let txt6section = $("#txt6section").offset().top;
-        
-                    if(scrollTop2 < spacerheight) {
-                        $(".header").attr('style', 'background-color : #EAECF9;');
-                       $("#txt1section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
-                       $("#txt1section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
-                    }
+                        if(scrollTop2 < spacerheight) {
+                            $(".header").attr('style', 'background-color : #EAECF9;');
+                        }
     
-                    // if(parseInt(spacerheight)-300 < parseInt(scrollTop2) ) {          
-                    //     console.log("1")         
-                    //     $("#parasec1").fadeOut(500, function() {
-                    //          $("#parasec2").show()                        
-                    //     });                    
-                    // } 
-    
-                    // 수어 이미지 변형 추가 22.05.03 은정
-                    
-                    if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
-                         $(".header").attr('style', 'background-color : #FFFFFF;');
-                        //$(".header").animate({'background-color' : '#FFFFFF'});
-    
-                        $("#txt1section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px opacity: 0;') 
-                        $("#txt1section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
-                      
-    
-                    }
-        
-                    if(parseInt(txt2section-100) < parseInt(scrollTop2) ) {
-                        $(".header").attr('style', 'background-color : #EAECF9;');
-                        $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(0deg);') 
-                        $("#txt3section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
-                        $("#txt3section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
-                    }
-    
-                    if(parseInt(txt3section-100) < parseInt(scrollTop2) ) {                
-                        $(".header").attr('style', 'background-color : #FFFFFF;');
-                        $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(-45deg);') 
-                        $("#txt3section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
-                        $("#txt3section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
-                        
-                    }
-    
-                    
-                    if(parseInt(txt3section-300) < parseInt(scrollTop2) ) {                
-                    
-                        $("#fl1").fadeOut(500, function() {
-                            $("#fl2").show()
+                        if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
+                            $(".header").attr('style', 'background-color : #FFFFFF;');
                             
-                       });
-                      
+                        }
+                        
+                        if(parseInt(txt2section-60) < parseInt(scrollTop2) ) {
+                            $(".header").attr('style', 'background-color : #EAECF9;');
+                        }
+                        if(parseInt(txt4section-60) < parseInt(scrollTop2) ) {
+                            $(".header").attr('style', 'background-color : #FFFFFF;');
+                        }
                     }
-    
-                    if(parseInt(txt4section-100) < parseInt(scrollTop2) ) {                
-                        $(".header").attr('style', 'background-color : #FFFFFF;');
-                    }
-    
-                    if(parseInt(txt5section-100) < parseInt(scrollTop2) ) {                
-                        $(".header").attr('style', 'background-color : #F9F9FD;');
-                      
-                    }
-                    if(parseInt(txt6section-100) < parseInt(scrollTop2) ) {                
-                        $(".header").attr('style', 'background-color : #FFFFFF;');
+                    
+                    else {
+                        console.log($(".spacer").offset().top,"spacer passing22")
+                        if(scrollTop2 < spacerheight) {
+                            $(".header").attr('style', 'background-color : #EAECF9;');
+                           $("#txt1section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                           $("#txt1section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                        }
+        
+        
+                        // 수어 이미지 변형 추가 22.05.03 은정
+                        
+                        if(parseInt(spaceroffset) < parseInt(scrollTop2) ) {
+                             $(".header").attr('style', 'background-color : #FFFFFF;');
+                            $("#txt1section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px opacity: 0;') 
+                            $("#txt1section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                                                  }
+            
+                        if(parseInt(txt2section-100) < parseInt(scrollTop2) ) {
+                            $(".header").attr('style', 'background-color : #EAECF9;');
+                            $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(0deg);') 
+                            $("#txt3section .section2_desc p:first-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                            $("#txt3section .section2_desc p:last-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                        }
+        
+                        if(parseInt(txt3section-100) < parseInt(scrollTop2) ) {                
+                            $(".header").attr('style', 'background-color : #FFFFFF;');
+                            $("#txt3section .imgDiv3 svg").attr('style','transform : rotate(-45deg);') 
+                            $("#txt3section .section2_desc p:last-child").attr('style','display : none; margin-top: 0px; opacity: 0;') 
+                            $("#txt3section .section2_desc p:first-child").attr('style','display : block; margin-top: 300px; opacity:1;') 
+                            
+                        }
+                                
+                        if(parseInt(txt3section-300) < parseInt(scrollTop2) ) {                
+                        
+                            $("#fl1").fadeOut(500, function() {
+                                $("#fl2").show()
+                                
+                           });
+                          
+                        }
+        
+                        if(parseInt(txt4section-100) < parseInt(scrollTop2) ) {                
+                            $(".header").attr('style', 'background-color : #FFFFFF;');
+                        }
+        
+                        if(parseInt(txt5section-100) < parseInt(scrollTop2) ) {                
+                            $(".header").attr('style', 'background-color : #F9F9FD;');
+                          
+                        }
+                        if(parseInt(txt6section-100) < parseInt(scrollTop2) ) {                
+                            $(".header").attr('style', 'background-color : #FFFFFF;');
+                        }
                     }
                 }
-                
-
-               
             });
-    }
+
+             }         
+          
+  
 
     render(){
       
@@ -224,7 +223,6 @@ class Main extends Component
             $("#copytxt2"+numid).attr("class","arrow3 show");
         }
 
-        console.log(getLogList, "checking")
         return(
             <div className='Main'>
                 <div className="container" >
@@ -237,9 +235,9 @@ class Main extends Component
                                     <p className="sub-title">위치기반 SNS 플랫폼, [곳;감]</p>
                                 </div>
                             <div className="imgDiv">
-                                    <div className="box-1"><div className="box"><Gotgam1/></div></div>
-                                    <div className="box-2"><div className="box rev"><Gotgam2/></div></div>
-                                    <div className="box-3"><div className="box"><Gotgam3/></div></div>
+                            <div className="box"><Gotgam1/></div>
+                                    <div className="box rev"><Gotgam2/></div>
+                                    <div className="box"><Gotgam3/></div>
                                 </div>
                                 <div className="copyDiv">
                                     <p className="main-title">그때 그곳의 감성을 전하세요</p>
@@ -528,6 +526,7 @@ class Main extends Component
                                         </svg>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div className="section2-mo">
@@ -773,6 +772,20 @@ class Main extends Component
                                                 <p className="desc">안양시 유망창업기업 선정</p>
                                             </div>
                                         </div>
+                                        <div style={{float:"none", clear:"both"}}></div>
+                                        <div className="list">
+                                            <div className="sec dt">
+                                                <p className="date">2022.05</p>
+                                            </div>
+                                            <div className="sec">
+                                                <svg className="circle" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="6" cy="6" r="5" stroke="white" strokeWidth="2"/>
+                                                </svg>
+                                            </div>
+                                            <div className="sec">
+                                                <p className="desc">신진 연구인력 채용지원사업 선정<br/>창업성장기술개발사업 선정 (중소기업 기술정보진흥원)</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -897,6 +910,8 @@ class Main extends Component
                                 </div>
                             </div>
                             <div className="section5"   id="txt6section">
+
+                                
                                 <div className="text">
                                     <p className="main-title">포스팟 로그</p>
                                     <Link className='goLog' to='/log'>
@@ -975,7 +990,7 @@ class Main extends Component
                                                     <div className="arrow2" id={"copytxt"+index} style={{position:"absolute",zIndex:"1"}}>
                                                         <div className="window">
                                                             <div className="arrow-box2">
-                                                                <a className="link" href="contact@pospot.kr">http://pospot.kr/log</a>
+                                                                <a className="link">{data.link === null ? `https://www.pospot.kr/` :data.link}</a>
                                                                 <p className="purple copy" onClick={()=>viewlink2(index)}>복사</p>
                                                             </div>
                                                         </div>
@@ -1006,6 +1021,16 @@ class Main extends Component
                     <div className="window">
                         <div className="popup lPop">
                             <div className="logPop">
+
+                                 {/* 모바일 */}
+                                <div className="moHeader">
+                                    <p className='mTitle'>포스팟 로그</p>
+                                    <svg onClick={()=>this.setState({popupShow : false, popData : null})}
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
+                                        <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
+                                    </svg>
+                                </div>
                                 <div className="pic">
                                     <div className="img">
                                     <Carousel 

@@ -72,60 +72,11 @@ header
     line-height: 20px; letter-spacing: -0.05em;
 }
 
-@media only screen and (max-device-width: 480px){
-    .header .top-nav .menu {
-        float: right;
-        margin-right:-70px;
-    }
-    .header .top-nav .menu  li {
-        
-        font-size:35px;
-    }
-    /* 대웅 */
-
-    .header .top-nav .logoClass {
-        width: 109px;
-        height: 30px;
-        margin: 15px 0 15px 20px;
-    }
-    .header .top-nav .logoClass svg{
-        width: 109px;
-        height: 30px;
-    }
-    .header .top-nav .menu {
-        width: 100%;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-    }
-    .header .top-nav .menu.active {
-        display: flex;
-    }
-    .header .top-nav .menu ul {
-        text-align: center;
-        margin-top: 60px;
-    }
-    .header .top-nav .menu ul li {
-        float: none;
-        font-size: 22px;
-        line-height: 26px;
-        margin: 0 0 51px 0;
-    }
-    .header .top-nav .menuBtn {
-        display: block;
-        position: absolute;
-        right: 20px;
-        top: 18px;
-    }
-    #close {
-        display: none;
-    }
-    .arrow-box1 {
-        position: absolute; 
-        top: -230px;
-        left: -140px;
-    }
-
+.header .top-nav .menuBtn {
+    display: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 
 .header .top-nav .menu a,
@@ -180,7 +131,7 @@ header
 .ir {
     cursor: pointer;
 }
-/* 1은정 */
+
 @media only screen and (max-width: 1600px){
     .header .top-nav {
         margin: 0 50px;
@@ -197,11 +148,67 @@ header
         left: 17px;
     }
 }
+
 @media only screen and (max-device-width: 480px){
-    .arrow-box1:after {
-       left: 251px;
+ 
+    .header {
+        height: auto;
+    }
+    .header .top-nav {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0px;
+    }
+    .header .top-nav .logoClass {
+        width: 109px;
+        height: 30px;
+        margin: 15px 0 15px 20px;
+    }
+    .header .top-nav .logoClass svg{
+        width: 109px;
+        height: 30px;
+    }
+    .header .top-nav .menu {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .header .top-nav .menu.active {
+        display: flex;
+    }
+    .header .top-nav .menu ul {
+        text-align: center;
+        margin-top: 60px;
+    }
+    .header .top-nav .menu ul li {
+        float: none;
+        font-size: 22px;
+        line-height: 26px;
+        margin: 0 0 51px 0;
+    }
+
+    .header .top-nav .menu ul li p {
+        display: inline;
+    }
+    
+    .header .top-nav .menuBtn {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+    }
+    #close {
+        display: none;
+    }
+    .arrow-box1 {
+        position: absolute; 
+        top: -230px;
+        left: -140px;
     }
 }
+
 /*
 footer
 */
@@ -221,6 +228,9 @@ footer
 .footer .copyRight {
     font-size: 15px; line-height: 25px; color: #555555;
 }
+.footer .copyInfo-mo {
+    display: none;
+}
 .footer .copyRight p:last-child {
     font-size: 14px; line-height: 16.8px; margin-top: 24px;
 }
@@ -230,9 +240,22 @@ footer
 .footer .copyRight .copySns a {
     margin-right: 20px;
 }
-
-/* 대웅 */
-
+@media only screen and (max-width: 1600px){
+    .footer .copyArea {
+        margin: 48px 50px 0px 50px;
+    }
+}
+@media only screen and (max-width: 1366px){
+    .footer .copyLogo .logoClass {
+        width: 140px; height: 35px;
+    }
+    .footer .copyRight {
+        font-size: 14px; line-height: 25px;
+    }
+    .footer .copyRight p:last-child {
+        font-size: 13px; line-height: 16.8px; margin-top: 24px;
+    }
+}
 @media only screen and (max-device-width: 480px){
     .footer {
         height: 285px;
@@ -277,22 +300,4 @@ footer
     .footer .copyRight .copySns a {
         margin-right: 12px;
     }
-}
-/* 1은정 */
-
-@media only screen and (max-width: 1600px){
-    .footer .copyArea {
-        margin: 48px 50px 0px 50px;
-    }
-}
-@media only screen and (max-width: 1366px){
-    .footer .copyLogo .logoClass {
-        width: 140px; height: 35px;
-    }
-    .footer .copyRight {
-        font-size: 14px; line-height: 25px;
-    }
-    .footer .copyRight p:last-child {
-        font-size: 13px; line-height: 16.8px; margin-top: 24px;
-    }
-}
+} 
