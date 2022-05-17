@@ -151,45 +151,51 @@ class RecruitView extends Component
         }
 
     }
+
+
     }
 
    
     render(){
-        
-        const resetUpload=(num)=> {
+      
+    const resetUpload=(num)=> {
             
-            if(num===1) {
-                this.setState({
-                    fileExe:'',
-                    fileName:'파일 업로드'
-                })
-                $("#resume-file").val('');
-            }else if(num===2) {
-                this.setState({
-                    portFolioExe:'',
-                    portFolioName:'포트폴리오'
-                })
-                $("#portfolio-file").val('');
-            }
-            $("#mail-title").val('');
+        if(num===1) {
+            this.setState({
+                fileExe:'',
+                fileName:'파일 업로드'
+            })
+            
+        }else if(num===2) {
+            this.setState({
+                portFolioExe:'',
+                portFolioName:'포트폴리오'
+            })
         }
+        
+    }
 
-      const resetPage=(data)=> {
-         
-        this.setState({
-            id:data,
-        })
-        window.scrollTo(0,0);
-      }
+  const resetPage=(data)=> {
+     
+    this.setState({
+        id:data,
+    })
+    window.scrollTo(0,0);
+  }
 
-      const resetApplying=()=>{
-        $(".background").removeClass("show");
-          this.setState({
-              applied:0,
-          })
-          resetUpload(1)
-          resetUpload(2)
-      }
+  const resetApplying=()=>{
+      console.log("working?")
+    $(".background").removeClass("show");
+      this.setState({
+          applied:0,
+      })
+      resetUpload(1)
+      resetUpload(2)
+      $("#resume-file").val('');
+      $("#mail-title").val('');
+  }  
+
+
    /* 입사지원 첨부파일 API로 전송 22.05.10 희정 */
    const onSubmitHandler = e => {
     e.preventDefault();
@@ -545,7 +551,7 @@ class RecruitView extends Component
                                      {/* 모바일 1은정 */}
                                     <div className="moHeader">
                                         <p className='mTitle'>포스팟에 지원하세요</p>
-                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={()=>resetApplying()}>
                                             <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
                                             <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
                                         </svg>
@@ -562,9 +568,7 @@ class RecruitView extends Component
                                             <div className="box box1">
                                             {/* 첨부 파일 있을때만 x 버튼 나오기 22.05.04 은정 */}
                                             {this.state.fileExe !== "" ?
-                                                <div className="cancelBtn-div" style={{ 
-                                                    position:"absolute", top:"41%", left:"45%"
-                                                    }} onClick={()=>resetUpload(1)}>
+                                                <div className="cancelBtn-div" onClick={()=>resetUpload(1)}>
                                                     <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
                                                     <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
@@ -611,9 +615,7 @@ class RecruitView extends Component
                                             <div className="box box2">
 
                                             {this.state.portFolioExe !== "" ?
-                                                <div className="cancelBtn-div" onClick={()=>resetUpload(2)} style={{
-                                                    position:"absolute", top:"41%", left:"91%"
-                                                }}>
+                                                <div className="cancelBtn-div" onClick={()=>resetUpload(2)}>
                                                     <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
                                                     <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
@@ -662,7 +664,7 @@ class RecruitView extends Component
                                     </div>
                                 </form>
                             </div>
-                            <button id="closeBtn" className="closeBtn" onClick={resetApplying} >
+                            <button id="closeBtn" className="closeBtn" onClick={()=>resetApplying()}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 4L20.0708 20.0708" stroke="white" strokeWidth="2.5"/>
                                     <path d="M20 4L3.92921 20.0708" stroke="white" strokeWidth="2.5"/>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { ReactComponent as History } from '../resources/svg/History_img.svg';
-
+import { ReactComponent as History2 } from '../resources/svg/img2.svg';
 // category
 import { ReactComponent as News } from '../resources/svg/News2.svg';
 import { ReactComponent as People } from '../resources/svg/People2.svg';
@@ -142,7 +142,7 @@ class Main extends Component
                         if(parseInt(txt2section-60) < parseInt(scrollTop2) ) {
                             $(".header").attr('style', 'background-color : #EAECF9;');
                         }
-                        if(parseInt(txt4section-60) < parseInt(scrollTop2) ) {
+                        if(parseInt(txt4section-860) < parseInt(scrollTop2) ) {
                             $(".header").attr('style', 'background-color : #FFFFFF;');
                         }
                     }
@@ -256,12 +256,12 @@ class Main extends Component
 
                             {/* 대웅 */}
 
-                            <div className="section2-mo"  id="txt1section">
+                            <div className="section2-mo"  id="txt1section-mo">
                                 <div className="copyDiv-mo " id="parasec1">
                                     <p className="disc">추억의 장소를<br/>어떻게 기억하시나요?<br/>감성적인 경험은 그때 그곳을<br/>특별하게 만듭니다.<br/>그리고 추억은 우리를<br/>앞으로 나아가게 만들죠.</p>
                                 </div>
                                 <div className="imgDiv imgDiv2">
-                                <History/>
+                                <History2/>
                                 </div>
                                 <div className="copyDiv2-mo " id="parasec2">
                                     <p className='disc2'>포스팟은 장소의 추억을 저장하는<br/>서비스를 만들기로 했습니다.<br/>곳;감은 블록체인 기술로<br/>감성까지 전달하는<br/>위치기반 감성 SNS 플랫폼입니다.</p>

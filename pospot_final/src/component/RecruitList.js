@@ -28,7 +28,7 @@ class RecruitList extends Component
         // 채용페이지
         recruitData : [],
         recruitLenght : 0,
-        applied: -1,
+        applied: 0,
     }
        async componentDidMount() {
 
@@ -49,7 +49,7 @@ class RecruitList extends Component
 
         $(".header").attr('style', 'background-color : #FFFFFF; ');
 
-        $("#closeBtn, .window, .mBtn").on('click',function(){ 
+        $("#closeBtn, .mBtn").on('click',function(){ 
             close();
         });
 
@@ -57,9 +57,9 @@ class RecruitList extends Component
             $(".inp_f1").on('click');
         });
 // 이벤트 캡쳐링 막기 (팝업)
-$(".popup").on('click', function(e){
-    e.stopPropagation();
-});
+// $(".popup").on('click', function(e){
+//     e.stopPropagation();
+// });
         
         // 채용공고 리스트 가져오기
         fetch(config.RECRUIT_LIST)
@@ -151,34 +151,31 @@ $(".popup").on('click', function(e){
                     fileExe:'',
                     fileName:'파일 업로드'
                 })
-                $("#resume-file").val('');
+                
             }else if(num===2) {
                 this.setState({
                     portFolioExe:'',
                     portFolioName:'포트폴리오'
                 })
-                $("#portfolio-file").val('');
             }
-        
+            
         }
-        const resetPage=(data)=> {
-         
-            this.setState({
-                id:data,
-            })
-            window.scrollTo(0,0);
-          }
     
-          const resetApplying=()=>{
-            $(".background").removeClass("show");
-              this.setState({
-                  applied:0,
-              })
-              resetUpload(1)
-              resetUpload(2)
-          }
+        const resetApplying=()=>{
+            console.log("hey?")
+          $(".background").removeClass("show");
+            this.setState({
+                applied:0,
+            })
+            resetUpload(1)
+            resetUpload(2)
+            $("#resume-file").val('');
+            $("#mail-title").val('');
+        }  
+
+      
         /* 입사지원 첨부파일 API로 전송 22.05.10 희정 */
-    const onSubmitHandler = e => {
+        const onSubmitHandler = e => {
         e.preventDefault();
 
 
@@ -223,15 +220,17 @@ $(".popup").on('click', function(e){
                         $("#resume-file").val("");
                         $("#portfolio-file").val("");
                     }
-                    // input file 이미지 삭제
-                    resetUpload(1)
-                    resetUpload(2)
-                    return false;
+                    this.setState({
+                        applied:-1,
+                    })
                 } else {
-                    // console.log(res.data.msg); 
-                    alert (res.data.msg);
-                    $(".background").removeClass("show");
+                    console.log(res.data.msg); 
+                this.setState({
+                    applied:1,
+                })
                 }
+                resetUpload(1)
+                resetUpload(2)
             })
             .catch(error => {
                 console.log(error);
@@ -545,8 +544,8 @@ $(".popup").on('click', function(e){
                     </div>
                 </div>
 
-                {/* 팝업_채용공고_지원하기 */}
-                <div className="background">
+                 {/* 팝업_채용공고_지원하기 */}
+                 <div className="background">
                     <div className="window">
                         <div className="popup recPop">
                             {/* 기본값 0 : 지원하기, 에러 : -1 실패, 지원 완료 : 1 성공 */}
@@ -559,7 +558,7 @@ $(".popup").on('click', function(e){
                                      {/* 모바일 1은정 */}
                                     <div className="moHeader">
                                         <p className='mTitle'>포스팟에 지원하세요</p>
-                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={resetApplying}>
                                             <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
                                             <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
                                         </svg>
@@ -576,9 +575,7 @@ $(".popup").on('click', function(e){
                                             <div className="box box1">
                                             {/* 첨부 파일 있을때만 x 버튼 나오기 22.05.04 은정 */}
                                             {this.state.fileExe !== "" ?
-                                                <div className="cancelBtn-div" style={{ 
-                                                    position:"absolute", top:"41%", left:"45%"
-                                                    }} onClick={()=>resetUpload(1)}>
+                                                <div className="cancelBtn-div" onClick={()=>resetUpload(1)}>
                                                     <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
                                                     <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
@@ -625,9 +622,7 @@ $(".popup").on('click', function(e){
                                             <div className="box box2">
 
                                             {this.state.portFolioExe !== "" ?
-                                                <div className="cancelBtn-div" onClick={()=>resetUpload(2)} style={{
-                                                    position:"absolute", top:"41%", left:"91%"
-                                                }}>
+                                                <div className="cancelBtn-div" onClick={()=>resetUpload(2)}>
                                                     <svg className="cancelBtn" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.66675 2.66669L13.3806 13.3805" stroke="#222222" strokeWidth="1.5"/>
                                                     <path d="M13.3333 2.66669L2.6194 13.3805" stroke="#222222" strokeWidth="1.5"/>
@@ -676,7 +671,7 @@ $(".popup").on('click', function(e){
                                     </div>
                                 </form>
                             </div>
-                            <button id="closeBtn" className="closeBtn" onClick={resetApplying} >
+                            <button id="closeBtn" className="closeBtn" onClick={()=>resetApplying()} >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 4L20.0708 20.0708" stroke="white" strokeWidth="2.5"/>
                                     <path d="M20 4L3.92921 20.0708" stroke="white" strokeWidth="2.5"/>
@@ -688,7 +683,7 @@ $(".popup").on('click', function(e){
                         <>
                         <div className="moHeader">
                                         <p className='mTitle'>포스팟에 지원하세요</p>
-                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={()=>resetApplying()}>
                                             <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
                                             <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
                                         </svg>
@@ -799,7 +794,7 @@ $(".popup").on('click', function(e){
                         <>
                         <div className="moHeader">
                                         <p className='mTitle'>포스팟에 지원하세요</p>
-                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg className='mBtn' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                             <path d="M4 4L20.0708 20.0708" stroke="#222222" stroke-width="2.5"/>
                                             <path d="M20 4L3.92921 20.0708" stroke="#222222" stroke-width="2.5"/>
                                         </svg>

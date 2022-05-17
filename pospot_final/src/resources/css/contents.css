@@ -619,6 +619,7 @@
     }
     .main .section2-mo .imgDiv2 svg {
         height: 140px;
+        width: 100%;
     }
     .main .section1 .mt-84 {
         margin-top: 84px;
@@ -996,6 +997,7 @@
 }
 /* delay 추가 22.05.03 은정 */
 .arrow3, .arrow4 {
+    opacity: 0;
     transition: all ease 2s;
 }
 .arrow-box2 {
@@ -1050,7 +1052,8 @@
 .arrow-box3,
 .arrow-box4 {
     position: absolute; top: 15px;
-    display: flex; align-items: center; justify-content: space-around;
+    display: flex; 
+    align-items: center; justify-content: space-around;
     padding: 13px;
     width: 219px;
     height: 76px;
@@ -1950,7 +1953,11 @@ div[class|=contact] .section3 .info .infoBtn {
     margin-right: auto;
 }
 .recruitPop .uploadFile .cancelBtn-div {
-    position: absolute; top: 36%; left: 92%;
+    /* position: absolute; top: 36%; left: 92%; */
+    position: relative; top: -34%; left: 62%
+}
+.recruitPop .file:nth-child(2) .cancelBtn-div {
+    position: relative; top: -34%; left: 63%;
 }
 .recruitPop .uploadFile .fileName {
     font-weight: 700; font-size: 15px; line-height: 18px;     margin-top: 4px;
@@ -1962,6 +1969,12 @@ div[class|=contact] .section3 .info .infoBtn {
     display: none;
 }
 
+.recruitPop .file .cancelBtn-div {
+    position: absolute; top: 41%; left: 45.5%;
+}
+.recruitPop .file:nth-child(2) .cancelBtn-div {
+    position: absolute; top: 41%; left: 91.5%;
+}
 /* MO 반응형 */
 @media only screen and (max-device-width: 480px) {
     .recPop .moHeader {
@@ -2010,9 +2023,7 @@ div[class|=contact] .section3 .info .infoBtn {
     .recruitPop .uploadFile .icon svg {
         width: 36px; height: 36px;
     }
-    .recruitPop .uploadFile .cancelBtn-div {
-        display: none;
-    }
+    
     .recruitPop .uploadFile .fileName {
         font-size: 14px; line-height: 17px; margin-top: 5px;
     }
@@ -2021,6 +2032,12 @@ div[class|=contact] .section3 .info .infoBtn {
     }
     .recruitPop .mt75 {
         margin-top: 48px;
+    }
+    .recruitPop .file .cancelBtn-div {
+        top: 17%; left: 92.5%;
+    }
+    .recruitPop .file:nth-child(2) .cancelBtn-div {
+        top: 67%; left: 92.5%;
     }
 }
 
