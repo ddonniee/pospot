@@ -1,32 +1,75 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'AppleSDGothicNeo', 'Noto Sans KR';
+  src: url("//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css");
+}
+html, body {
+  width: 100%; max-width: 540px; height:100vh; margin: auto; box-sizing: border-box; font-family: 'AppleSDGothicNeo' 'Noto Sans KR';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.background {
+  width: 100%; height: 100vh; max-width: 540px;  border: 1px solid; box-sizing: border-box;
+}
+
+/* box 구분, border ( 추후 삭제 22.06.15 은정 ) */
+.background {
+  border: 1px solid;
+}
+.detail-content {
+  border: 1px red; padding: 27.5px;
+}
+
+/* box 구분, border ( 추후 삭제 22.06.15 은정 ) */
+.detail-content .previews{
+  padding: 0; position: relative; height: 450px;
+}
+.detail-content .preview-img div,
+.detail-content .preview-img div li {
+  display: flex;
+}
+.detail-content .preview-img {
+  width: 320px; height: 320px; list-style: none; overflow: hidden; border-radius: 16px; margin-left: auto; margin-right: auto;
+}
+.detail-content .preview-img img,
+.detail-content .preview-img video {
+   height: 100%; border-radius: 16px; 
+}
+.detail-content .detail-info{
+  margin-left: auto; margin-right: auto;  display: table; position: absolute; bottom: 1%; left: 38%;
+}
+
+.detail-content .detail-info .detail-profile {
+  width: 58px; height: 58px; border-radius: 50%; padding: 2px; box-shadow: 1px 1px 23px #888888; margin-left: auto; margin-right: auto; background-color: white;
+}
+.detail-content .detail-info .detail-writer {
+  text-align: center;
+}
+.detail-content .detail-info .detail-profile img {
+  width: 100%; height:100%; border-radius: 50%;
+}
+.detail-receiver {
+  display: inline-flex;  align-items: center; 
+}
+.detail-receiver .img-wrapper {
+  width: 27px; height: 27px; border-radius: 50%; background-color: white; padding: 3px;
+}
+.detail-receiver .img-wrapper:not(:first-child) {
+  left: 18px;
+}
+.detail-receiver .img-wrapper img {
+  width: 24px; height: 24px; border-radius: 50%; 
+}
+
+.detail-hashtag{
+  display: inline-flex; overflow: auto;
+}
+.detail-hashtag div {
+  border: 1px solid; border-radius: 18px; width: fit-content; font-size: 13px; padding: 10px; margin-right: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+ 
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {
