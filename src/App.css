@@ -1,24 +1,30 @@
+:root {
+  --color-lication-background : #EDF6F9;
+  --color-border : #F3F3F8;
+  --color-hashtag : #E7E7E9;
+  --color-date : #58585B;
+}
 @font-face {
-  font-family: 'AppleSDGothicNeo', 'Noto Sans KR';
-  src: url("//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css");
+  font-family: 'AppleSDGothicNeo';
+  src: url(./public/font/AppleSDGothicNeoM.ttf);
+}
+* {
+  font-family: 'AppleSDGothicNeo';
 }
 html, body {
   width: 100%; max-width: 540px; height:100vh; margin: auto; box-sizing: border-box; font-family: 'AppleSDGothicNeo' 'Noto Sans KR';
 }
 
 .background {
-  width: 100%; height: 100vh; max-width: 540px;  border: 1px solid; box-sizing: border-box;
+  width: 100%; height: 100%; max-width: 540px; box-sizing: border-box;
 }
 
-/* box 구분, border ( 추후 삭제 22.06.15 은정 ) */
-.background {
-  border: 1px solid;
-}
 .detail-content {
-  border: 1px red; padding: 27.5px;
+  padding: 27.5px;
 }
-
-/* box 구분, border ( 추후 삭제 22.06.15 은정 ) */
+.detail-content > svg {
+  padding: 5px 15px 5px 0px;
+}
 .detail-content .previews{
   padding: 0; position: relative; height: 450px;
 }
@@ -27,43 +33,101 @@ html, body {
   display: flex;
 }
 .detail-content .preview-img {
-  width: 320px; height: 320px; list-style: none; overflow: hidden; border-radius: 16px; margin-left: auto; margin-right: auto;
+   height: 320px; list-style: none; overflow: hidden; border-radius: 16px; margin-left: auto; margin-right: auto;
 }
-.detail-content .preview-img img,
+
+/* Carousel slider */
+.carousel-root{
+  width: 100%;
+}
+.carousel .carousel-slider {
+  overflow: hidden;
+}
+.control-dots {
+  display: none;
+}
+.slider .animated {
+  padding: 0; margin: 0; 
+}
+.slider-wrapper ul {
+  display: flex; padding: 0; margin: 0;
+}
+/* Carousel slider */
+.detail-content .preview-img img {
+  width: 100%; height: 100%; border-radius: 16px; overflow: hidden;
+}
 .detail-content .preview-img video {
-   height: 100%; border-radius: 16px; 
+  overflow: hidden; height: 100%;
 }
-.detail-content .detail-info{
+.detail-content .info{
   margin-left: auto; margin-right: auto;  display: table; position: absolute; bottom: 1%; left: 38%;
 }
 
-.detail-content .detail-info .detail-profile {
+.detail-content .info .profile {
   width: 58px; height: 58px; border-radius: 50%; padding: 2px; box-shadow: 1px 1px 23px #888888; margin-left: auto; margin-right: auto; background-color: white;
 }
-.detail-content .detail-info .detail-writer {
+.detail-content .info .writer {
   text-align: center;
 }
-.detail-content .detail-info .detail-profile img {
+.detail-content .info .profile img {
   width: 100%; height:100%; border-radius: 50%;
 }
-.detail-receiver {
+.detail-content .info .date {
+  color: var(--color-date); font-weight: 400; font-size: 11px; line-height: 13px;
+}
+.detail-content .desc {
+  padding-bottom: 40px;
+}
+.detail-content .desc p {
+  font-weight: 400;  font-size: 22px; line-height: 43px;
+}
+.detail-content .desc a {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 43px; color: #FF7830;
+}
+.detail-content .receiver {
   display: inline-flex;  align-items: center; 
 }
-.detail-receiver .img-wrapper {
+.detail-content .receiver .img-wrapper {
   width: 27px; height: 27px; border-radius: 50%; background-color: white; padding: 3px;
 }
-.detail-receiver .img-wrapper:not(:first-child) {
-  left: 18px;
+.detail-content .receiver .img-wrapper:not(:first-child) {
+   position: relative;  left: -20px;
 }
-.detail-receiver .img-wrapper img {
-  width: 24px; height: 24px; border-radius: 50%; 
+.detail-content .receiver .img-wrapper:nth-child(2){
+  left: -10px;
 }
 
-.detail-hashtag{
+.detail-content .receiver .img-wrapper img {
+  width: 24px; height: 24px; border-radius: 50%; 
+}
+.detail-content .receiver p {
+  position: relative; left: -17px; font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.detail-content .receiver p svg {
+  padding: 0px 4px 2px;
+}
+.detail-content .divide {
+  background-color: var(--color-border); width: 100%; height: 1px; margin: 20px 0px;
+}
+.detail-content .tracker .location {
+  display: flex; padding: 18px 16px; background-color: var(--color-lication-background); border-radius: 12px; margin-bottom: 25px;
+}
+
+.detail-content .tracker .location p{
+  position: relative;  left: 8px; margin: 0;
+}
+
+.detail-content .tracker .hashtag{
   display: inline-flex; overflow: auto;
 }
-.detail-hashtag div {
-  border: 1px solid; border-radius: 18px; width: fit-content; font-size: 13px; padding: 10px; margin-right: 10px;
+
+.detail-content .tracker .hashtag div {
+  border: 1px solid var(--color-hashtag); border-radius: 18px; width: fit-content; font-size: 13px; padding: 10px; margin-right: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
