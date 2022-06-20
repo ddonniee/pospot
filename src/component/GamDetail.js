@@ -1,10 +1,14 @@
+
 import React, { useEffect, useState } from "react";
-import { Carousel } from 'react-responsive-carousel';
+import ReactPlayer from 'react-player/lazy'
+import Carousel from 'react-bootstrap/Carousel'
+import CarouselItem from "react-bootstrap/esm/CarouselItem";
+
 import preview1 from '../images/1.jpg'
 import preview2 from '../images/2.jpg'
 import img from '../images/3.jpg'
 import mp4 from '../images/test.mp4'
-
+import PNG from '../images/다운로드.png'
 // svg files
 import { ReactComponent as ArrowBelow } from "../images/arrow_below.svg";
 import { ReactComponent as Location } from "../images/Location.svg";
@@ -12,13 +16,31 @@ import { ReactComponent as Back } from "../images/BackBtn.svg";
 
 function GamDetail() {
 
-    //const [media, setMedia] = useState([preview1,preview2,img,mp4]);
-    const [media, setMedia] = useState([mp4]);
+    const [media, setMedia] = useState([preview1,preview2,img,mp4]);
+    //const [media, setMedia] = useState([mp4]);
+    const [test, setTest] = useState('기본값')
     const [video, setVedio] = useState(mp4)
     const [likes, setLikes] = useState(0)
     useEffect(()=>{
         //fetch()
     })
+
+    window.addEventListener('slide', function() {
+        console.log("==============")
+    })
+    const onSlide=(e)=> {
+        setTest('onSlide',e)
+        console.log(e,"이미지 슬라이드");
+    }
+    const onSlid=(e)=> {
+        console.log(e,"onSlid");
+    }
+    const onChecking=e=>{
+        console.log(e,"클릭이벤트")
+    }
+    const onDrag=e=>{
+        console.log(e,"drag")
+    }
     return (
         <div className="background">
             <div className="detail-content">
@@ -27,30 +49,48 @@ function GamDetail() {
                 <div className="preview-img">
                     
 
-                 {/* <Carousel 
+                 <Carousel 
                         showThumbs={false}
-                        showStatus={false}                                            
-                        autoPlay={false} 
-                     >         */}
+                        showStatus={false}        
+                        slide={true}
+                        // onSlid={(key, direction)=>onSlid(key, direction)}
+                        // onSlide={(key, direction)=>onSlide(key, direction)}
+                        onSlide={function(e) {
+                            console.log(e)
+                        }}
+                        onDrag={(e)=>onSlide(e)}
+                        indicators={false}
+                        onMouseOver={(e)=>{onDrag(e)}}
+                        onClick={e=>onChecking(e)}
+                     >         
                         
-                    {/*<Carousel.Item> */}
                     {media.length !== 0 
                     ?
                     media
                     .map((m,index)=> {
                         
                         const type = m.split('.').pop().toLowerCase();
-
+                        console.log(type)
                         return (
                             
-                            type==='jpg'
+                            type==='jpg' || 'png' || 'jpeg'
                             ?
-                            <img src={m} key={index}/>
+                            <CarouselItem>
+                            <img src={m} key={index} alt={`slide`+index}/>
+                            </CarouselItem>
                             :
-                            <video muted autoPlay loop duration key={index}>
-                                <source src={m} type="video/mp4"/>
-                            </video>
-                            
+                            // <video muted autoPlay loop duration key={index}>
+                            //     <source src={m} type="video/mp4"/>
+                            // </video>
+                            <CarouselItem>
+                            <ReactPlayer className='react-player'
+                            alt={`slide`+index}
+                            url={m}
+                            playing={true}
+                            muted={true}
+                            light={false}>
+                            </ReactPlayer>
+                            </CarouselItem>
                         )
                         
                     }
@@ -59,12 +99,12 @@ function GamDetail() {
                    
                     :
                     null}
-                    {/* </Carousel.Item>*/}
-                {/* </Carousel>   */}
+                    
+                </Carousel>  
                 </div>
                 <div className="info">
                     <div className="profile"><img src={preview1}></img></div>
-                    <h3 className="writer">김지연</h3>
+                    <h3 className="writer">{test}</h3>
                     <p className="date">2022.05.25</p>
                 </div>
                 </div>

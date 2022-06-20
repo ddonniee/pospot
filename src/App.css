@@ -28,10 +28,16 @@ html, body {
 .detail-content .previews{
   padding: 0; position: relative; height: 450px;
 }
-.detail-content .preview-img div,
+.preview-img .carousel-item {
+  display: none;
+}
+.preview-img .active {
+  display: block; height: 320px; list-style: none; overflow: hidden; border-radius: 16px; margin-left: auto; margin-right: auto;
+}
+/* .detail-content .preview-img div,
 .detail-content .preview-img div li {
   display: flex;
-}
+} */
 .detail-content .preview-img {
    height: 320px; list-style: none; overflow: hidden; border-radius: 16px; margin-left: auto; margin-right: auto;
 }
@@ -52,15 +58,18 @@ html, body {
 .slider-wrapper ul {
   display: flex; padding: 0; margin: 0;
 }
+.detail-content .preview-img{
+  box-shadow: 8px 16px 13px #e8e8e8
+}
 /* Carousel slider */
 .detail-content .preview-img img {
-  width: 100%; height: 100%; border-radius: 16px; overflow: hidden;
+  width: 100%; height: 100%; border-radius: 16px; overflow: hidden; 
 }
 .detail-content .preview-img video {
   overflow: hidden; height: 100%;
 }
 .detail-content .info{
-  margin-left: auto; margin-right: auto;  display: table; position: absolute; bottom: 1%; left: 38%;
+  margin-left: auto; margin-right: auto;  display: table; position: absolute; bottom: 1%; left: 38%; 
 }
 
 .detail-content .info .profile {
@@ -70,7 +79,7 @@ html, body {
   text-align: center;
 }
 .detail-content .info .profile img {
-  width: 100%; height:100%; border-radius: 50%;
+  width: 100%; height:100%; border-radius: 50%; 
 }
 .detail-content .info .date {
   color: var(--color-date); font-weight: 400; font-size: 11px; line-height: 13px;
