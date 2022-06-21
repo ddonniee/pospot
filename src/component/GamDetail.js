@@ -17,10 +17,9 @@ import { ReactComponent as Back } from "../images/BackBtn.svg";
 function GamDetail() {
 
     const [media, setMedia] = useState([preview1,preview2,img,mp4]);
-    //const [media, setMedia] = useState([mp4]);
-    const [test, setTest] = useState('기본값')
     const [video, setVedio] = useState(mp4)
     const [likes, setLikes] = useState(0)
+    
     useEffect(()=>{
         //fetch()
     })
@@ -28,9 +27,11 @@ function GamDetail() {
     window.addEventListener('slide', function() {
         console.log("==============")
     })
-    const onSlide=(e)=> {
-        setTest('onSlide',e)
-        console.log(e,"이미지 슬라이드");
+    const onSlide=(key, direction)=> {
+        // console.log(key, direction,"이미지 슬라이드");
+        // if(direction==='end') {
+            
+        // }
     }
     const onSlid=(e)=> {
         console.log(e,"onSlid");
@@ -52,16 +53,11 @@ function GamDetail() {
                  <Carousel 
                         showThumbs={false}
                         showStatus={false}        
-                        slide={true}
-                        // onSlid={(key, direction)=>onSlid(key, direction)}
-                        // onSlide={(key, direction)=>onSlide(key, direction)}
-                        onSlide={function(e) {
-                            console.log(e)
-                        }}
+                        slide={false}
+                        //onSlid={(key, direction)=>onSlid(key, direction)}
+                        onSlide={(key, direction)=>onSlide(key, direction)}
                         onDrag={(e)=>onSlide(e)}
                         indicators={false}
-                        onMouseOver={(e)=>{onDrag(e)}}
-                        onClick={e=>onChecking(e)}
                      >         
                         
                     {media.length !== 0 
@@ -73,24 +69,27 @@ function GamDetail() {
                         console.log(type)
                         return (
                             
-                            type==='jpg' || 'png' || 'jpeg'
+                            type==='jpg' || type==='png' || type==='jpeg'
                             ?
-                            <CarouselItem>
+                            <CarouselItem
+                            >
                             <img src={m} key={index} alt={`slide`+index}/>
                             </CarouselItem>
                             :
-                            // <video muted autoPlay loop duration key={index}>
-                            //     <source src={m} type="video/mp4"/>
-                            // </video>
                             <CarouselItem>
-                            <ReactPlayer className='react-player'
-                            alt={`slide`+index}
-                            url={m}
-                            playing={true}
-                            muted={true}
-                            light={false}>
-                            </ReactPlayer>
+                            <video muted autoPlay loop duration key={index}>
+                                <source src={m} type="video/mp4"/>
+                            </video>
                             </CarouselItem>
+                            // <CarouselItem>
+                            // <ReactPlayer className='react-player'
+                            // alt={`slide`+index}
+                            // url={m}
+                            // playing={true}
+                            // muted={true}
+                            // light={false}>
+                            // </ReactPlayer>
+                            // </CarouselItem>
                         )
                         
                     }
@@ -104,7 +103,7 @@ function GamDetail() {
                 </div>
                 <div className="info">
                     <div className="profile"><img src={preview1}></img></div>
-                    <h3 className="writer">{test}</h3>
+                    <h3 className="writer">사용자</h3>
                     <p className="date">2022.05.25</p>
                 </div>
                 </div>
