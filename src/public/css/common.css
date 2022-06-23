@@ -1,0 +1,55 @@
+:root {
+    /* color */
+    --color-black : #35394A;
+    --color-dark-icon : #4C5866;
+    --color-dark-font : #5D6067;
+    --color-light-icon : #8C969F;
+    --color-grey : #8C9369F;
+    --color-blue-grey : #ABB6C5;
+    --color-brown-grey : #B7B8BD;
+    --color-light-font : #BABABA;
+    --color-blue-bg : #E9F3FD;
+    --color-red-bg : #F8F8F8;
+    
+    --color-main-blue : #3182F7;
+    --color-main-red : #E95548l;
+    --color-green : #17BB7F;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url(../fonts/NotoSansCJKkr-Regular.otf);
+}
+@font-face {
+    font-family: 'Noto Bold';
+    src: url(../fonts/NotoSansCJKkr-Bold.otf);
+}
+
+* {
+    font-family: 'Noto Sans'; box-sizing: border-box; 
+}
+
+html, 
+body, 
+#root, 
+.App,
+.content {
+    width: 100%; height: 100%; max-width: 768px; min-width: 360px;
+}
+
+/* header */
+.top-bar {
+    width: 100%; height: 56px;
+}
+.top-bar .top-nav {
+    display: flex; padding: 18px 10px; height: 100%;
+}
+.main .top-bar .top-nav div:first-child {
+    flex-grow: 7;
+}
+.main .top-bar .top-nav div:not(:first-child) {
+    flex-grow: 1; text-align: center;
+}
+.main .top-bar .top-nav div > * {
+    vertical-align: middle; 
+}

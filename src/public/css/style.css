@@ -1,0 +1,283 @@
+
+:root {
+    /* color */
+    --color-black : #35394A;
+    --color-dark-icon : #4C5866;
+    --color-dark-font : #5D6067;
+    --color-light-icon : #8C969F;
+    --color-grey : #8C9369F;
+    --color-blue-grey : #ABB6C5;
+    --color-brown-grey : #B7B8BD;
+    --color-light-font : #BABABA;
+    --color-blue-bg : #E9F3FD;
+    --color-red-bg : #F8F8F8;
+    
+    --color-main-blue : #3182F7;
+    --color-main-red : #E95548l;
+    --color-green : #17BB7F;
+}
+
+.content {
+   width: 100%; overflow-x: scroll;
+}
+
+/* main */
+.main,
+.main-content,
+.main-content > div {
+   height: 100%;
+}
+.main-content > div > .user-type {
+    background-color: white; margin: auto; width: 90%;border-radius: 20px; display: flex; position: relative; top: 15px; padding: 20px 25px; box-shadow: 16px 13px 23px #e8e8e8;
+}
+.main-content > div > .user-type > *:first-child,
+.main-content > div > .user-type > *:last-child {
+    flex-grow: 1;
+}
+.main-content > div > .user-type > *:nth-child(2) {
+    flex-grow: 8; padding-left: 10px;
+}
+.main-content > div > .user-type > *:nth-child(2) > p:first-child{
+    font-weight: 700; font-size: 14px; line-height: 20px; margin: 0;
+}
+.main-content > div > .user-type > *:nth-child(2) > p:last-child{
+    font-weight: 500; font-size: 12px; line-height: 22px; display: flex; margin: 0;
+}
+.main-content > div > .user-type > *:nth-child(2) > p:last-child p {
+    margin: 0; color: var(--color-main-blue); margin-left: 5px;
+}
+
+.main-content .list {
+    width: 90%; background-color: white; margin: auto; position: relative; top: 50px; border-radius: 20px;
+}
+.main-content .list .list-top {
+    display: flex; padding: 15px;
+}
+.main-content .list .list-top * {
+    margin: 0;
+}
+.main-content .list .list-top div {
+    display: flex; flex-grow: 4; font-weight: 400; font-size: 12px; line-height: 20px;
+}
+.main-content .list .list-top .edit p{
+    font-weight: 500; font-size: 12px; color:var(--color-main-blue); line-height: 20px;
+}
+.main-content .list .list-top div:first-child,
+.main-content .list .list-top div:last-child {
+    flex-grow: 1;
+}
+.list-img {
+    padding: 0px 15px;
+}
+.list-img .active {
+    width: 100%; height: 100%;  border-radius: 16px;
+} 
+.list-img img {
+    width: 100%; height: 100%;border-radius: 16px;
+}
+.list .list-info {
+    width: 90%; margin: autos; font-weight: 400; margin: 0px 10px;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.05em;
+    color: var(--color-dark-font);
+}
+
+.list .btn-wrapper {
+    text-align: center;
+}
+.list .msg-btn {
+    width: 90%; text-align: center; margin: auto; border-radius: 8px; color: white; font-weight: 500; font-size: 14px; line-height: 23px;
+    padding: 9px 0px; background-color: var(--color-main-blue); height: 42px; margin-bottom: 16px; display: inline-block; text-decoration: none;
+}
+.list .send-btn {
+    margin-bottom: 10px;
+}
+/* Carousel */
+.carousel-inner {
+    display: flex; 
+    height: 164px; 
+}
+.carousel-item {
+    display: none; object-fit: cover;
+}
+.carousel-inner .active {
+    display: block; text-align: center; object-fit: cover;
+}
+.carousel-indicators {
+    display: inherit; position: relative; bottom: -177px; text-align: center;
+}
+.carousel-indicators button {
+    width: 4px; background: #D8D8D8; border-radius: 50%; height: 4px; border: none; margin-right: 2px;
+}
+.carousel-indicators .active {
+    width: 12px; height: 4px; background: var(--color-main-blue); border-radius: 100px;
+}
+/* Carousel */
+
+/* Create callback*/
+
+.create-callback,
+.create-callback .content {
+    height: 100%;
+}
+.create-callback .w-content{
+    width: 90%; margin-left: auto; margin-right: auto;
+}
+.create-callback .top-nav {
+    display: flex;
+}
+.create-callback .top-nav p {
+    flex-grow: 4; margin: 0; font-weight: 700; font-size: 17px; line-height: 18px; letter-spacing: -0.05em; padding-left: 30px;
+}
+.create-callback .img-title {
+    display: flex;  align-items: center; color: var(--color-light-font);
+}
+.create-callback .content {
+    background-color: var(--color-blue-bg);
+}
+
+.create-callback .cb-title {
+    padding:15px 0;
+}
+.create-callback .cb-desc {
+    background-color: white; border-radius: 16px; padding: 15px; height: 186px;
+}
+.create-callback .cb-desc textarea{
+    width: 100%; border: none; color: var(--color-dark-font);  height: 100%; font-weight: 400;
+    font-size: 14px;
+    line-height: 22px; resize: none;
+    
+    letter-spacing: -0.05em;
+}
+.create-callback .cb-desc textarea::placeholder {
+    color: var(--color-light-font);
+}
+.create-callback .cb-desc textarea:focus {
+    outline: none;
+}
+.create-callback .cb-desc p {
+    margin: 0;
+}
+.create-callback .cb-desc div{ 
+    display: flex; width: 30px; margin: 0; font-size: 12px; line-height: 22px; position: relative; bottom: 18px; right: -305px; color: var(--color-light-font);
+}
+ .img-input label > div,
+ .img-input .img-preview {
+    width: 72px; height: 72px;  background: #FFFFFF;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.07);
+    border-radius: 12px; padding-top: 10px; text-align: center; color: var(--color-light-font);
+}
+.img-input .img-preview {
+    padding-top: 0; margin-left: 8px; min-width: 72px;
+}
+.img-input .img-preview .img{
+    width: 100%; height: 100%;  
+}
+.img-input .img-preview .img img {
+    width: 100%; height: 100%; border-radius: 12px;
+    object-fit: cover;
+} 
+.img-preview > img{
+    position: relative;
+    top: -80px;
+    right: -27px;
+    width: 18px;
+}
+.img-input label > div p {
+    margin: 0; font-weight: 400; font-size: 12px; line-height: 22px; letter-spacing: -0.05em;
+}
+.cb-img ul{
+    padding-left: 5%;
+}
+.cb-img ul li{
+    font-weight: 400; font-size: 11px; line-height: 20px; letter-spacing: -0.05em;  color: var(--color-light-icon); 
+}
+.create-callback .img-input {
+    height:90px; display: flex; overflow-x: scroll; overflow-y: hidden; align-items: center;
+}
+/* 파일 갯수 초과시 뜨는 팝업 */
+.create-callback .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    
+    /* 숨기기 */
+    z-index: -1;
+    opacity: 0;
+  }
+  .create-callback .show {
+    opacity: 1;
+    z-index: 1000;
+  }
+  .create-callback .window {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .create-callback .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #ffffff;
+    
+    transform: translate(-50%, -50%);
+  }
+  .create-callback .show .popup {
+    transform: translate(-50%, -50%);
+    transition: all .5s;
+  }
+  .create-callback .msg-pop {
+    width: 220px; height: 70px; transition: all ease 2s;
+    background: #79c3e0; text-align: center; opacity: 0.7;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .create-callback .msg {
+    margin: 0; font-size: 12px;
+  }
+
+  .create-callback .btn-wrapper div {
+     line-height: 40px; width: 90%; height: 42px; color: white; border-radius: 8px; text-align: center; margin-left: auto; margin-right: auto;
+  }
+
+  /* pick send msg list */
+
+  .create-callback .receivers {
+      height: 100%; z-index: 100;
+  }
+  .create-callback .w-rec {
+      height: 100%; 
+  }
+  .create-callback .w-rec .content {
+      width: 90%; margin-left: auto; margin-right: auto; background-color: white;
+  }
+  .create-callback .rec-title p:first-child{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 18px;
+    align-items: center;
+    letter-spacing: -0.05em;margin: 0;
+}
+.create-callback .rec-title p:last-child{
+    font-weight: 400; font-size: 12px; line-height: 20px; letter-spacing: -0.05em; color: var(--color-light-icon); margin: 10px 0 8px 0;
+}
+.rec-method input {
+    display: none;
+}
+.rec-method {
+    display: flex; width: 90%; justify-content: space-evenly;     margin-left: auto;
+    margin-right: auto;
+}
+.rec-method > div:not(:nth-child(2)) {
+    width: 48%;
+}
+.rec-method > div:nth-child(2) {
+    width: 4%;
+}
+.rec-method div div{
+    width:45%; border-radius: 20px; background-color: var(--color-main-blue); color: white; width: 100%; text-align: center; height: 50px; line-height: 44px;
+}
